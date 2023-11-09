@@ -7,9 +7,9 @@
 #define END		"\033[0m"
 
 typedef struct s_vector {
-	float	x;
-	float	y;
-	float	z;
+	double	x;
+	double	y;
+	double	z;
 }	t_vector;
 
 typedef struct s_ray {
@@ -19,16 +19,16 @@ typedef struct s_ray {
 
 typedef struct s_sphere {
 	t_vector	center;
-	float		r;
+	double		r;
 }	t_sphere;
 
 // 2 つのベクトルの内積
-static float	dot(t_vector a, t_vector b) {
+static double	dot(t_vector a, t_vector b) {
 	return (a.x * b.x + a.y * b.y + a.z * b.z);
 }
 
 // ベクトルの長さ
-// static float	calc_len(t_vector v) {
+// static double	calc_len(t_vector v) {
 // 	return (sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
 // }
 
@@ -44,10 +44,10 @@ static t_vector	subtract(t_vector a, t_vector b) {
 // 視点からの ray と球の衝突判定
 static bool	is_intersect(t_ray ray, t_sphere sphere) {
 	t_vector	v = subtract(ray.position, sphere.center);
-	float		a = dot(ray.direction, ray.direction);
-	float		b = 2.0 * dot(v, ray.direction);
-	float		c = dot(v, v) - sphere.r * sphere.r;
-	float		discriminant = b * b - 4 * a * c;
+	double		a = dot(ray.direction, ray.direction);
+	double		b = 2.0 * dot(v, ray.direction);
+	double		c = dot(v, v) - sphere.r * sphere.r;
+	double		discriminant = b * b - 4 * a * c;
 
 	return (discriminant > 0);
 }
@@ -61,8 +61,8 @@ int	main(void) {
 
 	for (int i = 0; i < HEIGHT; i++) {
 		for (int j = 0; j < WIDTH; j++) {
-			float		screen_x = (2.0 * j) / (WIDTH - 1) - 1.0;
-			float		screen_y = 1.0 - (2.0 * i) / (HEIGHT - 1);
+			double		screen_x = (2.0 * j) / (WIDTH - 1) - 1.0;
+			double		screen_y = 1.0 - (2.0 * i) / (HEIGHT - 1);
 			t_vector	ray_direction = {screen_x, screen_y, 5};
 			t_ray		ray = {view, ray_direction};
 
