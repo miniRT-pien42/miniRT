@@ -1,5 +1,6 @@
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 #include "vector.h"
 
@@ -33,15 +34,20 @@ t_vec3	vec_div(const t_vec3 *v1, const t_vec3 *v2)
 	return (v_return);
 }
 
-t_vec3	scalar_mul(t_vec3 v, double scalar)
+t_vec3	*scalar_mul(t_vec3 v, double scalar)
 {
-	v.x *= scalar;
-	v.y *= scalar;
-	v.z *= scalar;
-	return (v);
+	t_vec3	*v_return;
+
+	v_return = (t_vec3 *)malloc(sizeof(t_vec3));
+	if (v_return == NULL)
+		return (NULL);
+	v_return->x = v.x * scalar;
+	v_return->y = v.y * scalar;
+	v_return->z = v.z * scalar;
+	return (v_return);
 }
 
-double	dot_product(const t_vec3 *v1, const t_vec3 *v2)
+double	dot_product(const t_vec3 *v1, const t_vec3 *v2)/* 内積 */
 {
 	return (v1->x * v2->x + v1->y * v2->y + v1->z * v2->z);
 }
@@ -88,4 +94,11 @@ t_vec3	*convert_pw_coordinate(t_vec3 *v_co, int w, int h)
 	v_co->x /= w;
 	v_co->y /= h;
 	return (v_co);
+}
+
+double	positive_and_min(double a, double b)
+{
+	if (a * b < 0)
+		return (a < b ? b : a);
+	return (a < b ? a : b);
 }
