@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "vector.h"
+#include "../include/vector.h"
 
 t_vec3	init_vec3(double x, double y, double z)
 {
