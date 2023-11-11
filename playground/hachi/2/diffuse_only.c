@@ -16,7 +16,7 @@ int main()
 	t_vec3 s_c;     /* 視点 - 球の中心 𝐦⃗ 𝐩e→ から𝐜⃗ を引いたベクトル */
 	double A,B,C,D;    /* 二次方程式Ax^2+Bx+C=0および判別式D */
 
-	t_vec3 p_l = { -5, 5, -5 };  /* 光源位置 Pl */
+	t_vec3 p_l = { 3, 3, -10 };  /* 光源位置 Pl */
 	double t;
 	t_vec3 p_i; /* 交点の位置ベクトル */
 	t_vec3 v_i; /* 入射ベクトル incident vector */
@@ -45,7 +45,7 @@ int main()
 				if (D == 0)
 					t = -B / (2.0 * A);
 				else
-					t = positive_and_min(-B + sqrt(D) / (2.0 * A), -B - sqrt(D) / (2.0 * A));
+					t = positive_and_min((-B + sqrt(D)) / (2.0 * A), (-B - sqrt(D)) / (2.0 * A));
 				if (t > 0)
 				{
 					p_i = vec_sum(&eye_pos, scalar_mul(eye_dir, t));
@@ -56,6 +56,7 @@ int main()
 					l_dot = dot_product(&v_i, &v_n);
 					if (l_dot < 0)
 						l_dot = 0;
+					//printf("l_dot:: %f, v_i: %f, v_n: %f\n", l_dot, get_scalar(v_i), get_scalar(v_n));
 					c_gray = 255 * l_dot;
 					printf("%d %d %d\n", c_gray, c_gray, c_gray);
 				}
