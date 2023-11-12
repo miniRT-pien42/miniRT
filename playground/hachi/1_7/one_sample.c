@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../utils/vector.h"
+#include "../include/vector.h"
 
 #define WIDTH 512
 #define HEIGHT 512
