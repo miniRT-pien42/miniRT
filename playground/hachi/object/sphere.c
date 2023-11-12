@@ -1,16 +1,22 @@
 
 #include "../include/sphere.h"
 
-size_t	extract_closest(size_t *list_distance, size_t size)
+ssize_t	extract_closest(double *list_distance, size_t size)
 {
 	size_t	i;
-	size_t	closest;
+	ssize_t	closest;
 
-	i = 1;
-	closest = 0;
+	i = 0;
+	closest = -1;
+	while (closest == -1 && i < size)
+	{
+		if (list_distance[i] >= 0)
+			closest = i;
+		i++;
+	}
 	while (i < size)
 	{
-		if (list_distance[i] < list_distance[closest])
+		if (list_distance[i] >= 0 && list_distance[i] < list_distance[closest])
 			closest = i;
 		i++;
 	}

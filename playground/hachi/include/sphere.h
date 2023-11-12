@@ -12,6 +12,6 @@ typedef struct s_sphere
 	t_rgb	color;
 }	t_sphere;
 
-size_t	extract_closest(size_t *list_distance, size_t size);
+ssize_t	extract_closest(double *list_distance, size_t size);
 
 #endif //SPHERE_H

@@ -3,30 +3,30 @@
 #include "../include/vector.h"
 #include "../include/sphere.h"
 
-#define WIDTH 512
-#define HEIGHT 512
+#define WIDTH 256
+#define HEIGHT 256
 
 int main()
 {
-	t_vec3 eye_pos  = { 0.5, 0.5, -5 };/* 視点位置 */
+	t_vec3 eye_pos  = { 0, 0, -5 };/* 視点位置 */
 	t_sphere sphere[5];
-	size_t list_pos_z[5];
-	size_t closest;
-	sphere[0].center = init_vec3(-0.1, 0, 5);
-	sphere[1].center = init_vec3(0.1, -0.1, 5);
-	sphere[2].center = init_vec3(0.3, 0.5, 0);
+	double list_pos_z[5];
+	ssize_t closest;
+	sphere[0].center = init_vec3(0, 0, -7);
+	sphere[1].center = init_vec3(0, 0, 5);
+	sphere[2].center = init_vec3(0.5, 0, 3);
 	sphere[3].center = init_vec3(0.5, 1, -2);
-	sphere[4].center = init_vec3(0.8, 0.5, 10);
+	sphere[4].center = init_vec3(100, 5, 10);
 	sphere[0].diameter = 1;
-	sphere[1].diameter = 0.5;
-	sphere[2].diameter = 0.8;
-	sphere[3].diameter = 0.2;
+	sphere[1].diameter = 0.8;
+	sphere[2].diameter = 0.2;
+	sphere[3].diameter = 0.1;
 	sphere[4].diameter = 1;
 	sphere[0].color = init_color(255, 0, 0);
 	sphere[1].color = init_color(0, 255, 0);
 	sphere[2].color = init_color(0, 0, 255);
-	sphere[3].color = init_color(255, 255, 0);
-	sphere[4].color = init_color(255, 0, 255);
+	sphere[3].color = init_color(0, 0, 0);
+	sphere[4].color = init_color(100, 100, 100);
 	t_vec3 pw;
 	pw.z = 0;
 
@@ -56,18 +56,25 @@ int main()
 				B = dot_product(&eye_dir, &s_c) * 2.0;
 				C = pow(get_scalar(s_c), 2) - pow(sphere[i].diameter, 2);
 				D = pow(B, 2) - 4.0 * A * C;
-				list_pos_z[i] = D;
+				if (D > 0)
+				{
+					//printf("ttt: %d:: %f %f \n", i, (-B + sqrt(D)) / (2.0 * A), (-B - sqrt(D)) / (2.0 * A));
+					list_pos_z[i] = positive_and_min((-B + sqrt(D)) / (2.0 * A), (-B - sqrt(D)) / (2.0 * A));
+					//printf("list_pos_z[i]: %d:: %f \n", i, list_pos_z[i]);
+				}
+				else
+					list_pos_z[i] = -1.0;
 				i++;
 			}
+			i = 0;
 			closest = extract_closest(list_pos_z, 5);
+			//printf("closest: %zi:: %f \n", closest, list_pos_z[closest]);
 			if (closest >= 0)
 			{
-				/*printf("Yes! (D: %f) | (%d, %d) -> [%f, %f, %f]\n", D, x, y, pw.x, pw.y, pw.z);*/
 				printf("%d %d %d\n", sphere[closest].color.r, sphere[closest].color.g, sphere[closest].color.b);
 			}
 			else
 			{
-				/*printf("No... (D: %f) | (%d, %d) -> [%f, %f, %f]\n", D, x, y, pw.x, pw.y, pw.z);*/
 				printf("%d %d %d\n", 255, 255, 255);
 			}
 		}/* for */
