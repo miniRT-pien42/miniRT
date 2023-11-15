@@ -2,7 +2,7 @@
 # define RAY_H
 
 # include <math.h>
-#include "vector.h"
+# include "./vector.h"
 
 typedef struct s_rgb
 {

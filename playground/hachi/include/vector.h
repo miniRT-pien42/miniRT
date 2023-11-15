@@ -14,6 +14,7 @@ typedef struct s_vec3
 t_vec3	init_vec3(double x, double y, double z);
 t_vec3	vec_sum(const t_vec3 *v1, const t_vec3 *v2);
 t_vec3	vec_div(const t_vec3 *v1, const t_vec3 *v2);
+t_vec3	vec_div_v1_v2(const t_vec3 *v1, const t_vec3 *v2);
 t_vec3	*scalar_mul(t_vec3 v, double scalar);
 double	dot_product(const t_vec3 *v1, const t_vec3 *v2);
 t_vec3	cross_product(const t_vec3 *v1, const t_vec3 *v2);
