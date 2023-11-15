@@ -1,24 +1,11 @@
 #ifndef VECTOR_H
 # define VECTOR_H
 
-# include <math.h>
-# include <stdbool.h>
-
 typedef struct s_vector {
 	double	x;
 	double	y;
 	double	z;
 }	t_vector;
-
-typedef struct s_ray {
-	t_vector	position;
-	t_vector	direction;
-}	t_ray;
-
-typedef struct s_sphere {
-	t_vector	center;
-	double		r;
-}	t_sphere;
 
 t_vector	vec_add(const t_vector a, const t_vector b);
 t_vector	vec_subtract(const t_vector a, const t_vector b);

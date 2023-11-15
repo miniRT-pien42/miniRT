@@ -1,6 +1,8 @@
+#include <math.h>
 #include <stdio.h> // todo: erase
 #include "color.h"
 #include "display.h"
+#include "object.h"
 #include "vector.h"
 
 const t_sphere	sphere = {{0, 0, 5}, 1.0};
