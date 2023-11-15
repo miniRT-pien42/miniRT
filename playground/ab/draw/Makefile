@@ -6,6 +6,7 @@ SRCS		:=	display.c \
 				init.c \
 				main.c \
 				sphere.c \
+				utils.c \
 				vector.c
 
 OBJ_DIR		:=	objs

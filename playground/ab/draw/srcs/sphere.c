@@ -3,6 +3,7 @@
 #include "color.h"
 #include "display.h"
 #include "object.h"
+#include "utils.h"
 #include "vector.h"
 
 const t_sphere	sphere = {{0, 0, 5}, 1.0};
@@ -58,7 +59,7 @@ static int	calc_object_color(const t_ray ray, const double t)
 	const t_vector	intersect_point = vec_add(ray.position, vec_scalar(ray.direction, t));
 	const t_vector	light_v = vec_normalize(vec_subtract(light, intersect_point));
 	const t_vector	normal = vec_normalize(vec_subtract(intersect_point, sphere.center));
-	const double	dot_normal_and_light = fmax(0, vec_dot(normal, light_v));
+	const double	dot_normal_and_light = clipping(vec_dot(normal, light_v), 0.0, 1.0);
 	const int		color = calc_color((int)(dot_normal_and_light * 255));
 
 	return (color);
