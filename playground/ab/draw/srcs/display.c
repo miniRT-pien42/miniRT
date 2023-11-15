@@ -1,4 +1,6 @@
 #include <stddef.h>
+#include <stdlib.h> // exit
+#include <X11/X.h> // mlx_hook
 #include "display.h"
 #include "mlx.h"
 
@@ -33,6 +35,26 @@ static void	set_image(t_mlx *mlxs)
 			mlxs->display->mlx_p, mlxs->display->win_p, mlxs->image->img, 0, 0);
 }
 
+static int	close_window(const t_mlx *mlxs)
+{
+	mlx_destroy_image(mlxs->display->mlx_p, mlxs->image->img);
+	mlx_destroy_window(mlxs->display->mlx_p, mlxs->display->win_p);
+	mlx_destroy_display(mlxs->display->mlx_p);
+	free(mlxs->display->mlx_p);
+	exit(EXIT_SUCCESS);
+	return (UNREACHABLE);
+}
+
+static void	set_hook(t_mlx *mlxs)
+{
+	void	*win_p;
+	void	*params;
+
+	win_p = mlxs->display->win_p;
+	params = (void *)mlxs;
+	mlx_hook(win_p, DestroyNotify, StructureNotifyMask, close_window, params);
+}
+
 void	display(void)
 {
 	t_mlx		mlxs;
@@ -41,5 +63,6 @@ void	display(void)
 
 	init_mlxs(&mlxs, &display, &image);
 	set_image(&mlxs);
+	set_hook(&mlxs);
 	mlx_loop(mlxs.display->mlx_p);
 }

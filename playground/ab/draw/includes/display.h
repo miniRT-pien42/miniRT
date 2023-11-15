@@ -5,6 +5,8 @@
 # define WIN_HEIGHT	512
 # define WIN_WIDTH	512
 
+# define UNREACHABLE	0
+
 typedef struct s_display {
 	void	*mlx_p;
 	void	*win_p;
