@@ -32,7 +32,7 @@ int main()
 	light_ambient->e_a = 0.8;
 	light_ambient->color = init_color(255, 255, 255);
 
-	light->pos = init_vec3(-5, 5, -55);
+	light->pos = init_vec3(-5, 5, -5);
 	light->e_a = 0.8;
 
 	scene->light_ambient = light_ambient;
@@ -46,28 +46,25 @@ int main()
 	pw.z = 0;
 
 	t_vec_dir	*ray;//視線方向ベクトル 𝐝e これがray!　eye_dirから置き換え
+	t_vec3	vec_ray;
 	ray = (t_vec_dir *)malloc(sizeof (t_vec_dir));
 	if (ray == NULL)
 		return (1);
 	ray->start = scene->eye_pos;
-	t_vec3	vec_ray;
-	t_vec_dir	*to_sphere_center;     /* 球の中心への視点 - 球の中心 𝐦⃗ 𝐩e→ から𝐜⃗ を引いたベクトル */
-	to_sphere_center = (t_vec_dir *)malloc(sizeof (t_vec_dir));
-	if (to_sphere_center == NULL)
-		return (1);
-	to_sphere_center->start = sphere->center;
-	to_sphere_center->direction = scene->eye_pos;
-	t_vec3	vec_to_sphere_center;
-	double A,B,C,D;    /* 二次方程式Ax^2+Bx+C=0および判別式D */
+	//ray->directionは座標ごと違うのでloopの中で
 
-	double t;
-	t_vec3 p_i; /* 交点の位置ベクトル */
-	t_vec3 v_i; /* 入射ベクトル incident vector */
-	t_vec3 v_n; /* 法線ベクトル */
+	t_vec_dir	*sphere_to_eye;
+	t_vec3	vec_sphere_to_eye;
+	sphere_to_eye = (t_vec_dir *)malloc(sizeof (t_vec_dir));
+	if (sphere_to_eye == NULL)
+		return (1);
+	sphere_to_eye->start = sphere->center;
+	sphere_to_eye->direction = scene->eye_pos;
+
+	t_point	*intersection_point;
 	double l_dot; /* 内積 */
 	double La = sphere->k_a * light_ambient->e_a; /* 環境光の輝度 */
 	double Lr; /* 物体表面の輝度 */
-
 	int c_gray;
 
 	printf("P3\n"); /* マジックナンバー */
@@ -83,43 +80,32 @@ int main()
 			ray->direction = pw;
 			vec_ray = get_vec_ray(ray);
 			//printf("vec_ray x:%f y:%f z:%f\n", vec_ray.x, vec_ray.y, vec_ray.z);
-			vec_to_sphere_center = get_vec_ray(to_sphere_center);
-			A = pow(get_scalar(vec_ray), 2);
-			B = dot_product(&vec_ray, &vec_to_sphere_center) * 2.0;
-			C = pow(get_scalar(vec_to_sphere_center), 2) - pow(sphere->diameter, 2);
-			D = pow(B, 2) - 4.0 * A * C;
-			if (D >= 0)
-			{
-				if (D == 0)
-					t = -B / (2.0 * A);
-				else
-					t = positive_and_min((-B + sqrt(D)) / (2.0 * A), (-B - sqrt(D)) / (2.0 * A));
-				//printf("A:%f B:%f C:%f D:%f t:%f\n", A, B, C, D, t);
-				if (t > 0)
-				{
-					p_i = vec_sum(&scene->eye_pos, scalar_mul(vec_ray, t));//p_i 交点の位置
-					v_i = vec_div(&p_i, &light->pos);// 入射ベクトル 接点から光源へ
-					v_i = v_normalize(v_i);
-					v_n = vec_div(&sphere->center, &p_i);// 球面の法線 球centerから接点へ
-					v_n = v_normalize(v_n);
-					l_dot = dot_product(&v_i, &v_n);// 入射と法線の内積 1に近いほど平行に近い
-					if (l_dot < 0)
-						l_dot = 0;
-					Lr = La + l_dot;
-					if (Lr < 0)
-						Lr = 0;
-					else if (Lr > 1)
-						Lr = 1;
-					c_gray = 255 * Lr;
-					printf("%d %d %d\n", c_gray, c_gray, c_gray);
-				}
-				else
-					printf("%d %d %d\n", 0, 0, 0);
-			}
-			else
+			vec_sphere_to_eye = get_vec_ray(sphere_to_eye);
+			intersection_point = intersection_ray_sphere(sphere, vec_ray, vec_sphere_to_eye);
+			if (intersection_point == NULL)
 			{
 				printf("%d %d %d\n", 200, 0, 237);
+				continue ;
 			}
+			if (intersection_point->distance > 0)
+			{
+				intersection_point->position = vec_sum(&scene->eye_pos, scalar_mul(vec_ray, intersection_point->distance));
+				intersection_point->incident = get_vec_ray_sd_norm(intersection_point->position, light->pos);// 入射ベクトル 接点から光源へ
+				intersection_point->normal = get_vec_ray_sd_norm(sphere->center, intersection_point->position);
+				l_dot = dot_product(&intersection_point->incident, &intersection_point->normal);// 入射と法線の内積 1に近いほど平行に近い
+				//printf("l_dot:%f (%d, %d)\n", l_dot, x, y);
+				if (l_dot < 0)
+					l_dot = 0;
+				Lr = La + l_dot;
+				if (Lr < 0)
+					Lr = 0;
+				else if (Lr > 1)
+					Lr = 1;
+				c_gray = 255 * Lr;
+				printf("%d %d %d\n", c_gray, c_gray, c_gray);
+			}
+			else
+				printf("%d %d %d\n", 0, 0, 0);
 		}
 		printf("\n");
 	}
