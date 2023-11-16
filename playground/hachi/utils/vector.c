@@ -26,11 +26,24 @@ t_vec3	vec_sum(const t_vec3 *v1, const t_vec3 *v2)
 
 t_vec3	vec_div(const t_vec3 *v1, const t_vec3 *v2)
 {
+	//v_return = v2 - v1
 	t_vec3	v_return;
 
 	v_return.x = v2->x - v1->x;
 	v_return.y = v2->y - v1->y;
 	v_return.z = v2->z - v1->z;
+	return (v_return);
+}
+
+t_vec3	vec_div_v1_v2(const t_vec3 *v1, const t_vec3 *v2)
+{
+	//v_return = v1 - v2
+	//v2 to v1
+	t_vec3	v_return;
+
+	v_return.x = v1->x - v2->x;
+	v_return.y = v1->y - v2->y;
+	v_return.z = v1->z - v2->z;
 	return (v_return);
 }
 
@@ -72,10 +85,12 @@ t_vec3	v_normalize(const t_vec3 v)
 	t_vec3	v_return;
 	double	scalar_v;
 
+	//printf("v:before %f, %f, %f\n", v.x, v.y, v.z);
 	scalar_v = get_scalar(v);
 	v_return.x = v.x / scalar_v;
 	v_return.y = v.y / scalar_v;
 	v_return.z = v.z / scalar_v;
+	//printf("v:after %f, %f, %f\n", v_return.x, v_return.y, v_return.z);
 	return (v_return);
 }
 
