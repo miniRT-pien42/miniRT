@@ -103,12 +103,15 @@ t_rgb raytrace(
 		t_f_rgb l_d; /* 直接光の拡散反射光の輝度 */
 		t_f_rgb l_r; /* 物体表面の輝度 */
 
-		l_a.f_r = scene->light_ambient->color.r / 255 * scene->light_ambient->e_a;
-		l_a.f_g = scene->light_ambient->color.g / 255 * scene->light_ambient->e_a;
-		l_a.f_b = scene->light_ambient->color.b / 255 * scene->light_ambient->e_a;
-		l_d.f_r = scene->list_sphere->color.r / 255 * scene->lights->e_i * l_dot;
-		l_d.f_g = scene->list_sphere->color.g / 255 * scene->lights->e_i * l_dot;
-		l_d.f_b = scene->list_sphere->color.b / 255 * scene->lights->e_i * l_dot;
+		l_a.f_r = scene->light_ambient->color.r / 255.0 * scene->light_ambient->e_a;
+		l_a.f_g = scene->light_ambient->color.g / 255.0 * scene->light_ambient->e_a;
+		l_a.f_b = scene->light_ambient->color.b / 255.0 * scene->light_ambient->e_a;
+		//printf("l_a r: %f g: %f b: %f\n", l_a.f_r, l_a.f_g, l_a.f_b);
+		l_d.f_r = scene->list_sphere->color.r / 255.0 * scene->lights->e_i * l_dot;
+		l_d.f_g = scene->list_sphere->color.g / 255.0 * scene->lights->e_i * l_dot;
+		l_d.f_b = scene->list_sphere->color.b / 255.0 * scene->lights->e_i * l_dot;
+		//printf("l_d r: %f g: %f b: %f\n", l_d.f_r, l_d.f_g, l_d.f_b);
+		//printf("l_r r: %f g: %f b: %f\n", l_a.f_r + l_d.f_r, l_a.f_g + l_d.f_g, l_a.f_b + l_d.f_b);
 		l_r.f_r = clamp_f(l_a.f_r + l_d.f_r, 0, 1);
 		l_r.f_g = clamp_f(l_a.f_g + l_d.f_g, 0, 1);
 		l_r.f_b = clamp_f(l_a.f_b + l_d.f_b, 0, 1);
