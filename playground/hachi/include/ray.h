@@ -6,6 +6,7 @@
 //# include "./scene.h"
 //# include "./primitive.h"
 
+typedef struct s_scene		t_scene;
 typedef struct s_sphere		t_sphere;
 
 typedef struct s_rgb
@@ -37,5 +38,6 @@ t_vec3	get_vec_ray_sd_norm(const t_vec3 start, const t_vec3 direction);
 t_point	*intersection_ray_sphere(\
 	const t_sphere *sphere, const t_vec3 vec_ray, \
 	const t_vec3 vec_sphere_to_eye);
-
+t_rgb	raytrace(\
+	const t_scene *scene, const t_vec3 *vec_ray, const t_vec3 *vec_sphere_to_eye);
 #endif //RAY_H

@@ -76,16 +76,35 @@ t_point	*intersection_ray_sphere( const t_sphere *sphere, const t_vec3 vec_ray, 
 }
 
 //シーンにおける，単一のレイでの光線追跡を行い，その点での色を返す．
-int raytrace(
+t_rgb raytrace(
 		const t_scene *scene,   /* 【入力】交差判定対象のシーン */
-		const t_vec_dir *eye_ray   /* 【入力】交差判定の対象のレイ */
+		const t_vec3 *vec_ray,   /* 視線方向ベクトル 𝐝e これがray! */
+		const t_vec3 *vec_sphere_to_eye
 )
 {
-	(void)scene;
-	t_rgb	*out_col;
+	t_point	*intersection_point;
+	double l_dot; /* 内積 */
+	double La = scene->list_sphere->k_a * scene->light_ambient->e_a; /* 環境光の輝度 */
+	double Lr; /* 物体表面の輝度 */
+	int c_gray;
+	t_rgb	out_col;
 
-	(void)out_col;
-	(void)eye_ray;
-	out_col = (t_rgb *)malloc(sizeof(t_rgb));
-	return (0);
+	intersection_point = intersection_ray_sphere(scene->list_sphere, *vec_ray, *vec_sphere_to_eye);
+	if (intersection_point == NULL) //背景色のままreturn
+		out_col = init_color(200, 0, 237);
+	else if (intersection_point->distance == 0)
+		out_col = init_color(0, 0, 0);
+	else
+	{
+		intersection_point->position = vec_sum(&scene->eye_pos, scalar_mul(*vec_ray, intersection_point->distance));
+		intersection_point->incident = get_vec_ray_sd_norm(intersection_point->position, scene->lights->pos);// 入射ベクトル 接点から光源へ
+		intersection_point->normal = get_vec_ray_sd_norm(scene->list_sphere->center, intersection_point->position);
+		l_dot = dot_product(&intersection_point->incident, &intersection_point->normal);// 入射と法線の内積 1に近いほど平行に近い
+		l_dot = clamp_f(l_dot, 0, 1);
+		Lr = La + l_dot;
+		Lr = clamp_f(Lr, 0, 1);
+		c_gray = 255 * Lr;
+		out_col = init_color(c_gray, c_gray, c_gray);
+	}
+	return (out_col);
 }

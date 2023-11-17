@@ -61,11 +61,7 @@ int main()
 	sphere_to_eye->start = sphere->center;
 	sphere_to_eye->direction = scene->eye_pos;
 
-	t_point	*intersection_point;
-	double l_dot; /* 内積 */
-	double La = sphere->k_a * light_ambient->e_a; /* 環境光の輝度 */
-	double Lr; /* 物体表面の輝度 */
-	int c_gray;
+	t_rgb color_final;
 
 	printf("P3\n"); /* マジックナンバー */
 	printf("%d %d\n", WIDTH, HEIGHT); /* 幅と高さ */
@@ -81,26 +77,8 @@ int main()
 			vec_ray = get_vec_ray(ray);
 			//printf("vec_ray x:%f y:%f z:%f\n", vec_ray.x, vec_ray.y, vec_ray.z);
 			vec_sphere_to_eye = get_vec_ray(sphere_to_eye);
-			intersection_point = intersection_ray_sphere(sphere, vec_ray, vec_sphere_to_eye);
-			if (intersection_point == NULL)
-			{
-				printf("%d %d %d\n", 200, 0, 237);
-				continue ;
-			}
-			if (intersection_point->distance > 0)
-			{
-				intersection_point->position = vec_sum(&scene->eye_pos, scalar_mul(vec_ray, intersection_point->distance));
-				intersection_point->incident = get_vec_ray_sd_norm(intersection_point->position, light->pos);// 入射ベクトル 接点から光源へ
-				intersection_point->normal = get_vec_ray_sd_norm(sphere->center, intersection_point->position);
-				l_dot = dot_product(&intersection_point->incident, &intersection_point->normal);// 入射と法線の内積 1に近いほど平行に近い
-				l_dot = clamp_f(l_dot, 0, 1);
-				Lr = La + l_dot;
-				Lr = clamp_f(Lr, 0, 1);
-				c_gray = 255 * Lr;
-				printf("%d %d %d\n", c_gray, c_gray, c_gray);
-			}
-			else
-				printf("%d %d %d\n", 0, 0, 0);
+			color_final = raytrace(scene, &vec_ray, &vec_sphere_to_eye);
+			printf("%d %d %d ", color_final.r, color_final.g, color_final.b);
 		}
 		printf("\n");
 	}
