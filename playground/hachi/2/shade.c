@@ -25,15 +25,15 @@ int main()
 
 	sphere->center = init_vec3(0, 0, 5);
 	sphere->diameter = 1;
-	sphere->color = init_color(255, 255, 255);
-	sphere->k_a = 0.5;
+	//sphere->color = init_color(100, 100, 100);//ここがグレーだとshadeがつかない
+	sphere->color = init_color(255, 10, 10);//ここがグレーでなければshadeがつく
 	sphere->next = NULL;
 
 	light_ambient->e_a = 0.8;
-	light_ambient->color = init_color(255, 255, 255);
+	light_ambient->color = init_color(100, 255, 100);
 
 	light->pos = init_vec3(-5, 5, -5);
-	light->e_a = 0.8;
+	light->e_i = 0.8;
 
 	scene->light_ambient = light_ambient;
 	scene->lights = light;

@@ -8,7 +8,8 @@
 typedef struct s_light
 {
 	t_vec3	pos;
-	double	e_a; /* 照度 */
+	double	e_i; /* 照度 */
+	//t_rgb color;
 }	t_light;
 
 typedef struct s_light_ambient

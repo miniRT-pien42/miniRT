@@ -16,6 +16,13 @@ typedef struct s_rgb
 	unsigned char	b;
 }	t_rgb;
 
+typedef struct s_f_rgb
+{
+	double	f_r;
+	double	f_g;
+	double	f_b;
+}	t_f_rgb;
+
 typedef struct s_vec_dir
 {
 	t_vec3	start;

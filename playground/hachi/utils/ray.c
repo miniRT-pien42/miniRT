@@ -83,12 +83,7 @@ t_rgb raytrace(
 )
 {
 	t_point	*intersection_point;
-	double l_dot; /* 内積 */
-	double La = scene->list_sphere->k_a * scene->light_ambient->e_a; /* 環境光の輝度 */
-	double Lr; /* 物体表面の輝度 */
-	int c_gray;
 	t_rgb	out_col;
-
 	intersection_point = intersection_ray_sphere(scene->list_sphere, *vec_ray, *vec_sphere_to_eye);
 	if (intersection_point == NULL) //背景色のままreturn
 		out_col = init_color(200, 0, 237);
@@ -96,15 +91,28 @@ t_rgb raytrace(
 		out_col = init_color(0, 0, 0);
 	else
 	{
+		double l_dot; /* 内積 */
+
 		intersection_point->position = vec_sum(&scene->eye_pos, scalar_mul(*vec_ray, intersection_point->distance));
 		intersection_point->incident = get_vec_ray_sd_norm(intersection_point->position, scene->lights->pos);// 入射ベクトル 接点から光源へ
 		intersection_point->normal = get_vec_ray_sd_norm(scene->list_sphere->center, intersection_point->position);
 		l_dot = dot_product(&intersection_point->incident, &intersection_point->normal);// 入射と法線の内積 1に近いほど平行に近い
 		l_dot = clamp_f(l_dot, 0, 1);
-		Lr = La + l_dot;
-		Lr = clamp_f(Lr, 0, 1);
-		c_gray = 255 * Lr;
-		out_col = init_color(c_gray, c_gray, c_gray);
+
+		t_f_rgb l_a; /* 環境光の輝度 */
+		t_f_rgb l_d; /* 直接光の拡散反射光の輝度 */
+		t_f_rgb l_r; /* 物体表面の輝度 */
+
+		l_a.f_r = scene->light_ambient->color.r / 255 * scene->light_ambient->e_a;
+		l_a.f_g = scene->light_ambient->color.g / 255 * scene->light_ambient->e_a;
+		l_a.f_b = scene->light_ambient->color.b / 255 * scene->light_ambient->e_a;
+		l_d.f_r = scene->list_sphere->color.r / 255 * scene->lights->e_i * l_dot;
+		l_d.f_g = scene->list_sphere->color.g / 255 * scene->lights->e_i * l_dot;
+		l_d.f_b = scene->list_sphere->color.b / 255 * scene->lights->e_i * l_dot;
+		l_r.f_r = clamp_f(l_a.f_r + l_d.f_r, 0, 1);
+		l_r.f_g = clamp_f(l_a.f_g + l_d.f_g, 0, 1);
+		l_r.f_b = clamp_f(l_a.f_b + l_d.f_b, 0, 1);
+		out_col = init_color(l_r.f_r * 255, l_r.f_g * 255, l_r.f_b * 255);
 	}
 	return (out_col);
 }

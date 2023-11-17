@@ -12,11 +12,10 @@ typedef struct s_cylinder	t_cylinder;
 
 typedef struct s_plane
 {
-	t_vec3	center;
-	t_vec3	v_n_norm;
-	t_rgb	color;
-	double	k_a;
-	t_plane	*next;
+	t_vec3		center;
+	t_vec3		v_n_norm;
+	t_rgb		color;
+	t_plane		*next;
 }	t_plane;
 
 typedef struct s_sphere
@@ -24,7 +23,6 @@ typedef struct s_sphere
 	t_vec3		center;
 	double		diameter;
 	t_rgb		color;
-	double		k_a;
 	t_sphere	*next;
 }	t_sphere;
 
@@ -35,7 +33,6 @@ typedef struct s_cylinder
 	double		diameter;
 	double		height;
 	t_rgb		color;
-	double		k_a;
 	t_cylinder	*next;
 }	t_cylinder;
 
