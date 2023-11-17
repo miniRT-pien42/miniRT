@@ -93,14 +93,9 @@ int main()
 				intersection_point->incident = get_vec_ray_sd_norm(intersection_point->position, light->pos);// 入射ベクトル 接点から光源へ
 				intersection_point->normal = get_vec_ray_sd_norm(sphere->center, intersection_point->position);
 				l_dot = dot_product(&intersection_point->incident, &intersection_point->normal);// 入射と法線の内積 1に近いほど平行に近い
-				//printf("l_dot:%f (%d, %d)\n", l_dot, x, y);
-				if (l_dot < 0)
-					l_dot = 0;
+				l_dot = clamp_f(l_dot, 0, 1);
 				Lr = La + l_dot;
-				if (Lr < 0)
-					Lr = 0;
-				else if (Lr > 1)
-					Lr = 1;
+				Lr = clamp_f(Lr, 0, 1);
 				c_gray = 255 * Lr;
 				printf("%d %d %d\n", c_gray, c_gray, c_gray);
 			}

@@ -117,3 +117,12 @@ double	positive_and_min(double a, double b)
 		return (a < b ? b : a);
 	return (a < b ? a : b);
 }
+
+double clamp_f(double num, double min, double max)
+{
+	if (num < min)
+		return (min);
+	if (num > max)
+		return (max);
+	return (num);
+}

@@ -24,5 +24,6 @@ double	convert_deg_to_rad(double deg);
 double	convert_rad_to_deg(double rad);
 t_vec3	*convert_pw_coordinate(t_vec3 *v_co, int w, int h);
 double	positive_and_min(double a, double b);
+double clamp_f(double num, double min, double max);
 
 #endif /*VECTOR_H*/
