@@ -37,9 +37,6 @@ int main()
 
 	scene->light_ambient = light_ambient;
 	scene->lights = light;
-	scene->list_plane = NULL;
-	scene->list_sphere = sphere;
-	scene->list_cylinder = NULL;
 	scene->eye_pos  = init_vec3( 0, 0, -5 );
 
 	t_vec3 pw; /* スクリーン上の点pwの位置ベクトル */

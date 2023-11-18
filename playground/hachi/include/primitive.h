@@ -8,7 +8,25 @@
 
 typedef struct s_plane		t_plane;
 typedef struct s_sphere		t_sphere;
-typedef struct s_cylinder	t_cylinder;
+typedef struct s_primitive	t_primitive;
+
+typedef enum s_shape
+{
+	SPHERE,
+	PLANE,
+	CYLINDER
+}	t_shape;
+
+typedef struct s_primitive
+{
+	t_shape		type;
+	t_vec3		center;
+	double		diameter;
+	t_vec3		v_n_norm;
+	double		height;
+	t_rgb		color;
+	t_primitive	*next;
+}	t_primitive;
 
 typedef struct s_plane
 {
@@ -25,16 +43,6 @@ typedef struct s_sphere
 	t_rgb		color;
 	t_sphere	*next;
 }	t_sphere;
-
-typedef struct s_cylinder
-{
-	t_vec3		center;
-	t_vec3		v_n_norm;
-	double		diameter;
-	double		height;
-	t_rgb		color;
-	t_cylinder	*next;
-}	t_cylinder;
 
 ssize_t	extract_closest(double *list_distance, size_t size);
 
