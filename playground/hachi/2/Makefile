@@ -2,7 +2,7 @@ PROG := result
 
 CC := cc
 CFLAGS := -Wall -Wextra -Werror
-SRCS =	shade.c\
+SRCS =	shade_add_floor.c\
 		../utils/ray.c\
 		../utils/vector.c
 

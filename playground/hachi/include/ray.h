@@ -8,6 +8,7 @@
 
 typedef struct s_scene		t_scene;
 typedef struct s_sphere		t_sphere;
+typedef struct s_plane		t_plane;
 
 typedef struct s_rgb
 {
@@ -45,6 +46,9 @@ t_vec3	get_vec_ray_sd_norm(const t_vec3 start, const t_vec3 direction);
 t_point	*intersection_ray_sphere(\
 	const t_sphere *sphere, const t_vec3 vec_ray, \
 	const t_vec3 vec_sphere_to_eye);
+t_point	*intersection_ray_plane(\
+	const t_plane *plane, const t_vec3 vec_ray, \
+	const t_vec3 vec_plane_to_eye);
 t_rgb	raytrace(\
-	const t_scene *scene, const t_vec3 *vec_ray, const t_vec3 *vec_sphere_to_eye);
+	const t_scene *scene, const t_vec3 *vec_ray, const t_vec3 *vec_sphere_to_eye, const t_vec3 *vec_splane_to_eye);
 #endif //RAY_H

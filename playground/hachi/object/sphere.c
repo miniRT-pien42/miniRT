@@ -1,5 +1,5 @@
 
-#include "../include/sphere.h"
+#include "../include/primitive.h"
 
 ssize_t	extract_closest(double *list_distance, size_t size)
 {
