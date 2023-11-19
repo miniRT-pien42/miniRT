@@ -68,8 +68,9 @@ t_point	*intersection_ray_sphere( const t_primitive *sphere, const t_vec3 vec_ra
 	B = dot_product(&vec_ray, &vec_sphere_to_eye) * 2.0;
 	C = pow(get_scalar(vec_sphere_to_eye), 2) - pow(sphere->diameter, 2);
 	D = pow(B, 2) - 4.0 * A * C;
+	//printf("intersection_ray_sphere D %f", D);
 	if (D < 0)
-		return (NULL);
+		return (NULL);//交点なし
 	return_intersection = (t_point *)malloc(sizeof(t_point));
 	if (return_intersection == NULL)
 		return (NULL);
@@ -91,8 +92,9 @@ t_point	*intersection_ray_plane(const t_primitive *plane, const t_vec3 vec_ray, 
 
 	denominator = dot_product(&vec_ray, &plane->v_n_norm);
 	if (denominator == 0)
-		return (NULL);
+		return (NULL);//交点なし
 	t = dot_product(&vec_plane_to_eye, &plane->v_n_norm) / denominator * -1;
+	//printf("intersection_ray_plane t %f", t);
 	if (t < 0)
 		return (NULL);
 	return_intersection = (t_point *)malloc(sizeof(t_point));
@@ -102,6 +104,7 @@ t_point	*intersection_ray_plane(const t_primitive *plane, const t_vec3 vec_ray, 
 		return_intersection->distance = 0;
 	else
 		return_intersection->distance = t;
+	//printf("intersection_ray_plane distance %f\n", return_intersection->distance);
 	return (return_intersection);
 }
 
@@ -159,17 +162,24 @@ t_rgb raytrace(
 	t_point	*isp_primitive;
 	t_rgb	out_col;
 	isp_primitive = intersection_ray_sphere(nearest_primitive->primitive, *vec_ray, scene->eye_pos);
+	//printf("raytrace 1\n");
+	//printf("raytrace 2\n");
 	if (isp_primitive == NULL) //背景色のままreturn
 		out_col = init_color(200, 0, 237);
 	else if (isp_primitive->distance == 0)
 		out_col = init_color(0, 0, 0);
 	else
 	{
+		//printf("raytrace else\n");
 		double l_dot; /* 内積 */
 		isp_primitive->position = vec_sum(&scene->eye_pos, scalar_mul(*vec_ray, isp_primitive->distance));
+		//printf("distance %f position %f %f %f\n", isp_primitive->distance, isp_primitive->position.x, isp_primitive->position.y, isp_primitive->position.z);
 		isp_primitive->incident = get_vec_ray_sd_norm(isp_primitive->position, scene->lights->pos);// 入射ベクトル 接点から光源へ
 		isp_primitive->normal = get_vec_ray_sd_norm(nearest_primitive->primitive->center, isp_primitive->position);
+		//printf("incident %f %f %f\n", isp_primitive->incident.x, isp_primitive->incident.y, isp_primitive->incident.z);
+		//printf("normal %f %f %f\n", isp_primitive->normal.x, isp_primitive->normal.y, isp_primitive->normal.z);
 		l_dot = dot_product(&isp_primitive->incident, &isp_primitive->normal);// 入射と法線の内積 1に近いほど平行に近い
+		//printf("l_dot %f\n", l_dot);
 		l_dot = clamp_f(l_dot, 0, 1);
 
 		t_f_rgb l_a; /* 環境光の輝度 */
@@ -181,5 +191,6 @@ t_rgb raytrace(
 		l_r = get_l_r(l_a, l_d);
 		out_col = init_color(l_r.f_r * 255, l_r.f_g * 255, l_r.f_b * 255);
 	}
+	//printf("raytrace 3\n");
 	return (out_col);
 }
