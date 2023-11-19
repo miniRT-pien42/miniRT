@@ -25,14 +25,16 @@ int main()
 	if (scene == NULL || sphere == NULL || light_ambient == NULL || light == NULL || plane == NULL)
 		return (1);
 
+	sphere->type = SPHERE;
 	sphere->center = init_vec3(0, 0, 5);
 	sphere->diameter = 1;
 	sphere->color = init_color(255, 10, 10);
 	sphere->next = NULL;
 
+	plane->type = PLANE;
 	plane->center = init_vec3(0, -2.1, 0);
-	plane->v_n_norm = init_vec3(0.2, 0.2, 0);
-	plane->color = init_color(100, 100, 100);
+	plane->v_n_norm = init_vec3(0, 0.2, 0);
+	plane->color = init_color(88, 106, 229);
 	plane->next = sphere;
 
 	light_ambient->e_a = 0.1;
