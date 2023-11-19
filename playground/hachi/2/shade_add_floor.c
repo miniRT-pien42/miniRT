@@ -26,14 +26,14 @@ int main()
 		return (1);
 
 	sphere->type = SPHERE;
-	sphere->center = init_vec3(0, 0, 5);
-	sphere->diameter = 1;
+	sphere->center = init_vec3(0, 0, 0);
+	sphere->diameter = 0.8;
 	sphere->color = init_color(255, 10, 10);
 	sphere->next = NULL;
 
 	plane->type = PLANE;
-	plane->center = init_vec3(0, -2.1, 0);
-	plane->v_n_norm = init_vec3(0, 0.2, 0);
+	plane->center = init_vec3(0, -0.7, 0);
+	plane->v_n_norm = init_vec3(0, 1, 0);
 	plane->color = init_color(88, 106, 229);
 	plane->next = sphere;
 

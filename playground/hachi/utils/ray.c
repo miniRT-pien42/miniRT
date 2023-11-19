@@ -175,19 +175,16 @@ t_point	*get_nearest_primitive(
 		else if (tmp_primitive->type == PLANE)
 			tmp_nearest = intersection_ray_plane(tmp_primitive, *ray, scene->eye_pos);
 		//printf("nearest while 2\n");
-		if (tmp_nearest != NULL && tmp_nearest->distance >= 0 && tmp_nearest->distance < nearest->distance)
+		if (tmp_nearest != NULL)
 		{
-//			if (tmp_primitive->type == SPHERE)
-//				printf("[SPHERE] ");
-//			else if (tmp_primitive->type == PLANE)
-//				printf("[PLANE] ");
-//			printf("update nearest\n");
-			nearest->primitive = tmp_primitive;
-			nearest->distance = tmp_nearest->distance;
+			if (exit_once_found == 1)
+				return (nearest);
+			if (tmp_nearest->distance >= 0 && tmp_nearest->distance < nearest->distance)
+			{
+				nearest->primitive = tmp_primitive;
+				nearest->distance = tmp_nearest->distance;
+			}
 		}
-//		else
-//			printf("not update nearest\n");
-		//printf("nearest while 3\n");
 		tmp_primitive = tmp_primitive->next;
 	}
 	free(tmp_nearest);
@@ -217,28 +214,45 @@ t_rgb raytrace(
 		out_col = init_color(0, 0, 0);
 	else
 	{
-		//printf("raytrace else\n");
-		double l_dot; /* 内積 */
-		nearest_primitive->position = vec_sum(&scene->eye_pos, scalar_mul(*vec_ray, nearest_primitive->distance));
-		//printf("distance %f position %f %f %f\n", isp_primitive->distance, isp_primitive->position.x, isp_primitive->position.y, isp_primitive->position.z);
-		nearest_primitive->incident = get_vec_ray_sd_norm(nearest_primitive->position, scene->lights->pos);// 入射ベクトル 接点から光源へ
-		nearest_primitive->normal = get_vec_ray_sd_norm(nearest_primitive->primitive->center, nearest_primitive->position);
-		//printf("incident %f %f %f\n", isp_primitive->incident.x, isp_primitive->incident.y, isp_primitive->incident.z);
-		//printf("normal %f %f %f\n", isp_primitive->normal.x, isp_primitive->normal.y, isp_primitive->normal.z);
-		l_dot = dot_product(&nearest_primitive->incident, &nearest_primitive->normal);// 入射と法線の内積 1に近いほど平行に近い
-		//todo: planeは法線の正負が逆ならshade表示される
-		//printf("l_dot %f\n", l_dot);
-		if (nearest_primitive->primitive->type == PLANE)
-			l_dot *= -1;
-		l_dot = clamp_f(l_dot, 0, 1);
-
 		t_f_rgb l_a; /* 環境光の輝度 */
 		t_f_rgb l_d; /* 直接光の拡散反射光の輝度 */
 		t_f_rgb l_r; /* 物体表面の輝度 */
-
 		l_a = get_l_a(scene);
-		l_d = get_l_d(scene, nearest_primitive->primitive->color, l_dot);
-		l_r = get_l_r(l_a, l_d);
+
+		t_point	*is_shadow;
+		t_vec_dir	*ray_shadow;
+		t_vec3	vec_ray_shadow;
+		ray_shadow = (t_vec_dir *)malloc(sizeof (t_vec_dir));
+		if (ray_shadow == NULL)
+			exit (1);
+		ray_shadow->start = nearest_primitive->position;
+		ray_shadow->direction = scene->lights->pos;
+		vec_ray_shadow = get_vec_ray(ray_shadow);
+
+		is_shadow = (t_point *)malloc(sizeof (t_point));
+		if (is_shadow == NULL)
+			exit (1);
+		is_shadow = get_nearest_primitive(scene, &vec_ray_shadow, 1000.0, 1);
+		if (is_shadow != NULL)
+			l_r = l_a;
+		else
+		{
+			double l_dot; /* 内積 */
+			nearest_primitive->position = vec_sum(&scene->eye_pos, scalar_mul(*vec_ray, nearest_primitive->distance));
+			//printf("distance %f position %f %f %f\n", isp_primitive->distance, isp_primitive->position.x, isp_primitive->position.y, isp_primitive->position.z);
+			nearest_primitive->incident = get_vec_ray_sd_norm(nearest_primitive->position, scene->lights->pos);// 入射ベクトル 接点から光源へ
+			nearest_primitive->normal = get_vec_ray_sd_norm(nearest_primitive->primitive->center, nearest_primitive->position);
+			//printf("incident %f %f %f\n", isp_primitive->incident.x, isp_primitive->incident.y, isp_primitive->incident.z);
+			//printf("normal %f %f %f\n", isp_primitive->normal.x, isp_primitive->normal.y, isp_primitive->normal.z);
+			l_dot = dot_product(&nearest_primitive->incident, &nearest_primitive->normal);// 入射と法線の内積 1に近いほど平行に近い
+			//todo: planeは法線の正負が逆ならshade表示される
+			//printf("l_dot %f\n", l_dot);
+			if (nearest_primitive->primitive->type == PLANE)
+				l_dot *= -1;
+			l_dot = clamp_f(l_dot, 0, 1);
+			l_d = get_l_d(scene, nearest_primitive->primitive->color, l_dot);
+			l_r = get_l_r(l_a, l_d);
+		}
 		out_col = init_color(l_r.f_r * 255, l_r.f_g * 255, l_r.f_b * 255);
 	}
 	//printf("raytrace 3\n");
