@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../utils/vector.h"
+#include "../include/vector.h"
 
 #define WIDTH 512
 #define HEIGHT 512
@@ -29,7 +29,7 @@ int main()
 		pw.y = (double)y / HEIGHT;
 		for(x = 0; x < WIDTH; ++x)
 		{
-			pw.x = (double)x / HEIGHT;
+			pw.x = (double)x / WIDTH;
 			eye_dir = vec_div(&pw, &eye_pos);
 			s_c = vec_div(&eye_pos, &sphere_pos);
 			A = pow(get_scalar(eye_dir), 2);
