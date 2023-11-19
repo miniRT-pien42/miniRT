@@ -40,6 +40,7 @@ int main()
 		{
 			pw.x = 2.0 * x / (WIDTH - 1) - 1.0;
 			eye_dir = vec_div(&eye_pos, &pw);
+			//printf("eye_dir x:%f y:%f z:%f\n", eye_dir.x, eye_dir.y, eye_dir.z);
 			s_c = vec_div(&sphere_pos, &eye_pos);
 			A = pow(get_scalar(eye_dir), 2);
 			B = dot_product(&eye_dir, &s_c) * 2.0;
@@ -51,6 +52,7 @@ int main()
 					t = -B / (2.0 * A);
 				else
 					t = positive_and_min((-B + sqrt(D)) / (2.0 * A), (-B - sqrt(D)) / (2.0 * A));
+				//printf("A:%f B:%f C:%f D:%f t:%f\n", A, B, C, D, t);
 				if (t > 0)
 				{
 					p_i = vec_sum(&eye_pos, scalar_mul(eye_dir, t));//p_i 交点の位置
@@ -59,6 +61,7 @@ int main()
 					v_n = vec_div(&sphere_pos, &p_i);// 球面の法線 球centerから接点へ
 					v_n = v_normalize(v_n);
 					l_dot = dot_product(&v_i, &v_n);// 入射と法線の内積 1に近いほど平行に近い
+					//printf("l_dot:%f (%d, %d)\n", l_dot, x, y);
 					if (l_dot < 0)
 						l_dot = 0;
 					Lr = La + l_dot;
@@ -83,7 +86,7 @@ int main()
 }
 
 /*
-$ gcc -std=c99 -Wall diffuse_only.c ../utils/vector.c -lm -o diffuse_only
-$ ./diffuse_only > result.ppm
+$ gcc -std=c99 -Wall simple_shading.c ../utils/vector.c -lm -o simple_shading
+$ ./simple_shading > result.ppm
 $ display result.ppm
 */

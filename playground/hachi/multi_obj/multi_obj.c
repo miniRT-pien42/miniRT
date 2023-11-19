@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../include/vector.h"
-#include "../include/sphere.h"
+#include "../include/primitive.h"
 
 #define WIDTH 256
 #define HEIGHT 256
+#define EPSILON (1.0f/512)
 
 int main()
 {
@@ -16,7 +17,7 @@ int main()
 	sphere[1].center = init_vec3(0, 0, 5);
 	sphere[2].center = init_vec3(0.5, 0, 3);
 	sphere[3].center = init_vec3(0.5, 1, -2);
-	sphere[4].center = init_vec3(100, 5, 10);
+	sphere[4].center = init_vec3(-1, -1, 10);
 	sphere[0].diameter = 1;
 	sphere[1].diameter = 0.8;
 	sphere[2].diameter = 0.2;
@@ -26,7 +27,7 @@ int main()
 	sphere[1].color = init_color(0, 255, 0);
 	sphere[2].color = init_color(0, 0, 255);
 	sphere[3].color = init_color(0, 0, 0);
-	sphere[4].color = init_color(100, 100, 100);
+	sphere[4].color = init_color(100, 10, 100);
 	t_vec3 pw;
 	pw.z = 0;
 
@@ -37,6 +38,12 @@ int main()
 	t_vec3 s_c;     /* 視点 - 球の中心 */
 	double A,B,C,D;    /* 二次方程式Ax^2+Bx+C=0および判別式D */
 
+	t_vec3 p_l = { -5, 5, -5 };  /* 光源位置 Pl */
+	t_vec3 p_i; /* 交点の位置ベクトル */
+	t_vec3 v_i; /* 入射ベクトル incident vector */
+	t_vec3 v_n; /* 法線ベクトル */
+	double l_dot; /* 内積 */
+
 	/*printf("%f / %f / %f\n", pw.x, pw.y, pw.z);*/
 	printf("P3\n"); /* マジックナンバー */
 	printf("%d %d\n", WIDTH, HEIGHT); /* 幅と高さ */
@@ -44,10 +51,10 @@ int main()
 	int y, x, i = 0;
 	for(y = 0; y < HEIGHT; ++y)
 	{
-		pw.y = (double)y / HEIGHT;
+		pw.y = -2.0 * y / (HEIGHT - 1) + 1.0;
 		for(x = 0; x < WIDTH; ++x)
 		{
-			pw.x = (double)x / HEIGHT;
+			pw.x = 2.0 * x / (WIDTH - 1) - 1.0;
 			eye_dir = vec_div(&pw, &eye_pos);
 			while (i < 5)
 			{
@@ -71,6 +78,18 @@ int main()
 			//printf("closest: %zi:: %f \n", closest, list_pos_z[closest]);
 			if (closest >= 0)
 			{
+				p_i = vec_sum(&eye_pos, scalar_mul(eye_dir, list_pos_z[closest]));//p_i 交点の位置
+				v_i = vec_div(&p_i, &p_l);
+				v_i = v_normalize(v_i);
+				while (i < 5)
+				{
+					if (i == closest)
+						continue ;
+					v_n = vec_div(&sphere[i].center, &p_i);// 球面の法線 球centerから接点へ
+					v_n = v_normalize(v_n);
+					i++;
+				}
+				//todo: v_iが他のオブジェクトと交点を持てば影が落ちる
 				printf("%d %d %d\n", sphere[closest].color.r, sphere[closest].color.g, sphere[closest].color.b);
 			}
 			else

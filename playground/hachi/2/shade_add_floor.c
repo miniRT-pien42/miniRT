@@ -74,11 +74,16 @@ int main()
 		pw.y = -2.0 * y / (HEIGHT - 1) + 1.0;
 		for(x = 0; x < WIDTH; ++x)
 		{
+			//printf("x: %d y: %d\n", x, y);
 			pw.x = 2.0 * x / (WIDTH - 1) - 1.0;
 			ray->direction = pw;
+			//printf("for 1\n");
 			vec_ray = get_vec_ray(ray);
+			//printf("for 2\n");
 			nearest = get_nearest_primitive(scene, &vec_ray, 1000.0, 0);
+			//printf("for 3 null %d\n", nearest==NULL);
 			color_final = raytrace(scene, &vec_ray, nearest);
+			//printf("for 4\n");
 			printf("%d %d %d ", color_final.r, color_final.g, color_final.b);
 		}
 		printf("\n");
