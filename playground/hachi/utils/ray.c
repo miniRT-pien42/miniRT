@@ -68,7 +68,7 @@ t_point	*intersection_ray_sphere( const t_primitive *sphere, const t_vec3 vec_ra
 	B = dot_product(&vec_ray, &vec_sphere_to_eye) * 2.0;
 	C = pow(get_scalar(vec_sphere_to_eye), 2) - pow(sphere->diameter, 2);
 	D = pow(B, 2) - 4.0 * A * C;
-	//printf("intersection_ray_sphere D %f", D);
+	//printf("intersection_ray_sphere A %f / B %f / C %f / D %f\n", A, B, C, D);
 	if (D < 0)
 		return (NULL);//交点なし
 	return_intersection = (t_point *)malloc(sizeof(t_point));
@@ -78,6 +78,8 @@ t_point	*intersection_ray_sphere( const t_primitive *sphere, const t_vec3 vec_ra
 		return_intersection->distance = -B / (2.0 * A);
 	else
 		return_intersection->distance = positive_and_min((-B + sqrt(D)) / (2.0 * A), (-B - sqrt(D)) / (2.0 * A));
+
+	//printf("[SPHERE intersection] %f\n", return_intersection->distance);
 	return (return_intersection);
 }
 
@@ -105,6 +107,7 @@ t_point	*intersection_ray_plane(const t_primitive *plane, const t_vec3 vec_ray, 
 		return_intersection->distance = 0;
 	else
 		return_intersection->distance = t;
+	//printf("[PLANE intersection] %f\n", return_intersection->distance);
 	//printf("intersection_ray_plane distance %f\n", return_intersection->distance);
 	return (return_intersection);
 }
@@ -157,7 +160,7 @@ t_point	*get_nearest_primitive(
 	nearest = (t_point *)malloc(sizeof(t_point));
 	if (nearest == NULL)
 		return (NULL);
-	nearest->distance = -1;
+	nearest->distance = max_dist;
 	tmp_nearest = (t_point *)malloc(sizeof(t_point));
 	if (tmp_nearest == NULL)
 		return (NULL);
@@ -168,20 +171,27 @@ t_point	*get_nearest_primitive(
 		//printf("while tmp_primitive %d\n", tmp_primitive->type);
 		//printf("nearest while 1\n");
 		if (tmp_primitive->type == SPHERE)
-			tmp_nearest = intersection_ray_sphere(scene->list_primitive, *ray, scene->eye_pos);
+			tmp_nearest = intersection_ray_sphere(tmp_primitive, *ray, scene->eye_pos);
 		else if (tmp_primitive->type == PLANE)
-			tmp_nearest = intersection_ray_plane(scene->list_primitive, *ray, scene->eye_pos);
+			tmp_nearest = intersection_ray_plane(tmp_primitive, *ray, scene->eye_pos);
 		//printf("nearest while 2\n");
-		if (tmp_nearest != NULL && tmp_nearest->distance >= 0 && tmp_nearest->distance > nearest->distance)
+		if (tmp_nearest != NULL && tmp_nearest->distance >= 0 && tmp_nearest->distance < nearest->distance)
 		{
+//			if (tmp_primitive->type == SPHERE)
+//				printf("[SPHERE] ");
+//			else if (tmp_primitive->type == PLANE)
+//				printf("[PLANE] ");
+//			printf("update nearest\n");
 			nearest->primitive = tmp_primitive;
 			nearest->distance = tmp_nearest->distance;
 		}
+//		else
+//			printf("not update nearest\n");
 		//printf("nearest while 3\n");
 		tmp_primitive = tmp_primitive->next;
 	}
 	free(tmp_nearest);
-	if (nearest->distance == -1)
+	if (nearest->distance == max_dist)
 	{
 		free(nearest);
 		return (NULL);
@@ -193,38 +203,33 @@ t_point	*get_nearest_primitive(
 t_rgb raytrace(
 		const t_scene *scene,   /* 【入力】交差判定対象のシーン */
 		const t_vec3 *vec_ray,   /* 視線方向ベクトル 𝐝e これがray! */
-		const t_point *nearest_primitive
+		t_point *nearest_primitive
 )
 {
-	t_point	*isp_primitive;
+	//t_point	*isp_primitive;
 	t_rgb	out_col;
 
-	isp_primitive = NULL;
+	//isp_primitive = NULL;
 	//printf("raytrace 1\n");
-	if (nearest_primitive == NULL)
+	if (nearest_primitive == NULL) //背景色のままreturn
 		out_col = init_color(200, 0, 237);
-	else if (nearest_primitive->primitive->type == SPHERE)
-		isp_primitive = intersection_ray_sphere(scene->list_primitive, *vec_ray, scene->eye_pos);
-	else if (nearest_primitive->primitive->type == PLANE)
-		isp_primitive = intersection_ray_plane(scene->list_primitive, *vec_ray, scene->eye_pos);
-	//printf("raytrace 2\n");
-	if (isp_primitive == NULL) //背景色のままreturn
-		out_col = init_color(200, 0, 237);
-	else if (isp_primitive->distance == 0)
+	else if (nearest_primitive->distance == 0)
 		out_col = init_color(0, 0, 0);
 	else
 	{
 		//printf("raytrace else\n");
 		double l_dot; /* 内積 */
-		isp_primitive->position = vec_sum(&scene->eye_pos, scalar_mul(*vec_ray, isp_primitive->distance));
+		nearest_primitive->position = vec_sum(&scene->eye_pos, scalar_mul(*vec_ray, nearest_primitive->distance));
 		//printf("distance %f position %f %f %f\n", isp_primitive->distance, isp_primitive->position.x, isp_primitive->position.y, isp_primitive->position.z);
-		isp_primitive->incident = get_vec_ray_sd_norm(isp_primitive->position, scene->lights->pos);// 入射ベクトル 接点から光源へ
-		isp_primitive->normal = get_vec_ray_sd_norm(nearest_primitive->primitive->center, isp_primitive->position);
+		nearest_primitive->incident = get_vec_ray_sd_norm(nearest_primitive->position, scene->lights->pos);// 入射ベクトル 接点から光源へ
+		nearest_primitive->normal = get_vec_ray_sd_norm(nearest_primitive->primitive->center, nearest_primitive->position);
 		//printf("incident %f %f %f\n", isp_primitive->incident.x, isp_primitive->incident.y, isp_primitive->incident.z);
 		//printf("normal %f %f %f\n", isp_primitive->normal.x, isp_primitive->normal.y, isp_primitive->normal.z);
-		l_dot = dot_product(&isp_primitive->incident, &isp_primitive->normal);// 入射と法線の内積 1に近いほど平行に近い
+		l_dot = dot_product(&nearest_primitive->incident, &nearest_primitive->normal);// 入射と法線の内積 1に近いほど平行に近い
 		//todo: planeは法線の正負が逆ならshade表示される
 		//printf("l_dot %f\n", l_dot);
+		if (nearest_primitive->primitive->type == PLANE)
+			l_dot *= -1;
 		l_dot = clamp_f(l_dot, 0, 1);
 
 		t_f_rgb l_a; /* 環境光の輝度 */

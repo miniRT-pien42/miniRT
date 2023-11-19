@@ -50,7 +50,7 @@ t_point	*intersection_ray_plane(\
 	const t_primitive *plane, const t_vec3 vec_ray, \
 	const t_vec3 eye_pos);
 t_rgb	raytrace(\
-	const t_scene *scene, const t_vec3 *vec_ray, const t_point *nearest_primitive);
+	const t_scene *scene, const t_vec3 *vec_ray, t_point *nearest_primitive);
 t_point	*get_nearest_primitive(
 		const t_scene *scene,
 		const t_vec3 *ray,
