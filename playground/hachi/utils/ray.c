@@ -89,6 +89,7 @@ t_point	*intersection_ray_plane(const t_primitive *plane, const t_vec3 vec_ray, 
 	t_vec3	vec_plane_to_eye;
 	plane_to_eye.start = plane->center;
 	plane_to_eye.direction = eye_pos;
+	vec_plane_to_eye = get_vec_ray(&plane_to_eye);
 
 	denominator = dot_product(&vec_ray, &plane->v_n_norm);
 	if (denominator == 0)
@@ -146,10 +147,46 @@ t_point	*get_nearest_primitive(
 		int exit_once_found/* 【入力】交差が一つでも見つかった場合に直ちに判定処理を終了するか否か */
 )
 {
-	t_point	*out_intp;
+	(void)max_dist;
+	(void)exit_once_found;
+	t_point	*nearest;
+	t_point	*tmp_nearest;
+	t_primitive *tmp_primitive;
 
-	//todo: ここでlist_primitiveを回す
-	return (out_intp);
+	//printf("nearest 1\n");
+	nearest = (t_point *)malloc(sizeof(t_point));
+	if (nearest == NULL)
+		return (NULL);
+	nearest->distance = -1;
+	tmp_nearest = (t_point *)malloc(sizeof(t_point));
+	if (tmp_nearest == NULL)
+		return (NULL);
+	tmp_primitive = scene->list_primitive;
+	//printf("nearest 2\n");
+	while (tmp_primitive != NULL)
+	{
+		//printf("while tmp_primitive %d\n", tmp_primitive->type);
+		//printf("nearest while 1\n");
+		if (tmp_primitive->type == SPHERE)
+			tmp_nearest = intersection_ray_sphere(scene->list_primitive, *ray, scene->eye_pos);
+		else if (tmp_primitive->type == PLANE)
+			tmp_nearest = intersection_ray_plane(scene->list_primitive, *ray, scene->eye_pos);
+		//printf("nearest while 2\n");
+		if (tmp_nearest != NULL && tmp_nearest->distance >= 0 && tmp_nearest->distance > nearest->distance)
+		{
+			nearest->primitive = tmp_primitive;
+			nearest->distance = tmp_nearest->distance;
+		}
+		//printf("nearest while 3\n");
+		tmp_primitive = tmp_primitive->next;
+	}
+	free(tmp_nearest);
+	if (nearest->distance == -1)
+	{
+		free(nearest);
+		return (NULL);
+	}
+	return (nearest);
 }
 
 //シーンにおける，単一のレイでの光線追跡を行い，その点での色を返す．
@@ -161,8 +198,15 @@ t_rgb raytrace(
 {
 	t_point	*isp_primitive;
 	t_rgb	out_col;
-	isp_primitive = intersection_ray_sphere(nearest_primitive->primitive, *vec_ray, scene->eye_pos);
+
+	isp_primitive = NULL;
 	//printf("raytrace 1\n");
+	if (nearest_primitive == NULL)
+		out_col = init_color(200, 0, 237);
+	else if (nearest_primitive->primitive->type == SPHERE)
+		isp_primitive = intersection_ray_sphere(scene->list_primitive, *vec_ray, scene->eye_pos);
+	else if (nearest_primitive->primitive->type == PLANE)
+		isp_primitive = intersection_ray_plane(scene->list_primitive, *vec_ray, scene->eye_pos);
 	//printf("raytrace 2\n");
 	if (isp_primitive == NULL) //背景色のままreturn
 		out_col = init_color(200, 0, 237);
@@ -179,6 +223,7 @@ t_rgb raytrace(
 		//printf("incident %f %f %f\n", isp_primitive->incident.x, isp_primitive->incident.y, isp_primitive->incident.z);
 		//printf("normal %f %f %f\n", isp_primitive->normal.x, isp_primitive->normal.y, isp_primitive->normal.z);
 		l_dot = dot_product(&isp_primitive->incident, &isp_primitive->normal);// 入射と法線の内積 1に近いほど平行に近い
+		//todo: planeは法線の正負が逆ならshade表示される
 		//printf("l_dot %f\n", l_dot);
 		l_dot = clamp_f(l_dot, 0, 1);
 
