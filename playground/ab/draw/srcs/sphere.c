@@ -44,13 +44,10 @@ static double	calc_param_t(const t_ray ray)
 
 static int	calc_color(const int color)
 {
-	int	red;
-	int	green;
-	int	blue;
+	const int	red = color;
+	const int	green = color;
+	const int	blue = color;
 
-	red = (color >> RED_SHIFT) & COLOR_MASK;
-	green = (color >> GREEN_SHIFT) & COLOR_MASK;
-	blue = (color & COLOR_MASK);
 	return ((red << RED_SHIFT) | (green << GREEN_SHIFT) | blue);
 }
 
