@@ -5,6 +5,8 @@
 # define WIN_HEIGHT	512
 # define WIN_WIDTH	512
 
+# define UNREACHABLE	0
+
 typedef struct s_display {
 	void	*mlx_p;
 	void	*win_p;
@@ -25,5 +27,13 @@ typedef struct s_mlx {
 
 /* init */
 void	init_mlxs(t_mlx *mlxs, t_display *display, t_image *image);
+
+/* display */
+void	my_mlx_pixel_put(\
+					t_image *image, const int y, const int x, const int color);
+void	display(void);
+
+/* set */
+void	set_each_pixel_color(t_mlx *mlxs, const int y, const int x);
 
 #endif
