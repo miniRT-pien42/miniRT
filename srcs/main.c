@@ -1,9 +1,5 @@
 #include <stdlib.h>
-
-static void display(void)
-{
-	return ;
-}
+#include "display.h"
 
 int	main(void)
 {

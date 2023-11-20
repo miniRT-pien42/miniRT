@@ -1,7 +1,9 @@
 NAME		:=	miniRT
 
 SRC_DIR		:=	srcs
-SRCS		:=	main.c
+SRCS		:=	error.c \
+				init.c \
+				main.c
 
 OBJ_DIR		:=	objs
 OBJS		:=	$(SRCS:%.c=$(OBJ_DIR)/%.o)
