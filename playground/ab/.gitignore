@@ -1,0 +1,11 @@
+*
+!**/
+
+# ignore
+
+# include
+!.gitignore
+!Makefile
+!*.c
+!*.h
+!playground/**
