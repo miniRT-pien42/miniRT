@@ -15,12 +15,20 @@ DEPS		:=	$(OBJS:.o=.d)
 LIBFT_DIR	:=	libft
 LIBFT		:=	# $(LIBFT_DIR)/libft.a
 
-MLX_DIR		:=	minilibx
-MLX_FLAGS	:=	-Lmlx_linux -lXext -lX11 -lm
-MINILIBX	:=	$(MLX_DIR)/libmlx_Linux.a
-
 INCLUDE_DIR	:=	includes
 INCLUDES	:=	-I./$(INCLUDE_DIR)/ -I$(LIBFT_DIR)/$(INCLUDE_DIR)/ -I$(MLX_DIR)/ -I.
+
+MLX_DIR		:=	minilibx
+
+OS_TYPE := $(shell uname -s)
+ifeq ($(OS_TYPE),Darwin)
+	MLX_FLAGS	:=	-L/opt/X11/lib -lXext -lX11 -framework OpenGL -framework AppKit
+	MINILIBX	:=	$(MLX_DIR)/libmlx_Darwin.a
+	INCLUDES	+=	-I/opt/X11/include -Iminilibx
+else
+	MLX_FLAGS	:=	-Lmlx_linux -lXext -lX11 -lm
+	MINILIBX	:=	$(MLX_DIR)/libmlx_Linux.a
+endif
 
 CC			:=	cc
 CFLAGS		:=	-Wall -Wextra -Werror -MMD -MP
