@@ -8,7 +8,8 @@
 
 const t_sphere	sphere = {{0, 0, 5}, 1.0};
 const t_vector	view = {0, 0, -5};
-const t_vector	light = {-5, 5, -5};
+const t_vector	light_pos = {-5, 5, -5};
+const t_scene	scene = {0.1, 1.0, light_pos, view, {0.01, 0.69}};
 
 static t_ray	calc_ray(const int y, const int x)
 {
@@ -20,6 +21,7 @@ static t_ray	calc_ray(const int y, const int x)
 	return (ray);
 }
 
+// 二次方程式のうち 正 && 小さい方 を返す
 static double	calc_param_t(const t_ray ray)
 {
 	const t_vector	v = vec_subtract(ray.position, sphere.center);
@@ -31,7 +33,7 @@ static double	calc_param_t(const t_ray ray)
 	double			t2;
 
 	if (discriminant < 0)
-		return (-1.0);
+		return (-1.0); // 解なし
 	if (discriminant == 0)
 		return (-b * (2 * a));
 	t1 = (-b + sqrt(discriminant)) / (2 * a);
@@ -42,30 +44,33 @@ static double	calc_param_t(const t_ray ray)
 		return (t2);
 }
 
-static int	calc_color(const int color)
+static int	calc_pixel_color(const t_vector color)
 {
-	const int	red = color;
-	const int	green = color;
-	const int	blue = color;
+	const int	red = (int)(color.x * 255);
+	const int	green = (int)(color.y * 255);
+	const int	blue = (int)(color.z * 255);
 
 	return ((red << RED_SHIFT) | (green << GREEN_SHIFT) | blue);
 }
 
-static int	calc_object_color(const t_ray ray, const double t)
+static t_vector	calc_object_color(const t_ray ray, const double t)
 {
 	const t_vector	intersect_point = vec_add(ray.position, vec_scalar(ray.direction, t));
-	const t_vector	light_v = vec_normalize(vec_subtract(light, intersect_point));
+	const t_vector	light_v = vec_normalize(vec_subtract(light_pos, intersect_point));
 	const t_vector	normal = vec_normalize(vec_subtract(intersect_point, sphere.center));
 	const double	dot_normal_and_light = clipping(vec_dot(normal, light_v), 0.0, 1.0);
-	const int		color = calc_color((int)(dot_normal_and_light * 255));
+	const double	light_ambient = scene.material.ambient * scene.light_ambient;
+	const double	light_diffuse = scene.material.diffuse * scene.light_diffuse * dot_normal_and_light;
+	const double	color = clipping(light_ambient + light_diffuse, 0.0, 1.0);
 
-	return (color);
+	return ((t_vector){color, color, color});
 }
 
 void	set_each_pixel_color(t_mlx *mlxs, const int y, const int x)
 {
 	const t_ray		ray = calc_ray(y, x);
 	const double	t = calc_param_t(ray);
+	t_vector		total_color;
 	int				color;
 
 	// background
@@ -73,9 +78,9 @@ void	set_each_pixel_color(t_mlx *mlxs, const int y, const int x)
 		color = COLOR_BLUE;
 	else
 	{
-		color = calc_object_color(ray, t);
-		if (color != 0)
-			printf("RGB=(%d,%d,%d)\n", color, color, color);
+		total_color = calc_object_color(ray, t);
+		printf("RGB=(%f,%f,%f)\n", total_color.x, total_color.y, total_color.z);
+		color = calc_pixel_color(total_color);
 	}
 	my_mlx_pixel_put(mlxs->image, y, x, color);
 }
