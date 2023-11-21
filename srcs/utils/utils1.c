@@ -17,18 +17,9 @@ double	convert_rad_to_deg(double rad)
 	return (rad * 180.0 / M_PI);
 }
 
-t_vector	*convert_pw_coordinate(t_vector *v_co, int w, int h)
+t_vector	*map_coord(t_vector *v_coord, int w, int h)
 {
-	v_co->x /= w;
-	v_co->y /= h;
-	return (v_co);
-}
-
-double	clamp_f(double num, double min, double max)
-{
-	if (num < min)
-		return (min);
-	if (num > max)
-		return (max);
-	return (num);
+	v_coord->x /= w;
+	v_coord->y /= h;
+	return (v_coord);
 }
