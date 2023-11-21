@@ -22,10 +22,10 @@ DEPS		:=	$(OBJS:.o=.d)
 LIBFT_DIR	:=	libft
 LIBFT		:=	# $(LIBFT_DIR)/libft.a
 
+MLX_DIR		:=	minilibx
+
 INCLUDE_DIR	:=	includes
 INCLUDES	:=	-I./$(INCLUDE_DIR)/ -I$(LIBFT_DIR)/$(INCLUDE_DIR)/ -I$(MLX_DIR)/ -I.
-
-MLX_DIR		:=	minilibx
 
 OS_TYPE := $(shell uname -s)
 ifeq ($(OS_TYPE),Darwin)
