@@ -1,7 +1,7 @@
 #include <stdlib.h> // free
 #include "display.h"
-#include "error.h"
 #include "mlx.h"
+#include "error.h"
 
 static void	*init_mlx_p(void)
 {
@@ -17,7 +17,7 @@ static void	*init_win_p(void *mlx_p)
 {
 	void	*win_p;
 
-	win_p = mlx_new_window(mlx_p, WIN_WIDTH, WIN_HEIGHT, WIN_TITLE);
+	win_p = mlx_new_window(mlx_p, WIDTH, HEIGHT, TITLE);
 	if (win_p == NULL)
 	{
 		mlx_destroy_display(mlx_p);
@@ -38,7 +38,7 @@ static void	init_image(t_mlx *mlxs)
 	t_image	*image;
 
 	image = mlxs->image;
-	image->img = mlx_new_image(mlxs->display->mlx_p, WIN_WIDTH, WIN_HEIGHT);
+	image->img = mlx_new_image(mlxs->display->mlx_p, WIDTH, HEIGHT);
 	if (image->img == NULL)
 	{
 		mlx_destroy_window(mlxs->display->mlx_p, mlxs->display->win_p);

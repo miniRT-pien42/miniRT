@@ -1,11 +1,18 @@
 NAME		:=	miniRT
 
 SRC_DIR		:=	srcs
-SRCS		:=	display.c \
-				error.c \
-				init.c \
-				main.c \
-				set_each_pixel.c
+SRCS		:=	vec/vector1.c \
+				vec/vector2.c \
+				utils/utils1.c \
+				error/error.c \
+				scene/scene.c \
+				ray/ray.c \
+                sphere/sphere_ray.c \
+                sphere/sphere_color.c \
+				display/init.c \
+				display/display.c \
+				display/set_each_pixel.c \
+				main.c
 
 OBJ_DIR		:=	objs
 OBJS		:=	$(SRCS:%.c=$(OBJ_DIR)/%.o)
@@ -70,9 +77,9 @@ re: fclean all
 clone:
 	git clone https://github.com/42Paris/minilibx-linux $(MLX_DIR)
 
-# .PHONY	: norm
-# norm:
-# 	python3 test/norm.py
+.PHONY	: norm
+norm:
+	python3 test/norm.py
 
 FORCE:
 

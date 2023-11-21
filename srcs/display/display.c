@@ -15,18 +15,23 @@ void	my_mlx_pixel_put(\
 	*(unsigned int *)dst = color;
 }
 
-static void	set_image(t_mlx *mlxs)
+static void	set_image(t_mlx *mlxs, t_scene *scene)
 {
 	size_t	y;
 	size_t	x;
 
+	(void) scene;
 	y = 0;
-	while (y < WIN_HEIGHT)
+	while (y < HEIGHT)
 	{
 		x = 0;
-		while (x < WIN_WIDTH)
+		while (x < WIDTH)
 		{
-			set_each_pixel_color(mlxs, y, x);
+			//todo: set_each_pixel_colorを#5,#6,#8で実装
+			set_each_pixel_color(mlxs, y, x, scene);
+			//todo: #5 交差判定（sphere）交差しない=>背景色
+			//todo: #6 nearestの情報取得(sphere)
+			//todo: #8 描画色取得(shadow-ray判定含む)
 			x++;
 		}
 		y++;
@@ -35,6 +40,7 @@ static void	set_image(t_mlx *mlxs)
 			mlxs->display->mlx_p, mlxs->display->win_p, mlxs->image->img, 0, 0);
 }
 
+// todo: #15 t_mlxに*sceneもたせてfree(優先度低)
 static int	close_window(const t_mlx *mlxs)
 {
 	mlx_destroy_image(mlxs->display->mlx_p, mlxs->image->img);
@@ -55,14 +61,14 @@ static void	set_hook(t_mlx *mlxs)
 	mlx_hook(win_p, DestroyNotify, StructureNotifyMask, close_window, params);
 }
 
-void	display(void)
+void	display(t_scene *scene)
 {
 	t_mlx		mlxs;
 	t_display	display;
 	t_image		image;
 
 	init_mlxs(&mlxs, &display, &image);
-	set_image(&mlxs);
+	set_image(&mlxs, scene);
 	set_hook(&mlxs);
 	mlx_loop(mlxs.display->mlx_p);
 }

@@ -1,14 +1,18 @@
 *
 !**/
 
+
 # ignore
-libft
 minilibx
+.idea
+cmake-build-debug
+*.o
+*.ppm
 
 # include
 !.gitignore
 !Makefile
 !*.c
 !*.h
-!playground/**
+#!playground/**
 !test/norm.py
