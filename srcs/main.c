@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -6,9 +5,6 @@
 #include "ray.h"
 #include "vector.h"
 #include "display.h"
-
-#define WIDTH 512
-#define HEIGHT 512
 
 static void	check_scene_value(t_scene *scene)
 {
