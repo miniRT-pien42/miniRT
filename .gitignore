@@ -3,7 +3,6 @@
 
 
 # ignore
-libft
 minilibx
 .idea
 cmake-build-debug
