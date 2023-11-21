@@ -1,0 +1,14 @@
+*
+!**/
+
+# ignore
+libft
+minilibx
+
+# include
+!.gitignore
+!Makefile
+!*.c
+!*.h
+!playground/**
+!test/norm.py
