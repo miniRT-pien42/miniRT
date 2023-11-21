@@ -17,7 +17,6 @@ t_vector	vec_normalize(const t_vector v)
 	return (ret_v);
 }
 
-
 double	get_scalar(const t_vector v)
 {
 	return (sqrt(pow(v.x, 2) + pow(v.y, 2) + pow(v.z, 2)));

@@ -77,9 +77,9 @@ re: fclean all
 clone:
 	git clone https://github.com/42Paris/minilibx-linux $(MLX_DIR)
 
-# .PHONY	: norm
-# norm:
-# 	python3 test/norm.py
+.PHONY	: norm
+norm:
+	python3 test/norm.py
 
 FORCE:
 
