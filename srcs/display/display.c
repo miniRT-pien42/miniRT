@@ -22,10 +22,10 @@ static void	set_image(t_mlx *mlxs, t_scene *scene)
 
 	(void) scene;
 	y = 0;
-	while (y < WIN_HEIGHT)
+	while (y < HEIGHT)
 	{
 		x = 0;
-		while (x < WIN_WIDTH)
+		while (x < WIDTH)
 		{
 			//todo: set_each_pixel_colorを#5,#6,#8で実装
 			set_each_pixel_color(mlxs, y, x, scene);

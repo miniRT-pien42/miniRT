@@ -1,9 +1,9 @@
 #ifndef DISPLAY_H
 # define DISPLAY_H
 
-# define WIN_TITLE	"miniRT"
-# define WIN_HEIGHT	512
-# define WIN_WIDTH	512
+# define TITLE	"miniRT"
+# define HEIGHT	512
+# define WIDTH	512
 
 # define UNREACHABLE	0
 
