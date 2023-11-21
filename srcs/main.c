@@ -17,6 +17,6 @@ int	main(int argc, char **argv)
 	(void) argc;
 	(void) scene;
 	scene = init_scene(argv[1]);
-	display_img(scene);
+	display(scene);
 	return (EXIT_SUCCESS);
 }

@@ -60,7 +60,7 @@ static void	set_hook(t_mlx *mlxs)
 	mlx_hook(win_p, DestroyNotify, StructureNotifyMask, close_window, params);
 }
 
-void	display_img(t_scene *scene)
+void	display(t_scene *scene)
 {
 	t_mlx		mlxs;
 	t_display	display;
