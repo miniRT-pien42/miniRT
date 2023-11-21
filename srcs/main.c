@@ -10,7 +10,6 @@
 #define WIDTH 512
 #define HEIGHT 512
 
-//todo: 実際にはコマンドライン引数に指定したRTファイルをparseしてsceneを初期化する
 int	main(int argc, char **argv)
 {
 	t_scene		*scene;

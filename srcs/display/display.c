@@ -27,8 +27,11 @@ static void	set_image(t_mlx *mlxs, t_scene *scene)
 		x = 0;
 		while (x < WIN_WIDTH)
 		{
-			//todo: set_each_pixel_colorを分解。各画素取得
+			//todo: set_each_pixel_colorを#5,#6,#8で実装
 			set_each_pixel_color(mlxs, y, x, scene);
+			//todo: #5 交差判定（sphere）交差しない=>背景色
+			//todo: #6 nearestの情報取得(sphere)
+			//todo: #8 描画色取得(shadow-ray判定含む)
 			x++;
 		}
 		y++;

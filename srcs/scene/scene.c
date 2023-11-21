@@ -14,6 +14,7 @@ t_scene	*init_scene(char *rt_file)
 
 	(void)rt_file;
 	scene = (t_scene *)malloc(sizeof(t_scene));
-	//todo: scene各メンバ初期化
+	//todo: #3 argv経由で渡されたRTファイルをparseして初期化
+	//todo: #13 とりあえずの動作確認用に固定値で初期化
 	return (scene);
 }
