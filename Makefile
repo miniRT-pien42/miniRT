@@ -1,11 +1,12 @@
 NAME		:=	miniRT
 
 SRC_DIR		:=	srcs
-SRCS		:=	display.c \
-				error.c \
-				init.c \
-				main.c \
-				set_each_pixel.c
+SRCS		:=	scene/scene.c \
+				display/init.c \
+				display/display.c \
+				display/set_each_pixel.c \
+				error/error.c \
+				main.c
 
 OBJ_DIR		:=	objs
 OBJS		:=	$(SRCS:%.c=$(OBJ_DIR)/%.o)

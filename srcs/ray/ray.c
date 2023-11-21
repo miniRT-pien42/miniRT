@@ -1,4 +1,4 @@
 
 #include <stdlib.h>
-#include "../../include/object.h"
+#include "object.h"
 
