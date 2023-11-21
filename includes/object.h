@@ -14,4 +14,6 @@ typedef struct s_sphere {
 	t_sphere	*next;
 }	t_sphere;
 
+t_sphere	*init_sphere(char *line);
+
 #endif
