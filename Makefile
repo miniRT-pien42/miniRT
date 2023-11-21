@@ -1,11 +1,17 @@
 NAME		:=	miniRT
 
 SRC_DIR		:=	srcs
-SRCS		:=	scene/scene.c \
+SRCS		:=	vec/vector1.c \
+				vec/vector2.c \
+				utils/utils1.c \
+				error/error.c \
+				scene/scene.c \
+				ray/ray.c \
+                sphere/sphere_ray.c \
+                sphere/sphere_color.c \
 				display/init.c \
 				display/display.c \
 				display/set_each_pixel.c \
-				error/error.c \
 				main.c
 
 OBJ_DIR		:=	objs
