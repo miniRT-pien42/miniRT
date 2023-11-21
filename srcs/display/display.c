@@ -40,6 +40,7 @@ static void	set_image(t_mlx *mlxs, t_scene *scene)
 			mlxs->display->mlx_p, mlxs->display->win_p, mlxs->image->img, 0, 0);
 }
 
+// todo: #15 t_mlxに*sceneもたせてfree(優先度低)
 static int	close_window(const t_mlx *mlxs)
 {
 	mlx_destroy_image(mlxs->display->mlx_p, mlxs->image->img);
