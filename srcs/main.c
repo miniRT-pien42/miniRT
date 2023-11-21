@@ -43,7 +43,7 @@ int	main(int argc, char **argv)
 
 	(void) argc;
 	scene = init_scene(argv[1]);
-	//check_scene_value(scene);
+	check_scene_value(scene);
 	display(scene);
 	return (EXIT_SUCCESS);
 }
