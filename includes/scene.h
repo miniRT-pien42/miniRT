@@ -8,9 +8,9 @@
 
 typedef struct s_scene
 {
-	t_camera		camera;
-	t_light_ambient	light_ambient;
-	t_light			light;
+	t_camera		*camera;
+	t_light_ambient	*light_ambient;
+	t_light			*light;
 	t_sphere		*list_sphere;
 }	t_scene;
 
