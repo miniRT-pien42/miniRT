@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include "camera.h"
+#include "value_tmp.h"
 
 t_camera	*init_camera(char *line)
 {
@@ -9,8 +10,8 @@ t_camera	*init_camera(char *line)
 	camera = (t_camera *)malloc(sizeof(t_camera));
 	if (camera == NULL)
 		return (NULL);
-	camera->pos = (t_vector){0, 0, -5};
-	camera->dir_n = (t_vector){0, 0, 1};
-	camera->fov = 60;
+	camera->pos = (t_vector)CAMERA_POS;
+	camera->dir_n = (t_vector)CAMERA_DIR_N;
+	camera->fov = CAMERA_FOV;
 	return (camera);
 }
