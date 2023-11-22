@@ -4,7 +4,8 @@
 # include "vector.h"
 # include "object.h"
 
-typedef struct s_ray {
+typedef struct s_ray
+{
 	t_vector	position;
 	t_vector	direction;
 }	t_ray;
