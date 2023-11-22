@@ -15,6 +15,7 @@ SRCS		:=	vec/vector1.c \
 				display/init.c \
 				display/display.c \
 				display/set_each_pixel.c \
+				debug/debug.c \
 				main.c
 
 OBJ_DIR		:=	objs
