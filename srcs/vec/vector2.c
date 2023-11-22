@@ -20,3 +20,8 @@ double	get_scalar(const t_vector v)
 {
 	return (sqrt(pow(v.x, 2) + pow(v.y, 2) + pow(v.z, 2)));
 }
+
+double	get_angle(const t_vector v1, const t_vector v2)
+{
+	return (acos(vec_dot(v1, v2)));
+}
