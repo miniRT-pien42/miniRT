@@ -24,7 +24,10 @@ void	set_each_pixel_color(\
 	ray = vec_subtract(calc_ray_direction(y, x), scene->camera->pos);
 	nearest = get_nearest_object(ray, scene);
 	if (nearest)
+	{
+		//todo: #8 描画色取得(shadow-ray判定含む)
 		color = convert_rgb(nearest->sphere->color);
+	}
 	else
 		color = COLOR_BLUE;
 	free(nearest);

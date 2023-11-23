@@ -19,8 +19,8 @@ void	my_mlx_pixel_put(\
 
 static void	set_image(t_mlx *mlxs, t_scene *scene)
 {
-	size_t		y;
-	size_t		x;
+	size_t	y;
+	size_t	x;
 
 	y = 0;
 	while (y < HEIGHT)
@@ -28,9 +28,7 @@ static void	set_image(t_mlx *mlxs, t_scene *scene)
 		x = 0;
 		while (x < WIDTH)
 		{
-			//todo: set_each_pixel_colorを#5,#6,#8で実装
 			set_each_pixel_color(mlxs, y, x, scene);
-			//todo: #8 描画色取得(shadow-ray判定含む)
 			x++;
 		}
 		y++;
