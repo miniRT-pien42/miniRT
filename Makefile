@@ -7,11 +7,11 @@ SRCS		:=	vec/vector1.c \
 				error/error.c \
 				scene/scene.c \
 				ray/ray.c \
-                camera/camera.c \
-                light/light.c \
-                sphere/sphere.c \
-                sphere/sphere_ray.c \
-                sphere/sphere_color.c \
+				camera/camera.c \
+				light/light.c \
+				sphere/sphere.c \
+				sphere/sphere_ray.c \
+				sphere/sphere_color.c \
 				display/init.c \
 				display/display.c \
 				display/set_each_pixel.c \
