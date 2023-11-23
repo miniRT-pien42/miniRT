@@ -17,6 +17,6 @@ t_scene	*init_scene(char *rt_file)
 	scene->list_sphere = init_sphere(line);
 	scene->center_screen = get_center_screen(scene->camera);
 	scene->rotation_angle = \
-		get_angle((t_vector){0, 1, 0}, scene->camera->dir_n);
+		get_angle((t_vector){0, 0, 1}, scene->camera->dir_n);
 	return (scene);
 }
