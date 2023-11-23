@@ -14,12 +14,13 @@ static t_discriminant	*calc_discriminant(\
 	const t_vector	v = vec_subtract(camera->pos, sphere->center);
 
 	discriminant = (t_discriminant *)malloc(sizeof(t_discriminant));
+	if (discriminant == NULL)
+		return (NULL);
 	discriminant->a = pow(get_scalar(ray), 2);
 	discriminant->b = 2.0 * vec_dot(ray, v);
 	discriminant->c = pow(get_scalar(v), 2) - pow(sphere->diameter / 2, 2);
 	discriminant->d = pow(discriminant->b, 2) - \
 		4 * discriminant->a * discriminant->c;
-
 	return (discriminant);
 }
 
@@ -79,10 +80,14 @@ t_intersection	*get_nearest_object(t_vector ray, t_scene *scene)
 			tmp_distance = calc_distance_to_object(discriminant);
 			if (tmp_distance < nearest->distance)
 				set_nearest_object(nearest, sphere_cr, tmp_distance);
+			free(discriminant);
 		}
 		sphere_cr = sphere_cr->next;
 	}
 	if (nearest->distance == INFINITY)
+	{
+		free(nearest);
 		return (NULL);
+	}
 	return (nearest);
 }

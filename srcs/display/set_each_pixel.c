@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "display.h"
 #include "scene.h"
 #include "ray.h"
@@ -26,5 +27,6 @@ void	set_each_pixel_color(\
 		color = convert_rgb(nearest->sphere->color);
 	else
 		color = COLOR_BLUE;
+	free(nearest);
 	my_mlx_pixel_put(mlxs->image, y, x, color);
 }
