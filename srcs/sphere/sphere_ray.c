@@ -4,13 +4,18 @@
 #include "scene.h"
 
 // screen上の点の位置
-static t_vector	calc_ray_direction(const int y, const int x)
+static t_vector	calc_ray_direction(const int y, const int x, t_scene *scene)
 {
+	t_vector		ray_direction;
 	const double	screen_x = (2.0 * x) / (WIDTH - 1) - 1.0;
 	const double	screen_y = -(2.0 * y) / (HEIGHT - 1) + 1.0;
 	const double	screen_z = 0.0;
-	const t_vector	ray_direction = {screen_x, screen_y, screen_z};
+	const t_vector	ray_origin_based = {screen_x, screen_y, screen_z};
 
+	ray_direction = vec_add(ray_origin_based, scene->center_screen);
+	ray_direction = rotate_vector_by_quaternion(\
+						vec_add(ray_origin_based, scene->center_screen), \
+						scene->rotation_angle);
 	return (ray_direction);
 }
 
@@ -29,7 +34,7 @@ static double	calc_discriminant(const t_vector eye_v, t_scene *scene)
 // cameraからのrayとsphereとの衝突判定
 bool	is_intersect_to_sphere(const int y, const int x, t_scene *scene)
 {
-	const t_vector	ray_direction = calc_ray_direction(y, x);
+	const t_vector	ray_direction = calc_ray_direction(y, x, scene);
 	const t_vector	eye_v = vec_subtract(ray_direction, scene->camera->pos);
 	const double	discriminant = calc_discriminant(eye_v, scene);
 
