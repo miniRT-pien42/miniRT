@@ -16,7 +16,21 @@ typedef struct s_sphere
 	t_sphere	*next;
 }	t_sphere;
 
-t_sphere	*init_sphere(char *line);
-bool		is_intersect_to_sphere(const int y, const int x, t_scene *scene);
+typedef struct s_discriminant
+{
+	double	a;
+	double	b;
+	double	c;
+	double	d;
+}	t_discriminant;
 
+typedef struct s_point	t_point;
+typedef struct s_camera	t_camera;
+
+t_sphere		*init_sphere(char *line);
+t_vector		calc_ray_direction(const int y, const int x);
+t_discriminant	*is_intersect_to_sphere(\
+	const t_vector ray, t_camera *camera, t_sphere *sphere);
+t_point			*get_nearest_object(t_vector ray, t_scene *scene);
+int				convert_rgb(t_rgb color);
 #endif

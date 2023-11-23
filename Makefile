@@ -4,6 +4,7 @@ SRC_DIR		:=	srcs
 SRCS		:=	vec/vector1.c \
 				vec/vector2.c \
 				utils/utils1.c \
+				utils/utils2.c \
 				error/error.c \
 				scene/scene.c \
 				ray/ray.c \

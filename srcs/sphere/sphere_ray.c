@@ -1,37 +1,83 @@
+#include <stdlib.h>
 #include <math.h>
 #include "vector.h"
 #include "display.h"
 #include "scene.h"
-
-// screen上の点の位置
-static t_vector	calc_ray_direction(const int y, const int x)
-{
-	const double	screen_x = (2.0 * x) / (WIDTH - 1) - 1.0;
-	const double	screen_y = -(2.0 * y) / (HEIGHT - 1) + 1.0;
-	const double	screen_z = 0.0;
-	const t_vector	ray_direction = {screen_x, screen_y, screen_z};
-
-	return (ray_direction);
-}
+#include "utils.h"
+#include "ray.h"
 
 // 解の方程式
-static double	calc_discriminant(const t_vector eye_v, t_scene *scene)
+static t_discriminant	*calc_discriminant(\
+		const t_vector ray, t_camera *camera, t_sphere *sphere)
 {
-	const t_sphere	*sphere = scene->list_sphere;
-	const t_vector	v = vec_subtract(scene->camera->pos, sphere->center);
-	const double	a = pow(get_scalar(eye_v), 2);
-	const double	b = 2.0 * vec_dot(eye_v, v);
-	const double	c = pow(get_scalar(v), 2) - pow(sphere->diameter / 2, 2);
+	t_discriminant	*discriminant;
+	const t_vector	v = vec_subtract(camera->pos, sphere->center);
 
-	return (pow(b, 2) - 4 * a * c);
+	discriminant = (t_discriminant *)malloc(sizeof(t_discriminant));
+	discriminant->a = pow(get_scalar(ray), 2);
+	discriminant->b = 2.0 * vec_dot(ray, v);
+	discriminant->c = pow(get_scalar(v), 2) - pow(sphere->diameter / 2, 2);
+	discriminant->d = pow(discriminant->b, 2) - \
+		4 * discriminant->a * discriminant->c;
+
+	return (discriminant);
 }
 
-// cameraからのrayとsphereとの衝突判定
-bool	is_intersect_to_sphere(const int y, const int x, t_scene *scene)
+// rayとsphereとの距離
+static double	calc_distance_to_object(t_discriminant *discriminant)
 {
-	const t_vector	ray_direction = calc_ray_direction(y, x);
-	const t_vector	eye_v = vec_subtract(ray_direction, scene->camera->pos);
-	const double	discriminant = calc_discriminant(eye_v, scene);
+	const double	num_bottom = 2.0 * discriminant->a;
+	const double	num_top1 = -1 * discriminant->b;
+	const double	num_top2 = sqrt(discriminant->d);
 
-	return (discriminant > 0);
+	if (discriminant->d == 0)
+		return (num_top1 / num_bottom);
+	return (positive_and_min(\
+				(num_top1 + num_top2) / num_bottom, \
+				(num_top1 - num_top2) / num_bottom \
+			));
+}
+
+// cameraからのrayとsphereとの衝突判定。衝突していれば正の距離を返す。
+t_discriminant	*is_intersect_to_sphere(\
+	const t_vector ray, t_camera *camera, t_sphere *sphere)
+{
+	t_discriminant	*discriminant;
+
+	discriminant = calc_discriminant(ray, camera, sphere);
+	if (discriminant->d >= 0)
+		return (discriminant);
+	free(discriminant);
+	return (NULL);
+}
+
+t_point	*get_nearest_object(t_vector ray, t_scene *scene)
+{
+	t_point			*nearest;
+	t_discriminant	*discriminant;
+	t_sphere		*sphere_cr;
+	double			tmp_distance;
+
+	nearest = (t_point *)malloc(sizeof(t_point));
+	if (nearest == NULL)
+		return (NULL);
+	nearest->distance = INFINITY;
+	sphere_cr = scene->list_sphere;
+	while (sphere_cr)
+	{
+		discriminant = is_intersect_to_sphere(ray, scene->camera, sphere_cr);
+		if (discriminant)
+		{
+			tmp_distance = calc_distance_to_object(discriminant);
+			if (tmp_distance < nearest->distance)
+			{
+				nearest->sphere = sphere_cr;
+				nearest->distance = tmp_distance;
+			}
+		}
+		sphere_cr = sphere_cr->next;
+	}
+	if (nearest->distance == INFINITY)
+		return (NULL);
+	return (nearest);
 }
