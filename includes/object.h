@@ -5,8 +5,10 @@
 # include "vector.h"
 # include "color.h"
 
-typedef struct s_sphere	t_sphere;
-typedef struct s_scene	t_scene;
+typedef struct s_sphere			t_sphere;
+typedef struct s_scene			t_scene;
+typedef struct s_camera			t_camera;
+typedef struct s_intersection	t_intersection;
 
 typedef struct s_sphere
 {
@@ -24,13 +26,10 @@ typedef struct s_discriminant
 	double	d;
 }	t_discriminant;
 
-typedef struct s_point	t_point;
-typedef struct s_camera	t_camera;
-
 t_sphere		*init_sphere(char *line);
 t_vector		calc_ray_direction(const int y, const int x);
 t_discriminant	*is_intersect_to_sphere(\
 	const t_vector ray, t_camera *camera, t_sphere *sphere);
-t_point			*get_nearest_object(t_vector ray, t_scene *scene);
+t_intersection	*get_nearest_object(t_vector ray, t_scene *scene);
 int				convert_rgb(t_rgb color);
 #endif

@@ -16,9 +16,9 @@ t_vector	calc_ray_direction(const int y, const int x)
 void	set_each_pixel_color(\
 	t_mlx *mlxs, const int y, const int x, t_scene *scene)
 {
-	int			color;
-	t_vector	ray;
-	t_point		*nearest;
+	int				color;
+	t_vector		ray;
+	t_intersection	*nearest;
 
 	ray = vec_subtract(calc_ray_direction(y, x), scene->camera->pos);
 	nearest = get_nearest_object(ray, scene);
