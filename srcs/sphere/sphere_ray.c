@@ -39,7 +39,7 @@ static double	calc_distance_to_object(t_discriminant *discriminant)
 			));
 }
 
-// cameraからのrayとsphereとの衝突判定。衝突していれば正の距離を返す。
+// cameraからのrayとsphereとの衝突判定。衝突していればt_discriminant構造体を返す。
 t_discriminant	*is_intersect_to_sphere(\
 	const t_vector ray, t_camera *camera, t_sphere *sphere)
 {
