@@ -63,7 +63,7 @@ t_intersection	get_nearest_object(t_vector ray, t_scene *scene)
 				nearest.distance = tmp_distance;
 			}
 		}
-		sphere_cr = sphere_cr->next;
+		sphere_current = sphere_current->next;
 	}
 	return (nearest);
 }
