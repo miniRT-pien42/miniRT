@@ -1,7 +1,8 @@
-NAME		:=	minirt
+NAME		:=	miniRT
 
 SRC_DIR		:=	srcs
-SRCS		:=	display.c \
+SRCS		:=	cylinder.c \
+				display.c \
 				error.c \
 				init.c \
 				main.c \
@@ -15,7 +16,7 @@ OBJS		:=	$(SRCS:%.c=$(OBJ_DIR)/%.o)
 DEPS		:=	$(OBJS:.o=.d)
 
 LIBFT_DIR	:=	libft
-LIBFT		:=	$(LIBFT_DIR)/libft.a
+LIBFT		:=	# $(LIBFT_DIR)/libft.a
 
 MLX_DIR		:=	minilibx
 MLX_FLAGS	:=	-Lmlx_linux -lXext -lX11 -lm
