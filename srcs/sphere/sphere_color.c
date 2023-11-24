@@ -7,4 +7,4 @@
 int	convert_rgb(t_rgb color)
 {
 	return ((color.r << 16) | (color.g << 8) | color.b);
-}
+	return ((color.r << RED_SHIFT) | (color.g << GREEN_SHIFT) | color.b);
