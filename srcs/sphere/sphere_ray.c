@@ -46,20 +46,21 @@ t_intersection	get_nearest_object(t_vector ray, t_scene *scene)
 {
 	t_intersection	nearest;
 	t_discriminant	discriminant;
-	t_sphere		*sphere_cr;
+	t_sphere		*sphere_current;
 	double			tmp_distance;
 
 	nearest.distance = INFINITY;
-	sphere_cr = scene->list_sphere;
-	while (sphere_cr)
+	sphere_current = scene->list_sphere;
+	while (sphere_current)
 	{
-		discriminant = calc_discriminant(ray, scene->camera->pos, sphere_cr);
+		discriminant = calc_discriminant(\
+							ray, scene->camera->pos, sphere_current);
 		if (is_intersect_to_sphere(discriminant.d))
 		{
 			tmp_distance = calc_distance_to_object(discriminant);
 			if (tmp_distance < nearest.distance)
 			{
-				nearest.sphere = sphere_cr;
+				nearest.sphere = sphere_current;
 				nearest.distance = tmp_distance;
 			}
 		}
