@@ -1,6 +1,8 @@
 #include <stddef.h>
 #include <stdlib.h> // exit
 #include <X11/X.h> // mlx_hook
+#include "scene.h"
+#include "vector.h"
 #include "display.h"
 #include "mlx.h"
 
@@ -20,17 +22,13 @@ static void	set_image(t_mlx *mlxs, t_scene *scene)
 	size_t	y;
 	size_t	x;
 
-	(void) scene;
 	y = 0;
 	while (y < HEIGHT)
 	{
 		x = 0;
 		while (x < WIDTH)
 		{
-			//todo: set_each_pixel_colorを#5,#6,#8で実装
 			set_each_pixel_color(mlxs, y, x, scene);
-			//todo: #6 nearestの情報取得(sphere)
-			//todo: #8 描画色取得(shadow-ray判定含む)
 			x++;
 		}
 		y++;

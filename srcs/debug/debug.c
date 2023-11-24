@@ -3,10 +3,10 @@
 void	check_scene_value(t_scene *scene)
 {
 	size_t		i;
-	t_sphere	*sphere_cr;
+	t_sphere	*sphere_current;
 
 	i = 0;
-	sphere_cr = scene->list_sphere;
+	sphere_current = scene->list_sphere;
 	printf("** camera\n");
 	printf("scene->camera->pos = (%f, %f, %f)\n", scene->camera->pos.x, scene->camera->pos.y, scene->camera->pos.z);
 	printf("scene->camera->dir_n = (%f, %f, %f)\n", scene->camera->dir_n.x, scene->camera->dir_n.y, scene->camera->dir_n.z);
@@ -20,13 +20,13 @@ void	check_scene_value(t_scene *scene)
 	printf("scene->light->pos = (%f, %f, %f)\n", scene->light->pos.x, scene->light->pos.y, scene->light->pos.z);
 	printf("scene->light->bright = %f\n", scene->light->bright);
 
-	while (sphere_cr)
+	while (sphere_current)
 	{
 		printf("** list_sphere:sphere%zu\n", i);
-		printf("sphere_cr->center = (%f, %f, %f)\n", sphere_cr->center.x, sphere_cr->center.y, sphere_cr->center.z);
-		printf("sphere_cr->diameter = %f\n", sphere_cr->diameter);
-		printf("sphere_cr->color = (%hhu, %hhu, %hhu)\n", sphere_cr->color.r, sphere_cr->color.g, sphere_cr->color.b);
-		sphere_cr = sphere_cr->next;
+		printf("sphere_current->center = (%f, %f, %f)\n", sphere_current->center.x, sphere_current->center.y, sphere_current->center.z);
+		printf("sphere_current->diameter = %f\n", sphere_current->diameter);
+		printf("sphere_current->color = (%hhu, %hhu, %hhu)\n", sphere_current->color.r, sphere_current->color.g, sphere_current->color.b);
+		sphere_current = sphere_current->next;
 		i++;
 	}
 }
