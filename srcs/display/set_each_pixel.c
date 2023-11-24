@@ -1,10 +1,11 @@
+#include <math.h>
 #include <stdlib.h>
 #include "display.h"
 #include "scene.h"
 #include "ray.h"
 
 // screen上の点の位置
-t_vector	calc_ray_direction(const int y, const int x)
+static t_vector	calc_ray_direction(const int y, const int x)
 {
 	const double	screen_x = (2.0 * x) / (WIDTH - 1) - 1.0;
 	const double	screen_y = -(2.0 * y) / (HEIGHT - 1) + 1.0;
@@ -19,17 +20,16 @@ void	set_each_pixel_color(\
 {
 	int				color;
 	t_vector		ray;
-	t_intersection	*nearest;
+	t_intersection	nearest;
 
 	ray = vec_subtract(calc_ray_direction(y, x), scene->camera->pos);
 	nearest = get_nearest_object(ray, scene);
-	if (nearest)
+	if (nearest.distance == INFINITY)
+		color = COLOR_BLUE;
+	else
 	{
 		//todo: #8 描画色取得(shadow-ray判定含む)
-		color = convert_rgb(nearest->sphere->color);
+		color = convert_rgb(nearest.sphere->color);
 	}
-	else
-		color = COLOR_BLUE;
-	free(nearest);
 	my_mlx_pixel_put(mlxs->image, y, x, color);
 }

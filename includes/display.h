@@ -40,7 +40,6 @@ void		my_mlx_pixel_put(\
 void		display(t_scene *scene);
 
 /* set */
-t_vector	calc_ray_direction(const int y, const int x);
 void		set_each_pixel_color(\
 	t_mlx *mlxs, const int y, const int x, t_scene *scene);
 

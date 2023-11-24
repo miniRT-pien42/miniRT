@@ -27,9 +27,6 @@ typedef struct s_discriminant
 }	t_discriminant;
 
 t_sphere		*init_sphere(char *line);
-t_vector		calc_ray_direction(const int y, const int x);
-t_discriminant	*is_intersect_to_sphere(\
-	const t_vector ray, t_camera *camera, t_sphere *sphere);
-t_intersection	*get_nearest_object(t_vector ray, t_scene *scene);
+t_intersection	get_nearest_object(t_vector ray, t_scene *scene);
 int				convert_rgb(t_rgb color);
 #endif
