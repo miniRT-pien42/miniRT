@@ -42,13 +42,6 @@ static bool	is_intersect_to_sphere(const double d)
 	return (d >= 0);
 }
 
-static void	set_nearest_object(\
-	t_intersection *nearest, t_sphere *sphere, double tmp_distance)
-{
-	nearest->sphere = sphere;
-	nearest->distance = tmp_distance;
-}
-
 t_intersection	get_nearest_object(t_vector ray, t_scene *scene)
 {
 	t_intersection	nearest;
@@ -65,7 +58,10 @@ t_intersection	get_nearest_object(t_vector ray, t_scene *scene)
 		{
 			tmp_distance = calc_distance_to_object(discriminant);
 			if (tmp_distance < nearest.distance)
-				set_nearest_object(&nearest, sphere_cr, tmp_distance);
+			{
+				nearest.sphere = sphere_cr;
+				nearest.distance = tmp_distance;
+			}
 		}
 		sphere_cr = sphere_cr->next;
 	}
