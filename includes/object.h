@@ -30,4 +30,6 @@ typedef struct s_discriminant
 t_sphere		*init_sphere(char *line);
 t_intersection	get_nearest_object(t_vector ray, t_scene *scene);
 int				convert_rgb(t_rgb color);
+bool			is_shadow_by_sphere(const t_vector shadow_ray, \
+	const t_scene *scene, const t_sphere *sphere_target);
 #endif

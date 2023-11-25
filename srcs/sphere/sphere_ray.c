@@ -68,3 +68,28 @@ t_intersection	get_nearest_object(t_vector ray, t_scene *scene)
 	}
 	return (nearest);
 }
+
+// shadow-rayとsphereとの衝突判定。衝突していればtrueを返す=>その画素は影
+bool	is_shadow_by_sphere(const t_vector shadow_ray,
+			const t_scene *scene, const t_sphere *sphere_target)
+{
+	t_discriminant	discriminant_target;
+	t_discriminant	discriminant;
+	t_sphere		*sphere_current;
+
+	sphere_current = scene->list_sphere;
+	discriminant_target = calc_discriminant(\
+							shadow_ray, scene->light->pos, sphere_target);
+	while (sphere_current)
+	{
+		if (sphere_current != sphere_target)
+		{
+			discriminant = calc_discriminant(\
+							shadow_ray, scene->light->pos, sphere_current);
+			if (discriminant.d > 0 && discriminant.d < discriminant_target.d)
+				return (true);
+		}
+		sphere_current = sphere_current->next;
+	}
+	return (false);
+}

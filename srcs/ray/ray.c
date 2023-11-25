@@ -48,14 +48,21 @@ t_rgb	ray_tracing(
 		const t_scene *scene, t_intersection nearest, t_vector ray)
 {
 	t_material	material;
+	t_vector	shadow_ray;
 	double		l_dot;
 
 	get_info_intersection(scene, &nearest, ray);
-	l_dot = vec_dot(nearest.incident, nearest.normal);
-	l_dot = clipping(l_dot, 0, 1);
 	material.l_a = get_l_a(scene->light_ambient);
-	material.l_d = get_l_d(scene->light, nearest.sphere->color, l_dot);
-	material.l_r = get_l_r(material.l_a, material.l_d);
+	shadow_ray = vec_subtract(nearest.position, scene->light->pos);
+	if (is_shadow_by_sphere(shadow_ray, scene, nearest.sphere))
+		material.l_r = material.l_a;
+	else
+	{
+		l_dot = vec_dot(nearest.incident, nearest.normal);
+		l_dot = clipping(l_dot, 0, 1);
+		material.l_d = get_l_d(scene->light, nearest.sphere->color, l_dot);
+		material.l_r = get_l_r(material.l_a, material.l_d);
+	}
 	material.color = (t_rgb){\
 		material.l_r.r * 255, material.l_r.g * 255, material.l_r.b * 255};
 	return (material.color);
