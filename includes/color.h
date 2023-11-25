@@ -29,4 +29,12 @@ typedef struct s_rgb_f
 	double	b;
 }	t_rgb_f;
 
+typedef struct s_material
+{
+	t_rgb_f l_a; /* 環境光の輝度 */
+	t_rgb_f l_d; /* 直接光の拡散反射光の輝度 */
+	t_rgb_f l_r; /* 物体表面の輝度 */
+	t_rgb	color;
+}	t_material;
+
 #endif

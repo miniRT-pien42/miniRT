@@ -3,6 +3,7 @@
 
 # include <stdbool.h>
 # include "vector.h"
+# include "ray.h"
 # include "color.h"
 
 typedef struct s_sphere			t_sphere;

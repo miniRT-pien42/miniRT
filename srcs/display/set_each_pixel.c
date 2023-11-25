@@ -27,9 +27,6 @@ void	set_each_pixel_color(\
 	if (nearest.distance == INFINITY)
 		color = COLOR_BLUE;
 	else
-	{
-		//todo: #8 描画色取得(shadow-ray判定含む)
-		color = convert_rgb(nearest.sphere->color);
-	}
+		color = convert_rgb(ray_tracing(scene, nearest, ray));
 	my_mlx_pixel_put(mlxs->image, y, x, color);
 }

@@ -6,6 +6,8 @@
 # include "light.h"
 # include "object.h"
 
+typedef struct s_sphere	t_sphere;
+
 typedef struct s_scene
 {
 	t_camera		*camera;
