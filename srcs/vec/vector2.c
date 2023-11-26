@@ -20,3 +20,8 @@ t_vector	vec_normalize(const t_vector v)
 
 	return (ret_v);
 }
+
+double	get_angle(const t_vector v1, const t_vector v2)
+{
+	return (acos(vec_dot(v1, v2)));
+}
