@@ -2,7 +2,7 @@
 #include "vector.h"
 #include "scene.h"
 
-//回転クォータニオン
+//回転クォータニオン axisは基準となるz軸
 static t_quaternion	get_rotate_quaternion(t_vector axis, double angle)
 {
 	t_quaternion	q_rotate;
@@ -38,11 +38,11 @@ static t_quaternion	get_multiply_quaternion(t_quaternion q1, t_quaternion q2)
 	return (q_multiply);
 }
 
-//todo: vは回転対象のスクリーン座標、angleにはZ軸とaxisの回転ラジアンが入っている
+//todo: vは回転対象のスクリーン座標、angleにはaxis（Z軸）とカメラ方向の回転ラジアンが入っている
 t_vector	rotate_vector_by_quaternion(t_vector v, double angle)
 {
 	const t_quaternion	q_v = {0, v.x, v.y, v.z};
-	const t_quaternion	q_rotate = get_rotate_quaternion(v, angle);
+	const t_quaternion	q_rotate = get_rotate_quaternion((t_vector){0, 0, 1}, angle);
 	const t_quaternion	q_conjugate = get_conjugate_quaternion(q_rotate);
 	const t_quaternion	q_multiply = get_multiply_quaternion(\
 		get_multiply_quaternion(q_rotate, q_v), q_conjugate);

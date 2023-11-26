@@ -14,8 +14,10 @@ static t_vector	calc_ray_direction(const int y, const int x, t_scene *scene)
 
 	ray_direction = \
 		vec_add((t_vector){screen_x, screen_y, screen_z}, scene->center_screen);
+	if (scene->rotation_angle == 0)
+		return (ray_direction);
 	ray_direction = \
-		rotate_vector_by_quaternion(ray_direction, scene->rotation_angle);
+		rotate_vector_by_quaternion(ray_direction, convert_deg_to_rad(scene->rotation_angle));
 	return (ray_direction);
 }
 
