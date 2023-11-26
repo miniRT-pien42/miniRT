@@ -24,3 +24,13 @@ double	vec_dot(const t_vector a, const t_vector b)
 {
 	return (a.x * b.x + a.y * b.y + a.z * b.z);
 }
+
+t_vector	cross_product(const t_vector a, const t_vector b)
+{
+	t_vector	ret_v;
+
+	ret_v.x = (double)a.y * b.z - (double)a.z * b.y;
+	ret_v.y = (double)a.z * b.x - (double)a.x * b.z;
+	ret_v.z = (double)a.x * b.y - (double)a.y * b.x;
+	return (ret_v);
+}

@@ -14,18 +14,6 @@ static t_quaternion	get_rotate_quaternion(t_vector axis, double angle)
 	return (q_rotate);
 }
 
-//共役クォータニオン
-static t_quaternion	get_conjugate_quaternion(t_quaternion q)
-{
-	t_quaternion	q_conjugate;
-
-	q_conjugate.w = q.w;
-	q_conjugate.x = -q.x;
-	q_conjugate.y = -q.y;
-	q_conjugate.z = -q.z;
-	return (q_conjugate);
-}
-
 //クォータニオンの積
 static t_quaternion	get_multiply_quaternion(t_quaternion q1, t_quaternion q2)
 {
@@ -38,14 +26,23 @@ static t_quaternion	get_multiply_quaternion(t_quaternion q1, t_quaternion q2)
 	return (q_multiply);
 }
 
-//todo: vは回転対象のスクリーン座標、angleにはaxis（Z軸）とカメラ方向の回転ラジアンが入っている
-t_vector	rotate_vector_by_quaternion(t_vector v, double angle)
+static t_vector	rotate_vector(t_vector v, t_quaternion q)
 {
-	const t_quaternion	q_v = {0, v.x, v.y, v.z};
-	const t_quaternion	q_rotate = get_rotate_quaternion((t_vector){0, 0, 1}, angle);
-	const t_quaternion	q_conjugate = get_conjugate_quaternion(q_rotate);
-	const t_quaternion	q_multiply = get_multiply_quaternion(\
-		get_multiply_quaternion(q_rotate, q_v), q_conjugate);
+	const t_quaternion	q_v = {0.0, v.x, v.y, v.z};
+	const t_quaternion	q_conjugate = {q.w, -q.x, -q.y, -q.z};
+	const t_quaternion	q_rotate = \
+		get_multiply_quaternion(get_multiply_quaternion(q, q_v), q_conjugate);
 
-	return ((t_vector){q_multiply.x, q_multiply.y, q_multiply.z});
+	return ((t_vector){q_rotate.x, q_rotate.y, q_rotate.z});
+}
+
+t_vector	rotate_vector_by_quaternion(\
+	t_vector v, double angle, t_vector dir_n)
+{
+	const t_vector		r_axis = \
+		cross_product((t_vector){0.0, 0.0, 1.0}, dir_n);
+	const t_quaternion	q_rotate = \
+		get_rotate_quaternion(r_axis, angle);
+
+	return (rotate_vector(v, q_rotate));
 }

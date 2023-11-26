@@ -1,8 +1,12 @@
 #ifndef VALUE_TMP_H
 # define VALUE_TMP_H
 
-# define CAMERA_POS		{0, 1, -5}
-# define CAMERA_DIR_N	{0, 0, 1}
+//# define CAMERA_POS		{0, 0, -50}
+//# define CAMERA_DIR_N	{0, 0, 1}
+//# define CAMERA_FOV		60
+
+# define CAMERA_POS		{30, 0, 0}
+# define CAMERA_DIR_N	{-1.0, 0.0, 0.0}
 # define CAMERA_FOV		60
 
 # define LIGHT_A_BRIGHT	0.1
