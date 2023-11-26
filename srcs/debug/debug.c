@@ -31,5 +31,5 @@ void	check_scene_value(t_scene *scene)
 	}
 
 	printf("scene->center_screen = (%f, %f, %f)\n", scene->center_screen.x, scene->center_screen.y, scene->center_screen.z);
-	printf("scene->rotation_angle = %f)\n", scene->rotation_angle);
+	printf("scene->rotation_angle = %f)\n", convert_rad_to_deg(scene->rotation_angle));
 }

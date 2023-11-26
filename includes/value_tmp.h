@@ -1,8 +1,64 @@
 #ifndef VALUE_TMP_H
 # define VALUE_TMP_H
 
-# define CAMERA_POS		{0, 1, -5}
-# define CAMERA_DIR_N	{0, 0, 1}
+//# define CAMERA_POS		{0, 1, -5}
+//# define CAMERA_DIR_N	{0, 0, 1}
+// z- 原点
+# define CAMERA_POS		{0, 0, -10}
+# define CAMERA_DIR_N	{0.0, 0.0, 1.0}
+
+// z-
+//# define CAMERA_POS		{1, 3, -10}
+//# define CAMERA_DIR_N	{0.0, 0.0, 1.0}
+
+// z+ 原点(bug)
+//# define CAMERA_POS		{0, 0, 50}
+//# define CAMERA_DIR_N	{0.0, 0.0, -1.0}
+
+// z+(bug)
+//# define CAMERA_POS		{3, -5, 50}
+//# define CAMERA_DIR_N	{0.0, 0.0, -1.0}
+
+// x- 原点
+//# define CAMERA_POS		{-10, 0, 0}
+//# define CAMERA_DIR_N	{1.0, 0.0, 0.0}
+
+// x-
+//# define CAMERA_POS		{-5, -2, 3}
+//# define CAMERA_DIR_N	{1.0, 0.0, 0.0}
+
+// x 原点
+//# define CAMERA_POS		{10, 0, 0}
+//# define CAMERA_DIR_N	{-1.0, 0.0, 0.0}
+
+// x
+//# define CAMERA_POS		{10, -2, 3}
+//# define CAMERA_DIR_N	{-1.0, 0.0, 0.0}
+
+// y 原点
+//# define CAMERA_POS		{0, 10, 0}
+//# define CAMERA_DIR_N	{0.0, -1.0, 0.0}
+
+// y
+//# define CAMERA_POS		{3, 10, 3}
+//# define CAMERA_DIR_N	{0.0, -1.0, 0.0}
+
+// y- 原点
+//# define CAMERA_POS		{0, -50, 0}
+//# define CAMERA_DIR_N	{0.0, 1.0, 0.0}
+
+// y-
+//# define CAMERA_POS		{3, 50, 3}
+//# define CAMERA_DIR_N	{0.0, -1.0, 0.0}
+
+//斜め
+//# define CAMERA_POS		{5, 5, -10}
+//# define CAMERA_DIR_N	{-0.408, -0.408, 0.816}
+
+//斜め
+//# define CAMERA_POS		{-5, 5, -10}
+//# define CAMERA_DIR_N	{0.408, -0.408, 0.816}
+
 # define CAMERA_FOV		60
 
 # define LIGHT_A_BRIGHT	0.1
