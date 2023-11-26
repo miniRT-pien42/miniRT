@@ -10,12 +10,11 @@ static t_vector	calc_ray_direction(const int y, const int x, t_scene *scene)
 	const double	screen_x = (2.0 * x) / (WIDTH - 1) - 1.0;
 	const double	screen_y = -(2.0 * y) / (HEIGHT - 1) + 1.0;
 	const double	screen_z = 0.0;
-	const t_vector	ray_origin_based = {screen_x, screen_y, screen_z};
 
-	ray_direction = vec_add(ray_origin_based, scene->center_screen);
-	ray_direction = rotate_vector_by_quaternion(\
-						vec_add(ray_origin_based, scene->center_screen), \
-						scene->rotation_angle);
+	ray_direction = \
+		vec_add((t_vector){screen_x, screen_y, screen_z}, scene->center_screen);
+	ray_direction = \
+		rotate_vector_by_quaternion(ray_direction, scene->rotation_angle);
 	return (ray_direction);
 }
 
