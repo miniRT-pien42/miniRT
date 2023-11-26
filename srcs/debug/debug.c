@@ -29,4 +29,7 @@ void	check_scene_value(t_scene *scene)
 		sphere_current = sphere_current->next;
 		i++;
 	}
+
+	printf("scene->center_screen = (%f, %f, %f)\n", scene->center_screen.x, scene->center_screen.y, scene->center_screen.z);
+	printf("scene->rotation_angle = %f)\n", scene->rotation_angle);
 }
