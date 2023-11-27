@@ -8,15 +8,15 @@
 # define CAMERA_DIR_N	{0.0, 0.0, 1.0}
 
 // z-
-//# define CAMERA_POS		{1, 3, -10}
+//# define CAMERA_POS		{3, -5, -30}
 //# define CAMERA_DIR_N	{0.0, 0.0, 1.0}
 
-// z+ 原点(bug)
-//# define CAMERA_POS		{0, 0, 50}
+// z+ 原点
+//# define CAMERA_POS		{0, 0, 10}
 //# define CAMERA_DIR_N	{0.0, 0.0, -1.0}
 
-// z+(bug)
-//# define CAMERA_POS		{3, -5, 50}
+// z+
+//# define CAMERA_POS		{3, -5, 30}
 //# define CAMERA_DIR_N	{0.0, 0.0, -1.0}
 
 // x- 原点
