@@ -25,6 +25,13 @@ double	vec_dot(const t_vector a, const t_vector b)
 	return (a.x * b.x + a.y * b.y + a.z * b.z);
 }
 
+t_vector	vec_cross(t_vector a, t_vector b)
+{
+	const t_vector	v = {a.y * b.z - a.z * b.y, a.z * b.x - a.x * b.z, a.x * b.y - a.y * b.x};
+
+	return (v);
+}
+
 t_vector	vec_scalar(const t_vector v, double scalar)
 {
 	const t_vector	ret_v = {v.x * scalar, v.y * scalar, v.z * scalar};
