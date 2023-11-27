@@ -11,7 +11,7 @@ static t_vector	calc_ray_direction(const int y, const int x, t_scene *scene)
 	t_vector		coord_on_screen;
 
 	coord_on_screen.x = (2.0 * x) / (WIDTH - 1) - 1.0;
-	coord_on_screen.y = -(2.0 * y) / (HEIGHT - 1) + 1.0;
+	coord_on_screen.y = -(2.0 * HEIGHT / WIDTH * y) / (HEIGHT - 1) + 1.0;
 	coord_on_screen.z = 0.0;
 	coord_on_screen = \
 		rotate_vector_by_quaternion(\
