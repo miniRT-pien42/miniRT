@@ -5,20 +5,16 @@
 static void	get_info_intersection(
 		const t_scene *scene, t_intersection *ptr_nearest, t_vector ray)
 {
-	ptr_nearest->incident = vec_normalize(\
-			vec_subtract(scene->light->pos, ptr_nearest->position));
 	ptr_nearest->position = vec_add(scene->camera->pos, \
 		vec_scalar(ray, ptr_nearest->distance));
+	ptr_nearest->incident = vec_normalize(\
+			vec_subtract(scene->light->pos, ptr_nearest->position));
 	if (ptr_nearest->sphere->is_camera_inside)
-	{
-		ptr_nearest->normal = vec_normalize(\
-			vec_subtract(ptr_nearest->position, ptr_nearest->sphere->center));
-	}
-	else
-	{
 		ptr_nearest->normal = vec_normalize(\
 			vec_subtract(ptr_nearest->sphere->center, ptr_nearest->position));
-	}
+	else
+		ptr_nearest->normal = vec_normalize(\
+			vec_subtract(ptr_nearest->position, ptr_nearest->sphere->center));
 }
 
 static t_rgb_f	get_l_a(const t_light_ambient *ambient)
