@@ -22,7 +22,7 @@ t_discriminant	calc_discriminant(\
 }
 
 // objectへの距離取得。ray逆方向は-1をreturnして判定で弾けるようにする
-double	get_valid_distance(double a, double b, bool *ptr_is_inside)
+static double	get_valid_distance(double a, double b, bool *ptr_is_inside)
 {
 	if (a * b < 0)
 	{
@@ -37,18 +37,22 @@ double	get_valid_distance(double a, double b, bool *ptr_is_inside)
 
 // rayとsphereとの距離。sphareの内部にcameraがある場合は，sphere->is_camera_insideをtrueにしておく
 double	calc_distance_to_object(\
-	t_discriminant discriminant, bool *is_inside)
+	t_discriminant discriminant, bool *is_inside, bool is_abs)
 {
 	const double	num_bottom = 2.0 * discriminant.a;
 	const double	num_top1 = -1 * discriminant.b;
 	const double	num_top2 = sqrt(discriminant.d);
+	double			distance1;
+	double			distance2;
 
 	if (discriminant.d == 0)
 		return (num_top1 / num_bottom);
-	return (get_valid_distance(\
-				(num_top1 + num_top2) / num_bottom, \
-				(num_top1 - num_top2) / num_bottom, \
-				is_inside));
+	distance1 = (num_top1 + num_top2) / num_bottom;
+	distance2 = (num_top1 - num_top2) / num_bottom;
+	if (is_abs)
+		return (fmin(fabs(distance1), fabs(distance2)));
+	else
+		return (get_valid_distance(distance1, distance2, is_inside));
 }
 
 // cameraからのrayとsphereとの衝突判定。衝突していればtrueを返す。
@@ -73,7 +77,7 @@ t_intersection	get_nearest_object(t_vector ray, t_scene *scene)
 		if (is_intersect_to_sphere(discriminant.d))
 		{
 			tmp_distance = calc_distance_to_object(\
-				discriminant, &sphere_current->is_camera_inside);
+				discriminant, &sphere_current->is_camera_inside, false);
 			if (tmp_distance >= 0 && tmp_distance < nearest.distance)
 			{
 				nearest.sphere = sphere_current;

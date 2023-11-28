@@ -37,9 +37,8 @@ void			check_light_inside_sphere(\
 	const t_scene *scene, t_intersection *ptr_nearest);
 t_discriminant	calc_discriminant(\
 	const t_vector ray, const t_vector camera_pos, const t_sphere *sphere);
-double			get_valid_distance(double a, double b, bool *ptr_is_inside);
 double			calc_distance_to_object(\
-	t_discriminant discriminant, bool *is_inside);
+	t_discriminant discriminant, bool *is_inside, bool is_abs);
 bool			is_shadow_by_sphere(const t_vector shadow_ray, \
 	const t_scene *scene, const t_sphere *sphere_target);
 #endif

@@ -21,7 +21,7 @@ void	check_light_inside_sphere(\
 	if (is_intersect_to_sphere(discriminant.d))
 	{
 		calc_distance_to_object(\
-			discriminant, &ptr_nearest->sphere->is_light_inside);
+			discriminant, &ptr_nearest->sphere->is_light_inside, false);
 	}
 }
 
@@ -38,14 +38,14 @@ bool	is_shadow_by_sphere(const t_vector shadow_ray,
 	sphere_current = scene->list_sphere;
 	discriminant_target = calc_discriminant(\
 							shadow_ray, scene->light->pos, sphere_target);
-	distance_target = calc_distance_to_object(discriminant_target, NULL);
+	distance_target = calc_distance_to_object(discriminant_target, NULL, true);
 	while (sphere_current)
 	{
 		discriminant = calc_discriminant(\
 							shadow_ray, scene->light->pos, sphere_current);
 		if (is_intersect_to_sphere(discriminant.d))
 		{
-			tmp_distance = calc_distance_to_object(discriminant, NULL);
+			tmp_distance = calc_distance_to_object(discriminant, NULL, true);
 			if (tmp_distance < distance_target)
 				return (true);
 		}
