@@ -4,7 +4,7 @@
 //# define CAMERA_POS		{0, 1, -5}
 //# define CAMERA_DIR_N	{0, 0, 1}
 // z- 原点
-# define CAMERA_POS		{0, 0, -10}
+# define CAMERA_POS		{0, 0.7, -10}
 # define CAMERA_DIR_N	{0.0, 0.0, 1.0}
 
 // z-
@@ -59,13 +59,17 @@
 //# define CAMERA_POS		{-5, 5, -10}
 //# define CAMERA_DIR_N	{0.408, -0.408, 0.816}
 
-# define CAMERA_FOV		60
+//# define CAMERA_POS		{0, 0.5, 0}
+//# define CAMERA_DIR_N	{0.0, -1.0, 0.0}
+
+# define CAMERA_FOV		120
 
 # define LIGHT_A_BRIGHT	0.1
 # define LIGHT_A_COLOR	{122, 255, 122}
 
-# define LIGHT_POS		{-1, 9, 1.5}
-# define LIGHT_BRIGHT	0.5
+//# define LIGHT_POS		{-1, 9, 1.5}
+# define LIGHT_POS		{0.0, 0.5, 0}
+# define LIGHT_BRIGHT	0.8
 
 # define SPHERE1_CENTER		{0, -4.8, 0}
 # define SPHERE1_DIAMETER	10

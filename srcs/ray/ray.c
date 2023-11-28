@@ -6,11 +6,19 @@ static void	get_info_intersection(
 		const t_scene *scene, t_intersection *ptr_nearest, t_vector ray)
 {
 	ptr_nearest->incident = vec_normalize(\
-		vec_subtract(scene->light->pos, ptr_nearest->sphere->center));
+			vec_subtract(scene->light->pos, ptr_nearest->position));
 	ptr_nearest->position = vec_add(scene->camera->pos, \
 		vec_scalar(ray, ptr_nearest->distance));
-	ptr_nearest->normal = vec_normalize(vec_subtract(ptr_nearest->position, \
-		ptr_nearest->sphere->center));
+	if (ptr_nearest->sphere->is_camera_inside)
+	{
+		ptr_nearest->normal = vec_normalize(\
+			vec_subtract(ptr_nearest->position, ptr_nearest->sphere->center));
+	}
+	else
+	{
+		ptr_nearest->normal = vec_normalize(\
+			vec_subtract(ptr_nearest->sphere->center, ptr_nearest->position));
+	}
 }
 
 static t_rgb_f	get_l_a(const t_light_ambient *ambient)
@@ -51,17 +59,21 @@ t_rgb	ray_tracing(
 	t_vector	shadow_ray;
 	double		l_dot;
 
+	check_light_inside_sphere(scene, &nearest);
 	get_info_intersection(scene, &nearest, ray);
 	material.l_a = get_l_a(scene->light_ambient);
-	shadow_ray = vec_subtract(nearest.position, scene->light->pos);
-	if (is_shadow_by_sphere(shadow_ray, scene, nearest.sphere))
-		material.l_r = material.l_a;
-	else
+	material.l_r = material.l_a;
+	if (nearest.sphere->is_camera_inside == nearest.sphere->is_light_inside)
 	{
-		l_dot = vec_dot(nearest.incident, nearest.normal);
-		l_dot = clipping(l_dot, 0, 1);
-		material.l_d = get_l_d(scene->light, nearest.sphere->color, l_dot);
-		material.l_r = get_l_r(material.l_a, material.l_d);
+		shadow_ray = vec_subtract(nearest.position, scene->light->pos);
+		if (!is_shadow_by_sphere(shadow_ray, scene, nearest.sphere))
+		{
+			//todo: (bug)球の内側にlightがある場合、球上部は内、下部は外が照らされる
+			l_dot = vec_dot(nearest.incident, nearest.normal);
+			l_dot = clipping(l_dot, 0, 1);
+			material.l_d = get_l_d(scene->light, nearest.sphere->color, l_dot);
+			material.l_r = get_l_r(material.l_a, material.l_d);
+		}
 	}
 	material.color = (t_rgb){\
 		material.l_r.r * 255, material.l_r.g * 255, material.l_r.b * 255};
