@@ -1,7 +1,7 @@
 #ifndef VALUE_TMP_H
 # define VALUE_TMP_H
 
-# define CAMERA_POS		{0, 1, -5}
+# define CAMERA_POS		{0, 1, -15}
 # define CAMERA_DIR_N	{0, 0, 1}
 # define CAMERA_FOV		60
 
@@ -27,8 +27,8 @@
 # define SPHERE3_COLOR		{255, 255, 10}
 
 # define PLANE1_SHAPE		PLANE
-# define PLANE1_POINT		{0, -2, 0}
-# define PLANE1_DIR_N		{0, 1, 0}
+# define PLANE1_POINT		{0, 1, -0.4}
+# define PLANE1_DIR_N		{0, 0, 1}
 # define PLANE1_COLOR		{128, 128, 10}
 
 #endif
