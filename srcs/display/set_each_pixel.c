@@ -24,17 +24,23 @@ void	set_each_pixel_color(\
 	t_mlx *mlxs, const int y, const int x, t_scene *scene)
 {
 	int				color;
-	t_vector		ray;
-	t_intersection	nearest;
+	t_vector		ray_direction;
+	// t_intersection	nearest;
 
-	ray = calc_ray_direction(y, x, scene);
-	nearest = get_nearest_object(ray, scene);
-	if (nearest.distance == INFINITY)
-		color = COLOR_BLUE;
+	ray_direction = calc_ray_direction(y, x, scene);
+	const t_ray ray = {.position = scene->camera->pos, .direction = ray_direction};
+    if (is_intersect_cylinder(&ray))
+		color = COLOR_PINK;
 	else
-	{
-		//todo: #8 描画色取得(shadow-ray判定含む)
-		color = convert_rgb(nearest.sphere->color);
-	}
+		color = COLOR_BLUE;
+
+	// nearest = get_nearest_object(ray, scene);
+	// if (nearest.distance == INFINITY)
+	// 	color = COLOR_BLUE;
+	// else
+	// {
+	// 	//todo: #8 描画色取得(shadow-ray判定含む)
+	// 	color = convert_rgb(nearest.sphere->color);
+	// }
 	my_mlx_pixel_put(mlxs->image, y, x, color);
 }
