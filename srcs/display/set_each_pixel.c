@@ -4,15 +4,20 @@
 #include "scene.h"
 #include "ray.h"
 
+#include <stdio.h>
 // screen上の点の位置
-static t_vector	calc_ray_direction(const int y, const int x)
+static t_vector	calc_ray_direction(const int y, const int x, t_scene *scene)
 {
-	const double	screen_x = (2.0 * x) / (WIDTH - 1) - 1.0;
-	const double	screen_y = -(2.0 * y) / (HEIGHT - 1) + 1.0;
-	const double	screen_z = 0.0;
-	const t_vector	ray_direction = {screen_x, screen_y, screen_z};
+	t_vector		coord_on_screen;
 
-	return (ray_direction);
+	coord_on_screen.x = (2.0 * x) / (WIDTH - 1) - 1.0;
+	coord_on_screen.y = -(2.0 * HEIGHT / WIDTH * y) / (HEIGHT - 1) + 1.0;
+	coord_on_screen.z = 0.0;
+	coord_on_screen = \
+		rotate_vector_by_quaternion(\
+			coord_on_screen, scene->rotation_angle, scene->camera->dir_n);
+	coord_on_screen = vec_add(coord_on_screen, scene->center_screen);
+	return (vec_subtract(coord_on_screen, scene->camera->pos));
 }
 
 void	set_each_pixel_color(\
@@ -22,7 +27,7 @@ void	set_each_pixel_color(\
 	t_vector		ray;
 	t_intersection	nearest;
 
-	ray = vec_subtract(calc_ray_direction(y, x), scene->camera->pos);
+	ray = calc_ray_direction(y, x, scene);
 	nearest = get_nearest_object(ray, scene);
 	if (nearest.distance == INFINITY)
 		color = COLOR_BLUE;
