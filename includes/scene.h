@@ -14,6 +14,6 @@ typedef struct s_scene
 	t_sphere		*list_sphere;
 }	t_scene;
 
-t_scene	*init_scene(char *rt_file);
+void	init_scene(t_scene *scene);
 
 #endif

@@ -1,6 +1,8 @@
+#include <stddef.h>
+#include <stdio.h>
 #include "debug.h"
 
-void	check_scene_value(t_scene *scene)
+void	debug_print_scene_value(const t_scene *scene)
 {
 	size_t		i;
 	t_sphere	*sphere_current;
