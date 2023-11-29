@@ -63,8 +63,6 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	len = count_words(s, c);
 	split_strs = (char **)x_malloc(sizeof(char *) * (len + 1));
-	if (split_strs == NULL)
-		return (NULL);
 	if (!set_split_str(s, c, split_strs))
 		return (free_2d_array(&split_strs));
 	split_strs[len] = NULL;
