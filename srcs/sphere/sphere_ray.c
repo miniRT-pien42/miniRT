@@ -42,29 +42,21 @@ static bool	is_intersect_to_sphere(const double d)
 	return (d >= 0);
 }
 
-t_intersection	get_nearest_object(t_vector ray, t_scene *scene)
+void	judge_nearest_sphere(\
+	t_vector ray, t_scene *scene, t_sphere *sphere, t_intersection *ptr_nearest)
 {
-	t_intersection	nearest;
 	t_discriminant	discriminant;
-	t_sphere		*sphere_current;
 	double			tmp_distance;
 
-	nearest.distance = INFINITY;
-	sphere_current = scene->list_sphere;
-	while (sphere_current)
+	discriminant = calc_discriminant(\
+							ray, scene->camera->pos, sphere);
+	if (is_intersect_to_sphere(discriminant.d))
 	{
-		discriminant = calc_discriminant(\
-							ray, scene->camera->pos, sphere_current);
-		if (is_intersect_to_sphere(discriminant.d))
+		tmp_distance = calc_distance_to_object(discriminant);
+		if (tmp_distance < ptr_nearest->distance)
 		{
-			tmp_distance = calc_distance_to_object(discriminant);
-			if (tmp_distance < nearest.distance)
-			{
-				nearest.sphere = sphere_current;
-				nearest.distance = tmp_distance;
-			}
+			ptr_nearest->object = sphere;
+			ptr_nearest->distance = tmp_distance;
 		}
-		sphere_current = sphere_current->next;
 	}
-	return (nearest);
 }

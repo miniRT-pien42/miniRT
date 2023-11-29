@@ -11,7 +11,7 @@ typedef struct s_scene
 	t_camera		*camera;
 	t_light_ambient	*light_ambient;
 	t_light			*light;
-	t_sphere		*list_sphere;
+	void			*list_object;
 }	t_scene;
 
 t_scene	*init_scene(char *rt_file);
