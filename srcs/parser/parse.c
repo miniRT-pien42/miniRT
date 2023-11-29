@@ -43,7 +43,7 @@ t_scene	parse(const char *file_name)
 	char	**lines;
 
 	lines = read_file(file_name);
-	// init_scene(&scene);
+	init_scene(&scene);
 	parse_lines((const char **)lines, &scene);
 	free_2d_array(&lines);
 	return (scene);

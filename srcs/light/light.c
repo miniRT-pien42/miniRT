@@ -2,11 +2,10 @@
 #include "light.h"
 #include "value_tmp.h"
 
-t_light_ambient	*init_light_ambient(char *line)
+t_light_ambient	*init_light_ambient(void)
 {
 	t_light_ambient	*light_ambient;
 
-	(void)line;//todo: #3
 	light_ambient = (t_light_ambient *)malloc(sizeof(t_light_ambient));
 	if (light_ambient == NULL)
 		return (NULL);
@@ -15,11 +14,9 @@ t_light_ambient	*init_light_ambient(char *line)
 	return (light_ambient);
 }
 
-t_light	*init_light(char *line)
+t_light	*init_light(void)
 {
 	t_light	*light;
-
-	(void)line;//todo: #3
 	light = (t_light *)malloc(sizeof(t_light));
 	if (light == NULL)
 		return (NULL);

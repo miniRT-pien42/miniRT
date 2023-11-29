@@ -41,8 +41,7 @@ int	main(int argc, char **argv)
 		// todo: put error
 		return (EXIT_FAILURE);
 	}
-	init_scene(&scene);
-	// scene = parse(argv[1]);
+	scene = parse(argv[1]);
 	if (!is_valid_scene_value(&scene))
 	{
 		// todo: put error
