@@ -25,7 +25,7 @@ OBJS		:=	$(SRCS:%.c=$(OBJ_DIR)/%.o)
 DEPS		:=	$(OBJS:.o=.d)
 
 LIBFT_DIR	:=	libft
-LIBFT		:=	# $(LIBFT_DIR)/libft.a
+LIBFT		:=	$(LIBFT_DIR)/libft.a
 
 MLX_DIR		:=	minilibx
 
@@ -54,8 +54,8 @@ all		: $(NAME)
 # .PHONY	: bonus
 # bonus	: all
 
-# $(LIBFT): FORCE
-# 	$(MAKE) -C $(LIBFT_DIR)
+$(LIBFT): FORCE
+	$(MAKE) -C $(LIBFT_DIR)
 
 $(MINILIBX):
 	$(MAKE) -C $(MLX_DIR)
