@@ -2,7 +2,7 @@
 #include "object.h"
 #include "value_tmp.h"
 
-static t_sphere	*init_sphere3_tmp(void)
+t_sphere	*init_sphere3_tmp(void)
 {
 	t_sphere	*sphere;
 
@@ -14,11 +14,10 @@ static t_sphere	*init_sphere3_tmp(void)
 	sphere->center = (t_vector)SPHERE3_CENTER;
 	sphere->diameter = SPHERE3_DIAMETER;
 	sphere->color = (t_rgb)SPHERE3_COLOR;
-	sphere->next = NULL;
 	return (sphere);
 }
 
-static t_sphere	*init_sphere2_tmp(void)
+t_sphere	*init_sphere2_tmp(void)
 {
 	t_sphere	*sphere;
 
@@ -29,7 +28,6 @@ static t_sphere	*init_sphere2_tmp(void)
 	sphere->center = (t_vector)SPHERE2_CENTER;
 	sphere->diameter = SPHERE2_DIAMETER;
 	sphere->color = (t_rgb)SPHERE2_COLOR;
-	sphere->next = init_sphere3_tmp();
 	return (sphere);
 }
 
@@ -45,6 +43,5 @@ t_sphere	*init_sphere(char *line)
 	sphere->center = (t_vector)SPHERE1_CENTER;
 	sphere->diameter = SPHERE1_DIAMETER;
 	sphere->color = (t_rgb)SPHERE1_COLOR;
-	sphere->next = init_sphere2_tmp();
 	return (sphere);
 }
