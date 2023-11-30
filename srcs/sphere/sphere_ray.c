@@ -27,7 +27,7 @@ static double	get_valid_distance(double a, double b)
 	if (a * b < 0)
 		return (fmax(a, b));
 	else if (a < 0 && b < 0)
-		return (-1);
+		return (NO_INTERSECTION);
 	return (fmin(a, b));
 }
 
