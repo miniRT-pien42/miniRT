@@ -4,7 +4,7 @@
 # include "vector.h"
 # include "object.h"
 
-# define NO_INTERSECTION	-1
+# define NO_INTERSECTION	(-1)
 
 typedef struct s_ray
 {
