@@ -29,11 +29,10 @@ void	set_each_pixel_color(\
 	else
 	{
 		//todo: #8 描画色取得(shadow-ray判定含む)
-		if (((t_sphere *)nearest.object)->shape == SPHERE)
+		if (get_object_type(nearest.object) == SPHERE)
 			color = convert_rgb(((t_sphere *)nearest.object)->color);
-		else if (((t_plane *)nearest.object)->shape == PLANE)
-			color = COLOR_GREEN;
-			//color = convert_rgb(((t_plane *)nearest.object)->color);
+		else if (get_object_type(nearest.object) == PLANE)
+			color = convert_rgb(((t_plane *)nearest.object)->color);
 		else
 			color = COLOR_RED;
 	}

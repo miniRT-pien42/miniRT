@@ -10,7 +10,7 @@ static t_sphere	*init_sphere3_tmp(void)
 	if (sphere == NULL)
 		return (NULL);
 
-	sphere->shape = SPHERE3_SHAPE;
+	sphere->type = SPHERE3_TYPE;
 	sphere->center = (t_vector)SPHERE3_CENTER;
 	sphere->diameter = SPHERE3_DIAMETER;
 	sphere->color = (t_rgb)SPHERE3_COLOR;
@@ -25,7 +25,7 @@ static t_sphere	*init_sphere2_tmp(void)
 	sphere = (t_sphere *)malloc(sizeof(t_sphere));
 	if (sphere == NULL)
 		return (NULL);
-	sphere->shape = SPHERE2_SHAPE;
+	sphere->type = SPHERE2_TYPE;
 	sphere->center = (t_vector)SPHERE2_CENTER;
 	sphere->diameter = SPHERE2_DIAMETER;
 	sphere->color = (t_rgb)SPHERE2_COLOR;
@@ -41,7 +41,7 @@ t_sphere	*init_sphere(char *line)
 	sphere = (t_sphere *)malloc(sizeof(t_sphere));
 	if (sphere == NULL)
 		return (NULL);
-	sphere->shape = SPHERE1_SHAPE;
+	sphere->type = SPHERE1_TYPE;
 	sphere->center = (t_vector)SPHERE1_CENTER;
 	sphere->diameter = SPHERE1_DIAMETER;
 	sphere->color = (t_rgb)SPHERE1_COLOR;

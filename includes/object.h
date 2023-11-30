@@ -19,7 +19,7 @@ typedef enum s_shape
 
 typedef struct s_sphere
 {
-	t_shape		shape;
+	t_shape		type;
 	t_vector	center;
 	double		diameter;
 	t_rgb		color;
@@ -28,7 +28,7 @@ typedef struct s_sphere
 
 typedef struct s_plane
 {
-	t_shape		shape;
+	t_shape		type;
 	t_vector	point;
 	t_vector	dir_n;
 	t_rgb		color;
@@ -46,6 +46,7 @@ typedef struct s_discriminant
 void			*init_object(char *line);
 t_sphere		*init_sphere(char *line);
 t_plane			*init_plane(char *line);
+t_shape			get_object_type(void *object);
 void			judge_nearest_sphere(t_vector ray, t_scene *scene, \
 	t_sphere *sphere, t_intersection *ptr_nearest);
 void			judge_nearest_plane(t_vector ray, t_scene *scene, \

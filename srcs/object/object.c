@@ -22,38 +22,33 @@ void	*init_object(char *line)
 	return (sphere);
 }
 
+t_shape	get_object_type(void *object)
+{
+	return (*(t_shape *)object);
+}
+
 t_intersection	get_nearest_object(t_vector ray, t_scene *scene)
 {
 	t_intersection	nearest;
 	void			*object_current;
+	t_sphere		*sphere;
+	t_plane			*plane;
 
 	nearest.distance = INFINITY;
 	object_current = scene->list_object;
-	while (1)
+	while (object_current)
 	{
-		if (((t_sphere *)object_current)->shape == SPHERE)
+		if (get_object_type(object_current) == SPHERE)
 		{
-			judge_nearest_sphere(ray, scene, object_current, &nearest);
-			if (((t_sphere *)object_current)->next == NULL)
-				break ;
-			if (((t_sphere *)((t_sphere *)object_current)->next) \
-				->shape == SPHERE)
-				object_current = (t_sphere *)((t_sphere *)object_current)->next;
-			else if (((t_plane *)((t_sphere *)object_current)->next) \
-				->shape == PLANE)
-				object_current = (t_plane *)((t_sphere *)object_current)->next;
+			sphere = (t_sphere *)object_current;
+			judge_nearest_sphere(ray, scene, sphere, &nearest);
+			object_current = sphere->next;
 		}
-		else if (((t_plane *)object_current)->shape == PLANE)
+		else if (get_object_type(object_current) == PLANE)
 		{
-			judge_nearest_plane(ray, scene, object_current, &nearest);
-			if (((t_plane *)object_current)->next == NULL)
-				break ;
-			if (((t_sphere *)((t_plane *)object_current)->next) \
-				->shape == SPHERE)
-				object_current = (t_sphere *)((t_sphere *)object_current)->next;
-			else if (((t_plane *)((t_plane *)object_current)->next) \
-				->shape == PLANE)
-				object_current = (t_plane *)((t_plane *)object_current)->next;
+			plane = (t_plane *)object_current;
+			judge_nearest_plane(ray, scene, plane, &nearest);
+			object_current = plane->next;
 		}
 		else
 			exit (EXIT_FAILURE);
