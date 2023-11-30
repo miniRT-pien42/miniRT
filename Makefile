@@ -5,7 +5,7 @@ SRCS		:=	vec/vector1.c \
 				vec/vector2.c \
 				vec/vector3.c \
 				vec/quaternion.c \
-				helpers/helpers1.c \
+				helpers/helpers_math1.c \
 				error/error.c \
 				scene/scene.c \
 				ray/ray.c \
