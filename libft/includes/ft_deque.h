@@ -4,13 +4,15 @@
 # include <stddef.h>
 # include <stdbool.h>
 
-typedef struct s_deque_node {
+typedef struct s_deque_node
+{
 	void				*content;
 	struct s_deque_node	*next;
 	struct s_deque_node	*prev;
 }	t_deque_node;
 
-typedef struct s_deque {
+typedef struct s_deque
+{
 	t_deque_node	*node;
 	size_t			size;
 }	t_deque;
