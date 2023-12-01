@@ -22,7 +22,8 @@ void	deque_print(t_deque *deque, void (*print)())
 	printf("---------------------\n");
 }
 
-void	debug_deque_print(t_deque *deque, const char *func_name, void (*print)())
+void	debug_deque_print(\
+						t_deque *deque, const char *func_name, void (*print)())
 {
 	printf(">>> %s\n", func_name);
 	deque_print(deque, print);

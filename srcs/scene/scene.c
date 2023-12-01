@@ -19,7 +19,7 @@ static void	convert_line_with_identifier(t_deque_node *node, t_scene *scene)
 	// else if (ft_streq(identifier, "pl"))
 	// 	scene->list_sphere = init_plane(line);
 	else if (ft_streq(identifier, "sp"))
-		scene->list_sphere = init_sphere((const char **)line);
+		add_to_list_sphere(scene, (const char **)line);
 	// else if (ft_streq(identifier, "cy"))
 	// 	scene->list_sphere = init_cylinder(line);
 	// else
@@ -45,4 +45,3 @@ void	init_scene(t_scene *scene)
 {
 	scene->list_sphere = NULL;
 }
-

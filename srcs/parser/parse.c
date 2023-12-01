@@ -91,4 +91,3 @@ t_scene	parse(const char *file_name)
 	deque_clear_all(&lines, del);
 	return (scene);
 }
-

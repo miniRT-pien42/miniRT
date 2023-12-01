@@ -37,7 +37,7 @@ void			deque_pop_selected_node(t_deque *deque, \
 										t_deque_node *target_node);
 
 /* print */
-void			deque_print(t_deque *deque,  void (*print)());
+void			deque_print(t_deque *deque, void (*print)());
 void			debug_deque_print(\
 						t_deque *deque, const char *func_name, void (*print)());
 

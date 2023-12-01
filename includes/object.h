@@ -30,6 +30,6 @@ t_intersection	get_nearest_object(t_vector ray, t_scene *scene);
 int				convert_rgb(t_rgb color);
 
 /* sphere*/
-t_sphere		*init_sphere(const char **line);
+void			add_to_list_sphere(t_scene *scene, const char **line);
 
 #endif
