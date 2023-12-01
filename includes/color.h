@@ -31,9 +31,9 @@ typedef struct s_rgb_f
 
 typedef struct s_material
 {
-	t_rgb_f	l_a;
-	t_rgb_f	l_d;
-	t_rgb_f	l_r;
+	t_rgb_f	lux_ambient;
+	t_rgb_f	lux_light;
+	t_rgb_f	lux_total;
 	t_rgb	color;
 }	t_material;
 

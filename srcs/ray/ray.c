@@ -17,34 +17,34 @@ static void	get_info_intersection(
 			vec_subtract(ptr_nearest->position, ptr_nearest->sphere->center));
 }
 
-static t_rgb_f	get_l_a(const t_light_ambient *ambient)
+static t_rgb_f	get_lux_ambient(const t_light_ambient *ambient)
 {
-	t_rgb_f	l_a;
+	t_rgb_f	lux_ambient;
 
-	l_a.r = ambient->color.r / 255.0 * ambient->bright;
-	l_a.g = ambient->color.g / 255.0 * ambient->bright;
-	l_a.b = ambient->color.b / 255.0 * ambient->bright;
-	return (l_a);
+	lux_ambient.r = ambient->color.r / 255.0 * ambient->bright;
+	lux_ambient.g = ambient->color.g / 255.0 * ambient->bright;
+	lux_ambient.b = ambient->color.b / 255.0 * ambient->bright;
+	return (lux_ambient);
 }
 
-static t_rgb_f	get_l_d(const t_light *light, t_rgb color, double l_dot)
+static t_rgb_f	get_lux_light(const t_light *light, t_rgb color, double l_dot)
 {
-	t_rgb_f	l_d;
+	t_rgb_f	lux_light;
 
-	l_d.r = color.r / 255.0 * light->bright * l_dot;
-	l_d.g = color.g / 255.0 * light->bright * l_dot;
-	l_d.b = color.b / 255.0 * light->bright * l_dot;
-	return (l_d);
+	lux_light.r = color.r / 255.0 * light->bright * l_dot;
+	lux_light.g = color.g / 255.0 * light->bright * l_dot;
+	lux_light.b = color.b / 255.0 * light->bright * l_dot;
+	return (lux_light);
 }
 
-static t_rgb_f	get_l_r(t_rgb_f l_a, t_rgb_f l_d)
+static t_rgb_f	get_lux_total(t_rgb_f lux_ambient, t_rgb_f lux_light)
 {
-	t_rgb_f	l_r;
+	t_rgb_f	lux_total;
 
-	l_r.r = clipping(l_a.r + l_d.r, 0, 1);
-	l_r.g = clipping(l_a.g + l_d.g, 0, 1);
-	l_r.b = clipping(l_a.b + l_d.b, 0, 1);
-	return (l_r);
+	lux_total.r = clipping(lux_ambient.r + lux_light.r, 0, 1);
+	lux_total.g = clipping(lux_ambient.g + lux_light.g, 0, 1);
+	lux_total.b = clipping(lux_ambient.b + lux_light.b, 0, 1);
+	return (lux_total);
 }
 
 //シーンにおける，単一のレイでの光線追跡を行い，その点での色を返す．
@@ -57,21 +57,22 @@ t_rgb	ray_tracing(
 
 	check_light_inside_sphere(scene, &nearest);
 	get_info_intersection(scene, &nearest, ray);
-	material.l_a = get_l_a(scene->light_ambient);
-	material.l_r = material.l_a;
+	material.lux_ambient = get_lux_ambient(scene->light_ambient);
+	material.lux_total = material.lux_ambient;
 	if (nearest.sphere->is_camera_inside == nearest.sphere->is_light_inside)
 	{
 		shadow_ray = vec_subtract(nearest.position, scene->light->pos);
 		if (!is_shadow_by_sphere(shadow_ray, scene, nearest.sphere))
 		{
-			//todo: (bug)球の内側にlightがある場合、球上部は内、下部は外が照らされる
 			l_dot = vec_dot(nearest.incident, nearest.normal);
 			l_dot = clipping(l_dot, 0, 1);
-			material.l_d = get_l_d(scene->light, nearest.sphere->color, l_dot);
-			material.l_r = get_l_r(material.l_a, material.l_d);
+			material.lux_light = \
+				get_lux_light(scene->light, nearest.sphere->color, l_dot);
+			material.lux_total = \
+				get_lux_total(material.lux_ambient, material.lux_light);
 		}
 	}
-	material.color = (t_rgb){\
-		material.l_r.r * 255, material.l_r.g * 255, material.l_r.b * 255};
+	material.color = (t_rgb){material.lux_total.r * 255, \
+		material.lux_total.g * 255, material.lux_total.b * 255};
 	return (material.color);
 }
