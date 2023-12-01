@@ -47,8 +47,6 @@ t_intersection	get_nearest_object(t_vector ray, t_scene *scene)
 			update_nearest_plane(\
 				ray, scene, (t_plane *)object_current->content, &nearest);
 		}
-		else
-			exit (EXIT_FAILURE);
 		object_current = object_current->next;
 	}
 	return (nearest);
