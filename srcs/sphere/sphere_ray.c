@@ -3,7 +3,7 @@
 #include "vector.h"
 #include "display.h"
 #include "scene.h"
-#include "utils.h"
+#include "helpers.h"
 #include "ray.h"
 
 // 解の方程式
@@ -21,6 +21,16 @@ static t_discriminant	calc_discriminant(\
 	return (discriminant);
 }
 
+// objectへの距離取得。ray逆方向は-1をreturnして判定で弾けるようにする
+static double	get_valid_distance(double a, double b)
+{
+	if (a * b < 0)
+		return (fmax(a, b));
+	else if (a < 0 && b < 0)
+		return (NO_INTERSECTION);
+	return (fmin(a, b));
+}
+
 // rayとsphereとの距離
 static double	calc_distance_to_object(t_discriminant discriminant)
 {
@@ -30,7 +40,7 @@ static double	calc_distance_to_object(t_discriminant discriminant)
 
 	if (discriminant.d == 0)
 		return (num_top1 / num_bottom);
-	return (positive_and_min(\
+	return (get_valid_distance(\
 				(num_top1 + num_top2) / num_bottom, \
 				(num_top1 - num_top2) / num_bottom \
 			));
