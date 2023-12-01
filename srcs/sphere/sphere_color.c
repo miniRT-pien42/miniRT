@@ -14,14 +14,17 @@ int	convert_rgb(t_rgb color)
 void	check_light_inside_sphere(\
 	const t_scene *scene, t_intersection *ptr_nearest)
 {
-	const t_discriminant	discriminant = calc_discriminant(\
-		vec_subtract(ptr_nearest->position, scene->light->pos), \
-		scene->light->pos, ptr_nearest->sphere);
+	t_sphere		*sphere;
+	t_discriminant	discriminant;
 
+	sphere = ptr_nearest->object;
+	discriminant = calc_discriminant(\
+		vec_subtract(ptr_nearest->position, scene->light->pos), \
+		scene->light->pos, sphere);
 	if (is_intersect_to_sphere(discriminant.d))
 	{
 		calc_distance_to_object(\
-			discriminant, &ptr_nearest->sphere->is_light_inside, false);
+			discriminant, &sphere->is_light_inside, false);
 	}
 }
 
@@ -31,25 +34,29 @@ bool	is_shadow_by_sphere(const t_vector shadow_ray,
 {
 	t_discriminant	discriminant_target;
 	t_discriminant	discriminant;
-	t_sphere		*sphere_current;
+	t_deque_node	*object_current;
 	double			tmp_distance;
 	double			distance_target;
 
-	sphere_current = scene->list_sphere;
+	object_current = scene->list_object->node;
 	discriminant_target = calc_discriminant(\
 							shadow_ray, scene->light->pos, sphere_target);
 	distance_target = calc_distance_to_object(discriminant_target, NULL, true);
-	while (sphere_current)
+	while (object_current)
 	{
-		discriminant = calc_discriminant(\
-							shadow_ray, scene->light->pos, sphere_current);
-		if (is_intersect_to_sphere(discriminant.d))
+		if (get_object_type(object_current->content) == SPHERE)
 		{
-			tmp_distance = calc_distance_to_object(discriminant, NULL, true);
-			if (tmp_distance < distance_target)
-				return (true);
+			discriminant = calc_discriminant(\
+				shadow_ray, scene->light->pos, object_current->content);
+			if (is_intersect_to_sphere(discriminant.d))
+			{
+				tmp_distance = \
+					calc_distance_to_object(discriminant, NULL, true);
+				if (tmp_distance < distance_target)
+					return (true);
+			}
 		}
-		sphere_current = sphere_current->next;
+		object_current = object_current->next;
 	}
 	return (false);
 }

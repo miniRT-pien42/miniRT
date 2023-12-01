@@ -1,20 +1,22 @@
 #include <stdlib.h>
 #include "object.h"
-#include "utils.h"
+#include "helpers.h"
 
 static void	get_info_intersection(
 		const t_scene *scene, t_intersection *ptr_nearest, t_vector ray)
 {
+	const t_sphere	*sphere = ptr_nearest->object;
+
 	ptr_nearest->position = vec_add(scene->camera->pos, \
 		vec_scalar(ray, ptr_nearest->distance));
 	ptr_nearest->incident = vec_normalize(\
 			vec_subtract(scene->light->pos, ptr_nearest->position));
-	if (ptr_nearest->sphere->is_camera_inside)
+	if (sphere->is_camera_inside)
 		ptr_nearest->normal = vec_normalize(\
-			vec_subtract(ptr_nearest->sphere->center, ptr_nearest->position));
+			vec_subtract(sphere->center, ptr_nearest->position));
 	else
 		ptr_nearest->normal = vec_normalize(\
-			vec_subtract(ptr_nearest->position, ptr_nearest->sphere->center));
+			vec_subtract(ptr_nearest->position, sphere->center));
 }
 
 static t_rgb_f	get_lux_ambient(const t_light_ambient *ambient)
@@ -51,23 +53,24 @@ static t_rgb_f	get_lux_total(t_rgb_f lux_ambient, t_rgb_f lux_light)
 t_rgb	ray_tracing(
 		const t_scene *scene, t_intersection nearest, t_vector ray)
 {
-	t_material	material;
-	t_vector	shadow_ray;
-	double		l_dot;
+	t_material		material;
+	t_vector		shadow_ray;
+	double			l_dot;
+	const t_sphere	*sphere = nearest.object;
 
 	check_light_inside_sphere(scene, &nearest);
 	get_info_intersection(scene, &nearest, ray);
 	material.lux_ambient = get_lux_ambient(scene->light_ambient);
 	material.lux_total = material.lux_ambient;
-	if (nearest.sphere->is_camera_inside == nearest.sphere->is_light_inside)
+	if (sphere->is_camera_inside == sphere->is_light_inside)
 	{
 		shadow_ray = vec_subtract(nearest.position, scene->light->pos);
-		if (!is_shadow_by_sphere(shadow_ray, scene, nearest.sphere))
+		if (!is_shadow_by_sphere(shadow_ray, scene, sphere))
 		{
 			l_dot = vec_dot(nearest.incident, nearest.normal);
 			l_dot = clipping(l_dot, 0, 1);
 			material.lux_light = \
-				get_lux_light(scene->light, nearest.sphere->color, l_dot);
+				get_lux_light(scene->light, sphere->color, l_dot);
 			material.lux_total = \
 				get_lux_total(material.lux_ambient, material.lux_light);
 		}

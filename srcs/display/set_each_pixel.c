@@ -4,7 +4,6 @@
 #include "scene.h"
 #include "ray.h"
 
-#include <stdio.h>
 // screen上の点の位置
 static t_vector	calc_ray_direction(const int y, const int x, t_scene *scene)
 {
@@ -32,6 +31,13 @@ void	set_each_pixel_color(\
 	if (nearest.distance == INFINITY)
 		color = COLOR_BLUE;
 	else
-		color = convert_rgb(ray_tracing(scene, nearest, ray));
+	{
+		if (get_object_type(nearest.object) == SPHERE)
+			color = convert_rgb(ray_tracing(scene, nearest, ray));
+		else if (get_object_type(nearest.object) == PLANE)
+			color = convert_rgb(((t_plane *)nearest.object)->color);
+		else
+			color = COLOR_RED;
+	}
 	my_mlx_pixel_put(mlxs->image, y, x, color);
 }

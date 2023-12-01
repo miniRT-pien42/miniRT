@@ -71,16 +71,24 @@
 # define LIGHT_POS		{0, 5, 3}
 # define LIGHT_BRIGHT	0.8
 
+# define SPHERE1_TYPE		SPHERE
 # define SPHERE1_CENTER		{0, -4.8, 0}
 # define SPHERE1_DIAMETER	10
 # define SPHERE1_COLOR		{255, 10, 10}
 
+# define SPHERE2_TYPE		SPHERE
 # define SPHERE2_CENTER		{0, 0.5, 0}
 # define SPHERE2_DIAMETER	1
 # define SPHERE2_COLOR		{10, 255, 255}
 
+# define SPHERE3_TYPE		SPHERE
 # define SPHERE3_CENTER		{0.5, 1, -1}
 # define SPHERE3_DIAMETER	1
 # define SPHERE3_COLOR		{255, 255, 10}
+
+# define PLANE1_TYPE		PLANE
+# define PLANE1_POINT		{0, 1, -0.4}
+# define PLANE1_DIR_N		{0, 0, 1}
+# define PLANE1_COLOR		{100, 100, 100}
 
 #endif

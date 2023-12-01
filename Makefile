@@ -5,13 +5,15 @@ SRCS		:=	vec/vector1.c \
 				vec/vector2.c \
 				vec/vector3.c \
 				vec/quaternion.c \
-				utils/utils1.c \
-				utils/utils2.c \
+				helpers/helpers_math1.c \
 				error/error.c \
 				scene/scene.c \
 				ray/ray.c \
 				camera/camera.c \
 				light/light.c \
+				object/object.c \
+				plane/plane.c \
+				plane/plane_ray.c \
 				sphere/sphere.c \
 				sphere/sphere_ray.c \
 				sphere/sphere_color.c \
@@ -27,7 +29,7 @@ OBJS		:=	$(SRCS:%.c=$(OBJ_DIR)/%.o)
 DEPS		:=	$(OBJS:.o=.d)
 
 LIBFT_DIR	:=	libft
-LIBFT		:=	# $(LIBFT_DIR)/libft.a
+LIBFT		:=	$(LIBFT_DIR)/libft.a
 
 MLX_DIR		:=	minilibx
 
@@ -56,8 +58,8 @@ all		: $(NAME)
 # .PHONY	: bonus
 # bonus	: all
 
-# $(LIBFT): FORCE
-# 	$(MAKE) -C $(LIBFT_DIR)
+$(LIBFT): FORCE
+	$(MAKE) -C $(LIBFT_DIR)
 
 $(MINILIBX):
 	$(MAKE) -C $(MLX_DIR)

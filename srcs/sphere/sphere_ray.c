@@ -3,7 +3,7 @@
 #include "vector.h"
 #include "display.h"
 #include "scene.h"
-#include "utils.h"
+#include "helpers.h"
 #include "ray.h"
 
 // 解の方程式
@@ -31,7 +31,7 @@ static double	get_valid_distance(double a, double b, bool *ptr_is_inside)
 		return (fmax(a, b));
 	}
 	else if (a < 0 && b < 0)
-		return (-1);
+		return (NO_INTERSECTION);
 	return (fmin(a, b));
 }
 
@@ -61,30 +61,22 @@ bool	is_intersect_to_sphere(const double d)
 	return (d >= 0);
 }
 
-t_intersection	get_nearest_object(t_vector ray, t_scene *scene)
+void	update_nearest_sphere(\
+	t_vector ray, t_scene *scene, t_sphere *sphere, t_intersection *ptr_nearest)
 {
-	t_intersection	nearest;
 	t_discriminant	discriminant;
-	t_sphere		*sphere_current;
 	double			tmp_distance;
 
-	nearest.distance = INFINITY;
-	sphere_current = scene->list_sphere;
-	while (sphere_current)
+	discriminant = calc_discriminant(\
+							ray, scene->camera->pos, sphere);
+	if (is_intersect_to_sphere(discriminant.d))
 	{
-		discriminant = calc_discriminant(\
-							ray, scene->camera->pos, sphere_current);
-		if (is_intersect_to_sphere(discriminant.d))
+		tmp_distance = calc_distance_to_object(\
+			discriminant, &sphere->is_camera_inside, false);
+		if (tmp_distance < ptr_nearest->distance)
 		{
-			tmp_distance = calc_distance_to_object(\
-				discriminant, &sphere_current->is_camera_inside, false);
-			if (tmp_distance >= 0 && tmp_distance < nearest.distance)
-			{
-				nearest.sphere = sphere_current;
-				nearest.distance = tmp_distance;
-			}
+			ptr_nearest->object = sphere;
+			ptr_nearest->distance = tmp_distance;
 		}
-		sphere_current = sphere_current->next;
 	}
-	return (nearest);
 }

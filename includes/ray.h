@@ -5,6 +5,8 @@
 # include "vector.h"
 # include "object.h"
 
+# define NO_INTERSECTION	(-1)
+
 typedef struct s_sphere	t_sphere;
 typedef struct s_scene	t_scene;
 
@@ -16,7 +18,7 @@ typedef struct s_ray
 
 typedef struct s_intersection
 {
-	t_sphere	*sphere;
+	void		*object;
 	double		distance;
 	t_vector	position;
 	t_vector	normal;
