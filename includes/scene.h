@@ -1,7 +1,6 @@
 #ifndef SCENE_H
 # define SCENE_H
 
-# include "vector.h"
 # include "camera.h"
 # include "light.h"
 # include "object.h"

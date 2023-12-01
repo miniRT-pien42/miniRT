@@ -1,7 +1,6 @@
 #ifndef OBJECT_H
 # define OBJECT_H
 
-# include <stdbool.h>
 # include "vector.h"
 # include "color.h"
 
