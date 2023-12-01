@@ -7,7 +7,6 @@
 #include "get_next_line.h"
 #include "result.h"
 #include "debug.h"
-#include "value_tmp.h" // todo: remove
 
 /*
 A   ratio      r,g,b
@@ -88,10 +87,12 @@ t_scene	parse(const char *file_name)
 	init_scene(&scene);
 	parse_lines_to_scene(lines, &scene);
 	// if (result == FAILURE)
+	// {
+	// 	deque_clear_all(&lines, del);
 	// 	return (FAILURE);
-	scene.center_screen = get_center_screen(&(t_camera){(t_vector)CAMERA_POS, (t_vector)CAMERA_DIR_N, CAMERA_FOV});
-	scene.rotation_angle = \
-		get_angle(set_axis_base(), scene.camera->dir_n);
-	// deque_clear_all(&lines, del);
+	// }
+	// todo: validation
+	set_scene_with_camera(&scene);
+	deque_clear_all(&lines, del);
 	return (scene);
 }
