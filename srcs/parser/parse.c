@@ -67,7 +67,7 @@ static t_deque	*read_file(const char *file_name)
 	return (lines);
 }
 
-void	del(void *args)
+static void	del_lines(void *args)
 {
 	char	**lines;
 
@@ -86,13 +86,13 @@ t_scene	parse(const char *file_name)
 	// todo: validation
 	init_scene(&scene);
 	parse_lines_to_scene(lines, &scene);
+	deque_clear_all(&lines, del_lines);
 	// if (result == FAILURE)
 	// {
-	// 	deque_clear_all(&lines, del);
+	// 	destroy_scene(&scene);
 	// 	return (FAILURE);
 	// }
 	// todo: validation
 	set_scene_with_camera(&scene);
-	deque_clear_all(&lines, del);
 	return (scene);
 }
