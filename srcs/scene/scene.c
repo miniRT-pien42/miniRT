@@ -14,6 +14,6 @@ t_scene	*init_scene(char *rt_file)
 	scene->camera = init_camera(line);
 	scene->light_ambient = init_light_ambient(line);
 	scene->light = init_light(line);
-	scene->list_sphere = init_sphere(line);
+	scene->list_object = init_object(line);
 	return (scene);
 }

@@ -10,6 +10,9 @@ SRCS		:=	vec/vector1.c \
 				ray/ray.c \
 				camera/camera.c \
 				light/light.c \
+				object/object.c \
+				plane/plane.c \
+				plane/plane_ray.c \
 				sphere/sphere.c \
 				sphere/sphere_ray.c \
 				sphere/sphere_color.c \
