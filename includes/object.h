@@ -48,9 +48,9 @@ t_sphere		*init_sphere2_tmp(void);
 t_sphere		*init_sphere3_tmp(void);
 t_plane			*init_plane(char *line);
 t_shape			get_object_type(void *object);
-void			judge_nearest_sphere(t_vector ray, t_scene *scene, \
+void			update_nearest_sphere(t_vector ray, t_scene *scene, \
 	t_sphere *sphere, t_intersection *ptr_nearest);
-void			judge_nearest_plane(t_vector ray, t_scene *scene, \
+void			update_nearest_plane(t_vector ray, t_scene *scene, \
 	t_plane *plane, t_intersection *ptr_nearest);
 t_intersection	get_nearest_object(t_vector ray, t_scene *scene);
 int				convert_rgb(t_rgb color);

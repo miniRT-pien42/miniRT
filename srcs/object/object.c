@@ -39,12 +39,12 @@ t_intersection	get_nearest_object(t_vector ray, t_scene *scene)
 	{
 		if (get_object_type(object_current->content) == SPHERE)
 		{
-			judge_nearest_sphere(\
+			update_nearest_sphere(\
 				ray, scene, (t_sphere *)object_current->content, &nearest);
 		}
 		else if (get_object_type(object_current->content) == PLANE)
 		{
-			judge_nearest_plane(\
+			update_nearest_plane(\
 				ray, scene, (t_plane *)object_current->content, &nearest);
 		}
 		else

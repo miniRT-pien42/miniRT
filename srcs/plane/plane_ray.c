@@ -6,7 +6,7 @@
 #include "utils.h"
 #include "ray.h"
 
-void	judge_nearest_plane(\
+void	update_nearest_plane(\
 	t_vector ray, t_scene *scene, t_plane *plane, t_intersection *ptr_nearest)
 {
 	double	num_bottom;

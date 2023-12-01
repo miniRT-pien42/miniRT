@@ -42,7 +42,7 @@ static bool	is_intersect_to_sphere(const double d)
 	return (d >= 0);
 }
 
-void	judge_nearest_sphere(\
+void	update_nearest_sphere(\
 	t_vector ray, t_scene *scene, t_sphere *sphere, t_intersection *ptr_nearest)
 {
 	t_discriminant	discriminant;
