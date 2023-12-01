@@ -17,6 +17,7 @@ SRCS		:=	vec/vector1.c \
 				display/display.c \
 				display/set_each_pixel.c \
 				debug/debug.c \
+				debug/print_rt_file.c \
 				parser/convert.c \
 				parser/parse.c \
 				main.c

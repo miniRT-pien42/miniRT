@@ -6,6 +6,7 @@
 #include "ft_deque.h"
 #include "get_next_line.h"
 #include "result.h"
+#include "debug.h"
 
 /*
 A   ratio      r,g,b
@@ -63,7 +64,7 @@ static t_deque	*read_file(const char *file_name)
 
 	fd = open(file_name, O_RDONLY); // todo: create x_open with error handle
 	lines = read_lines(fd);
-	debug_deque_print(lines, __func__);
+	debug_deque_print(lines, __func__, print_2d_array);
 	return (lines);
 }
 
