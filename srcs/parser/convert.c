@@ -9,7 +9,8 @@ t_vector	convert_line_to_vector(const char *line, const char delimiter)
 	char		**strs;
 
 	strs = ft_split(line, delimiter);
-	vec = (t_vector){.x = atof(strs[0]), .y = atof(strs[1]), .z = atof(strs[2])};
+	vec = \
+		(t_vector){.x = atof(strs[0]), .y = atof(strs[1]), .z = atof(strs[2])};
 	free_2d_array(&strs);
 	return (vec);
 }

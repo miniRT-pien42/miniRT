@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+// for .rt file's split lines
 void	print_2d_array(char **strs)
 {
 	size_t	i;

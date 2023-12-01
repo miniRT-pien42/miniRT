@@ -26,8 +26,6 @@ void	debug_print_scene_value(const t_scene *scene)
 	printf("scene->light->bright = %f\n", scene->light->bright);
 
 	printf("** deque_print\n");
-	// deque_print(scene->list_object); // todo: pass print function pointer
-
 	while (object_current)
 	{
 		printf("** list_object:%zu %d\n", i, get_object_type(object_current->content));
