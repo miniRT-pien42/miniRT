@@ -2,22 +2,7 @@
 #include "object.h"
 #include "scene.h"
 #include "ray.h"
-
-t_deque	*init_object(void)
-{
-	t_deque		*ret_object;
-
-	ret_object = deque_new();
-	deque_add_first_node(\
-		ret_object, deque_node_new((t_sphere *)init_sphere()));
-	deque_add_back(\
-		ret_object, deque_node_new((t_sphere *)init_sphere2_tmp()));
-	deque_add_back(\
-		ret_object, deque_node_new((t_sphere *)init_sphere3_tmp()));
-	deque_add_back(\
-		ret_object, deque_node_new((t_plane *)init_plane()));
-	return (ret_object);
-}
+#include "ft_deque.h"
 
 t_shape	get_object_type(void *object)
 {
@@ -46,4 +31,26 @@ t_intersection	get_nearest_object(t_vector ray, t_scene *scene)
 		object_current = object_current->next;
 	}
 	return (nearest);
+}
+
+static t_deque_node	*get_new_object_node(const char **line, const t_shape type)
+{
+	t_deque_node	*node;
+
+	if (type == SPHERE)
+		node = deque_node_new(init_sphere(line));
+	else if (type == PLANE)
+		node = deque_node_new(init_plane(line));
+	// else if (type == CYLINDER)
+	// 	node = deque_node_new(init_cylinder(line));
+	return (node);
+}
+
+void	add_to_list_object(\
+					t_deque *list_object, const char **line, const t_shape type)
+{
+	t_deque_node	*node;
+
+	node = get_new_object_node(line, type);
+	deque_add_back(list_object, node);
 }

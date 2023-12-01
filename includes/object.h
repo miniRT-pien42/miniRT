@@ -51,8 +51,7 @@ void			update_nearest_sphere(t_vector ray, t_scene *scene, \
 void			update_nearest_plane(t_vector ray, t_scene *scene, \
 	t_plane *plane, t_intersection *ptr_nearest);
 int				convert_rgb(t_rgb color);
-
-/* sphere*/
-void			add_to_list_object(t_scene *scene, const char **line);
+void			add_to_list_object(\
+	t_deque *list_object, const char **line, const t_shape type);
 
 #endif
