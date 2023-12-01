@@ -10,6 +10,6 @@ typedef struct s_camera
 	int			fov; //doubleかもしれない
 }	t_camera;
 
-t_camera	*init_camera(void);
+t_camera	*init_camera(const char **line);
 
 #endif

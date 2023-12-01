@@ -1,22 +1,24 @@
 #include "light.h"
 #include "libft.h"
-#include "value_tmp.h" // todo: rm
+#include "parse.h"
+#include <stdlib.h> // todo: rm (atof)
 
-t_light_ambient	*init_light_ambient(void)
+t_light_ambient	*init_light_ambient(const char **line)
 {
 	t_light_ambient	*light_ambient;
 
 	light_ambient = (t_light_ambient *)x_malloc(sizeof(t_light_ambient));
-	light_ambient->bright = LIGHT_A_BRIGHT;
-	light_ambient->color = (t_rgb)LIGHT_A_COLOR;
+	light_ambient->bright = atof(line[1]);
+	light_ambient->color = convert_line_to_rgb(line[2], ',');
 	return (light_ambient);
 }
 
-t_light	*init_light(void)
+t_light	*init_light(const char **line)
 {
 	t_light	*light;
+
 	light = (t_light *)x_malloc(sizeof(t_light));
-	light->pos = (t_vector)LIGHT_POS;
-	light->bright = LIGHT_BRIGHT;
+	light->pos = convert_line_to_vector(line[1], ',');
+	light->bright = atof(line[2]);
 	return (light);
 }

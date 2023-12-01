@@ -1,7 +1,11 @@
+#include <fcntl.h> // open
 #include <stdio.h>
 #include <stdlib.h>
 #include "scene.h"
 #include "libft.h"
+#include "ft_deque.h"
+#include "get_next_line.h"
+#include "result.h"
 
 /*
 A   ratio      r,g,b
@@ -24,28 +28,66 @@ cy  x,y,z      nx,ny,nz    diameter  height    r,g,b
 
 */
 
-static char	**read_file(const char *file_name)
+static void	add_split_line(t_deque *lines, char **line)
 {
-	(void)file_name;
-	return (NULL);
+	char			**split_line_with_space;
+	t_deque_node	*node;
+
+	split_line_with_space = ft_split((const char *)*line, ' ');
+	ft_free((void **)line);
+	node = deque_node_new((void *)split_line_with_space);
+	deque_add_back(lines, node);
 }
 
-static void	parse_lines(const char **lines, t_scene *scene)
+static t_deque	*read_lines(const int fd)
 {
-	(void)lines;
-	(void)scene;
-	return ;
+	t_deque		*lines;
+	char		*line;
+	t_result	result;
+
+	lines = deque_new();
+	while (true)
+	{
+		line = get_next_line(fd, &result); // todo: if result==FAILURE
+		if (line == NULL)
+			break ;
+		add_split_line(lines, &line);
+	}
+	return (lines);
+}
+
+static t_deque	*read_file(const char *file_name)
+{
+	int		fd;
+	t_deque	*lines;
+
+	fd = open(file_name, O_RDONLY); // todo: create x_open with error handle
+	lines = read_lines(fd);
+	debug_deque_print(lines, __func__);
+	return (lines);
+}
+
+void	del(void *args)
+{
+	char	**lines;
+
+	lines = (char **)args;
+	free_2d_array(&lines);
 }
 
 t_scene	parse(const char *file_name)
 {
 	t_scene	scene;
-	char	**lines;
+	t_deque	*lines;
+	// t_result	result;
 
 	lines = read_file(file_name);
+	// todo: validation
 	init_scene(&scene);
-	parse_lines((const char **)lines, &scene);
-	free_2d_array(&lines);
+	parse_lines_to_scene(lines, &scene);
+	// if (result == FAILURE)
+	// 	return (FAILURE);
+	deque_clear_all(&lines, del);
 	return (scene);
 }
 
