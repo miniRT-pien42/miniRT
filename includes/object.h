@@ -42,6 +42,7 @@ typedef struct s_discriminant
 }	t_discriminant;
 
 t_deque			*init_object(void);
+t_sphere		*init_sphere(const char **line);
 t_plane			*init_plane(const char **line);
 t_shape			get_object_type(void *object);
 t_intersection	get_nearest_object(t_vector ray, t_scene *scene);
