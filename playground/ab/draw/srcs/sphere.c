@@ -10,7 +10,7 @@ const t_sphere	sphere = {{0, 0, 5}, 1.0};
 const t_vector	view = {0, 0, -5};
 const t_vector	light = {-5, 5, -5};
 
-static t_ray	calc_ray(const int y, const int x)
+t_ray	calc_ray(const int y, const int x)
 {
 	const double	screen_y = 1.0 - (2.0 * y) / (WIN_HEIGHT - 1);
 	const double	screen_x = (2.0 * x) / (WIN_WIDTH - 1) - 1.0;
@@ -51,7 +51,7 @@ static int	calc_color(const int color)
 	return ((red << RED_SHIFT) | (green << GREEN_SHIFT) | blue);
 }
 
-static int	calc_object_color(const t_ray ray, const double t)
+static int	calc_sphere_color(const t_ray ray, const double t)
 {
 	const t_vector	intersect_point = vec_add(ray.position, vec_scalar(ray.direction, t));
 	const t_vector	light_v = vec_normalize(vec_subtract(light, intersect_point));
@@ -62,7 +62,7 @@ static int	calc_object_color(const t_ray ray, const double t)
 	return (color);
 }
 
-void	set_each_pixel_color(t_mlx *mlxs, const int y, const int x)
+void	set_each_sphere_pixel_color(t_mlx *mlxs, const int y, const int x)
 {
 	const t_ray		ray = calc_ray(y, x);
 	const double	t = calc_param_t(ray);
@@ -73,7 +73,7 @@ void	set_each_pixel_color(t_mlx *mlxs, const int y, const int x)
 		color = COLOR_BLUE;
 	else
 	{
-		color = calc_object_color(ray, t);
+		color = calc_sphere_color(ray, t);
 		if (color != 0)
 			printf("RGB=(%d,%d,%d)\n", color, color, color);
 	}
