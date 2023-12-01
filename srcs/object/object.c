@@ -38,11 +38,15 @@ t_intersection	get_nearest_object(t_vector ray, t_scene *scene)
 	while (object_current)
 	{
 		if (get_object_type(object_current->content) == SPHERE)
+		{
 			judge_nearest_sphere(\
 				ray, scene, (t_sphere *)object_current->content, &nearest);
+		}
 		else if (get_object_type(object_current->content) == PLANE)
+		{
 			judge_nearest_plane(\
 				ray, scene, (t_plane *)object_current->content, &nearest);
+		}
 		else
 			exit (EXIT_FAILURE);
 		object_current = object_current->next;
