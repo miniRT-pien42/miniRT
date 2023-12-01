@@ -39,7 +39,7 @@ static t_vector	rotate_vector(t_vector v, t_quaternion q)
 t_vector	rotate_vector_by_quaternion(\
 	t_vector v, double angle, t_vector dir_n)
 {
-	const t_vector	axis = {0.0, 0.0, 1.0};
+	const t_vector	axis = set_axis_base();
 	t_vector		r_axis;
 	t_quaternion	q_rotate;
 
