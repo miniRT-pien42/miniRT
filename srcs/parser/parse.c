@@ -7,6 +7,7 @@
 #include "get_next_line.h"
 #include "result.h"
 #include "debug.h"
+#include "value_tmp.h" // todo: remove
 
 /*
 A   ratio      r,g,b
@@ -64,7 +65,6 @@ static t_deque	*read_file(const char *file_name)
 
 	fd = open(file_name, O_RDONLY); // todo: create x_open with error handle
 	lines = read_lines(fd);
-	debug_deque_print(lines, __func__, print_2d_array);
 	return (lines);
 }
 
@@ -83,11 +83,15 @@ t_scene	parse(const char *file_name)
 	// t_result	result;
 
 	lines = read_file(file_name);
+	debug_deque_print(lines, __func__, print_2d_array);
 	// todo: validation
 	init_scene(&scene);
 	parse_lines_to_scene(lines, &scene);
 	// if (result == FAILURE)
 	// 	return (FAILURE);
-	deque_clear_all(&lines, del);
+	scene.center_screen = get_center_screen(&(t_camera){(t_vector)CAMERA_POS, (t_vector)CAMERA_DIR_N, CAMERA_FOV});
+	scene.rotation_angle = \
+		get_angle(set_axis_base(), scene.camera->dir_n);
+	// deque_clear_all(&lines, del);
 	return (scene);
 }

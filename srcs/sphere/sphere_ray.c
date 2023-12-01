@@ -3,7 +3,7 @@
 #include "vector.h"
 #include "display.h"
 #include "scene.h"
-#include "utils.h"
+#include "helpers.h"
 #include "ray.h"
 
 // 解の方程式
@@ -21,6 +21,16 @@ static t_discriminant	calc_discriminant(\
 	return (discriminant);
 }
 
+// objectへの距離取得。ray逆方向は-1をreturnして判定で弾けるようにする
+static double	get_valid_distance(double a, double b)
+{
+	if (a * b < 0)
+		return (fmax(a, b));
+	else if (a < 0 && b < 0)
+		return (NO_INTERSECTION);
+	return (fmin(a, b));
+}
+
 // rayとsphereとの距離
 static double	calc_distance_to_object(t_discriminant discriminant)
 {
@@ -30,7 +40,7 @@ static double	calc_distance_to_object(t_discriminant discriminant)
 
 	if (discriminant.d == 0)
 		return (num_top1 / num_bottom);
-	return (positive_and_min(\
+	return (get_valid_distance(\
 				(num_top1 + num_top2) / num_bottom, \
 				(num_top1 - num_top2) / num_bottom \
 			));
@@ -42,29 +52,21 @@ static bool	is_intersect_to_sphere(const double d)
 	return (d >= 0);
 }
 
-t_intersection	get_nearest_object(t_vector ray, t_scene *scene)
+void	update_nearest_sphere(\
+	t_vector ray, t_scene *scene, t_sphere *sphere, t_intersection *ptr_nearest)
 {
-	t_intersection	nearest;
 	t_discriminant	discriminant;
-	t_sphere		*sphere_current;
 	double			tmp_distance;
 
-	nearest.distance = INFINITY;
-	sphere_current = scene->list_sphere;
-	while (sphere_current)
+	discriminant = calc_discriminant(\
+							ray, scene->camera->pos, sphere);
+	if (is_intersect_to_sphere(discriminant.d))
 	{
-		discriminant = calc_discriminant(\
-							ray, scene->camera->pos, sphere_current);
-		if (is_intersect_to_sphere(discriminant.d))
+		tmp_distance = calc_distance_to_object(discriminant);
+		if (tmp_distance < ptr_nearest->distance)
 		{
-			tmp_distance = calc_distance_to_object(discriminant);
-			if (tmp_distance < nearest.distance)
-			{
-				nearest.sphere = sphere_current;
-				nearest.distance = tmp_distance;
-			}
+			ptr_nearest->object = sphere;
+			ptr_nearest->distance = tmp_distance;
 		}
-		sphere_current = sphere_current->next;
 	}
-	return (nearest);
 }
