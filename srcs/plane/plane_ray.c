@@ -3,7 +3,7 @@
 #include "vector.h"
 #include "display.h"
 #include "scene.h"
-#include "utils.h"
+#include "helpers.h"
 #include "ray.h"
 
 void	update_nearest_plane(\
