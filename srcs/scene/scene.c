@@ -49,12 +49,7 @@ void	parse_lines_to_scene(t_deque *lines, t_scene *scene)
 
 void	init_scene(t_scene *scene)
 {
-	scene->camera = NULL;
-	scene->light_ambient = NULL;
-	scene->light = NULL;
 	scene->list_object = deque_new();
-	scene->center_screen = (t_vector){0, 0, 0};
-	scene->rotation_angle = 0;
 }
 
 void	set_scene_with_camera(t_scene *scene)
