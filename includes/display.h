@@ -34,7 +34,7 @@ typedef struct s_mlx
 
 /* init */
 void		init_mlxs(\
-				t_mlx *mlxs, t_display *display, t_image *image, t_scene *scene);
+			t_mlx *mlxs, t_display *display, t_image *image, t_scene *scene);
 
 /* display */
 void		my_mlx_pixel_put(\

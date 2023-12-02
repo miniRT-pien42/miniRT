@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "ft_deque.h"
 
-void	deque_print(t_deque *deque, void (*print)())
+void	deque_print(t_deque *deque, void (*print)(void *))
 {
 	t_deque_node	*node;
 
@@ -11,7 +11,7 @@ void	deque_print(t_deque *deque, void (*print)())
 		printf("---------------------\n");
 		return ;
 	}
-	printf("cotent: \n");
+	printf("content: \n");
 	node = deque->node;
 	while (node)
 	{
@@ -23,7 +23,7 @@ void	deque_print(t_deque *deque, void (*print)())
 }
 
 void	debug_deque_print(\
-						t_deque *deque, const char *func_name, void (*print)())
+				t_deque *deque, const char *func_name, void (*print)(void *))
 {
 	printf(">>> %s\n", func_name);
 	deque_print(deque, print);
