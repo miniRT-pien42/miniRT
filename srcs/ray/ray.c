@@ -11,7 +11,7 @@ static void	get_info_intersection(
 		vec_scalar(ray, ptr_nearest->distance));
 	ptr_nearest->incident = vec_normalize(\
 			vec_subtract(scene->light->pos, ptr_nearest->position));
-	if (sphere->is_camera_inside)
+	if (is_camera_inside(ptr_nearest, scene->camera->pos))
 		ptr_nearest->normal = vec_normalize(\
 			vec_subtract(sphere->center, ptr_nearest->position));
 	else
@@ -54,27 +54,33 @@ t_rgb	ray_tracing(
 		const t_scene *scene, t_intersection nearest, t_vector ray)
 {
 	t_material		material;
-	t_vector		shadow_ray;
+	//t_vector		shadow_ray;
 	double			l_dot;
 	const t_sphere	*sphere = nearest.object;
 
-	check_light_inside_sphere(scene, &nearest);
+	//check_light_inside_sphere(scene, &nearest);
 	get_info_intersection(scene, &nearest, ray);
 	material.lux_ambient = get_lux_ambient(scene->light_ambient);
 	material.lux_total = material.lux_ambient;
-	if (sphere->is_camera_inside == sphere->is_light_inside)
-	{
-		shadow_ray = vec_subtract(nearest.position, scene->light->pos);
-		if (!is_shadow_by_sphere(shadow_ray, scene, sphere))
-		{
-			l_dot = vec_dot(nearest.incident, nearest.normal);
-			l_dot = clipping(l_dot, 0, 1);
-			material.lux_light = \
-				get_lux_light(scene->light, sphere->color, l_dot);
-			material.lux_total = \
-				get_lux_total(material.lux_ambient, material.lux_light);
-		}
-	}
+//	if (sphere->is_camera_inside == sphere->is_light_inside)
+//	{
+//		shadow_ray = vec_subtract(nearest.position, scene->light->pos);
+//		if (!is_shadow_by_sphere(shadow_ray, scene, sphere))
+//		{
+//			l_dot = vec_dot(nearest.incident, nearest.normal);
+//			l_dot = clipping(l_dot, 0, 1);
+//			material.lux_light = \
+//				get_lux_light(scene->light, sphere->color, l_dot);
+//			material.lux_total = \
+//				get_lux_total(material.lux_ambient, material.lux_light);
+//		}
+//	}
+	l_dot = vec_dot(nearest.incident, nearest.normal);
+	l_dot = clipping(l_dot, 0, 1);
+	material.lux_light = \
+		get_lux_light(scene->light, sphere->color, l_dot);
+	material.lux_total = \
+		get_lux_total(material.lux_ambient, material.lux_light);
 	material.color = (t_rgb){material.lux_total.r * 255, \
 		material.lux_total.g * 255, material.lux_total.b * 255};
 	return (material.color);

@@ -8,10 +8,10 @@
 
 // 解の方程式
 t_discriminant	calc_discriminant(\
-		const t_vector ray, const t_vector camera_pos, const t_sphere *sphere)
+		const t_vector ray, const t_vector start_pos, const t_sphere *sphere)
 {
 	t_discriminant	discriminant;
-	const t_vector	v = vec_subtract(camera_pos, sphere->center);
+	const t_vector	v = vec_subtract(start_pos, sphere->center);
 
 	discriminant.a = pow(get_length(ray), 2);
 	discriminant.b = 2.0 * vec_dot(ray, v);
@@ -48,6 +48,32 @@ static void	get_list_distance(\
 		list_distance[0] = (num_top1 + num_top2) / num_bottom;
 		list_distance[1] = (num_top1 - num_top2) / num_bottom;
 	}
+}
+
+static bool	is_nega_posi(t_discriminant discriminant)
+{
+	double			list_distance[2];
+
+	get_list_distance(list_distance, discriminant);
+	if (list_distance[1] == INFINITY)
+		return (false);
+	if (list_distance[0] * list_distance[1] < 0)
+		return (true);
+	return (false);
+}
+
+bool	is_camera_inside(t_intersection *ptr_nearest, t_vector camera_pos)
+{
+	t_sphere		*sphere;
+	t_discriminant	discriminant;
+
+	sphere = ptr_nearest->object;
+	discriminant = calc_discriminant(\
+		vec_subtract(ptr_nearest->position, camera_pos), \
+		camera_pos, sphere);
+	if (is_intersect_to_sphere(discriminant.d) && is_nega_posi(discriminant))
+		return (true);
+	return (false);
 }
 
 double	calc_distance_to_object(t_discriminant discriminant)

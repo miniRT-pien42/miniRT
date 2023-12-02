@@ -66,4 +66,6 @@ double			calc_distance_to_object(t_discriminant discriminant);
 double			calc_distance_to_object_abs(t_discriminant discriminant);
 bool			is_shadow_by_sphere(const t_vector shadow_ray, \
 	const t_scene *scene, const t_sphere *sphere_target);
+bool			is_camera_inside(\
+	t_intersection *ptr_nearest, t_vector camera_pos);
 #endif
