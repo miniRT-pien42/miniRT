@@ -4,7 +4,6 @@
 #include "scene.h"
 #include "ray.h"
 
-#include <stdio.h>
 // screen上の点の位置
 static t_vector	calc_ray_direction(const int y, const int x, t_scene *scene)
 {
@@ -23,24 +22,32 @@ static t_vector	calc_ray_direction(const int y, const int x, t_scene *scene)
 void	set_each_pixel_color(\
 	t_mlx *mlxs, const int y, const int x, t_scene *scene)
 {
-	int				color;
-	t_vector		ray_direction;
-	// t_intersection	nearest;
+// 	int				color;
+// 	t_vector		ray_direction;
 
-	ray_direction = calc_ray_direction(y, x, scene);
-	const t_ray ray = {.position = scene->camera->pos, .direction = ray_direction};
-    if (is_intersect_cylinder(&ray))
-		color = COLOR_PINK;
-	else
+// 	ray_direction = calc_ray_direction(y, x, scene);
+// 	const t_ray ray = {.position = scene->camera->pos, .direction = ray_direction};
+//     if (is_intersect_cylinder(&ray))
+// 		color = COLOR_PINK;
+// 	else
+// 		color = COLOR_BLUE;
+  int				color;
+	t_vector		ray;
+	t_intersection	nearest;
+
+	ray = calc_ray_direction(y, x, scene);
+	nearest = get_nearest_object(ray, scene);
+	if (nearest.distance == INFINITY)
 		color = COLOR_BLUE;
-
-	// nearest = get_nearest_object(ray, scene);
-	// if (nearest.distance == INFINITY)
-	// 	color = COLOR_BLUE;
-	// else
-	// {
-	// 	//todo: #8 描画色取得(shadow-ray判定含む)
-	// 	color = convert_rgb(nearest.sphere->color);
-	// }
+	else
+	{
+		//todo: #8 描画色取得(shadow-ray判定含む)
+		if (get_object_type(nearest.object) == SPHERE)
+			color = convert_rgb(((t_sphere *)nearest.object)->color);
+		else if (get_object_type(nearest.object) == PLANE)
+			color = convert_rgb(((t_plane *)nearest.object)->color);
+		else
+			color = COLOR_RED;
+	}
 	my_mlx_pixel_put(mlxs->image, y, x, color);
 }

@@ -1,8 +1,9 @@
 #ifndef RAY_H
 # define RAY_H
 
-# include "vector.h"
 # include "object.h"
+
+# define NO_INTERSECTION	(-1)
 
 typedef struct s_ray
 {
@@ -12,7 +13,7 @@ typedef struct s_ray
 
 typedef struct s_intersection
 {
-	t_sphere	*sphere;
+	void		*object;
 	double		distance;
 	t_vector	position;
 	t_vector	normal;

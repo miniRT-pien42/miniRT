@@ -16,7 +16,7 @@ double	convert_rad_to_deg(double rad)
 	return (rad * 180.0 / M_PI);
 }
 
-t_vector	*map_coord(t_vector *v_coord, int w, int h)
+t_vector	*convert_coord(t_vector *v_coord, int w, int h)
 {
 	v_coord->x /= w;
 	v_coord->y /= h;

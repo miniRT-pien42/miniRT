@@ -39,13 +39,13 @@ static t_vector	rotate_vector(t_vector v, t_quaternion q)
 t_vector	rotate_vector_by_quaternion(\
 	t_vector v, double angle, t_vector dir_n)
 {
-	const t_vector	axis = {0.0, 0.0, 1.0};
+	const t_vector	axis = set_axis_base();
 	t_vector		r_axis;
 	t_quaternion	q_rotate;
 
 	if (is_vector_opposite(axis, dir_n))
 		return ((t_vector){v.x * -1, v.y, v.z * -1});
-	r_axis = cross_product(axis, dir_n);
+	r_axis = vec_cross(axis, dir_n);
 	q_rotate = get_rotate_quaternion(r_axis, angle);
 	return (rotate_vector(v, q_rotate));
 }
