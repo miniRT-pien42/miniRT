@@ -15,7 +15,8 @@ typedef enum s_shape
 {
 	SPHERE,
 	PLANE,
-	CYLINDER
+	CYLINDER,
+	SHAPE_NONE,
 }	t_shape;
 
 typedef struct s_sphere
@@ -56,7 +57,7 @@ t_sphere		*init_sphere(const char **line);
 t_plane			*init_plane(const char **line);
 t_cylinder		*init_cylinder(const char **line);
 t_shape			get_object_type(void *object);
-t_intersection	get_nearest_object(t_vector ray, t_scene *scene);
+void			*get_nearest_object(t_vector ray, t_scene *scene);
 void			update_nearest_sphere(t_vector ray, t_scene *scene, \
 	t_sphere *sphere, t_intersection *ptr_nearest);
 void			update_nearest_plane(t_vector ray, t_scene *scene, \
@@ -66,5 +67,7 @@ void			update_nearest_cylinder(t_vector ray, \
 int				convert_rgb(t_rgb color);
 void			add_to_list_object(\
 	t_deque *list_object, const char **line, const t_shape type);
+double			get_clother_distance_to_cylinder(\
+	t_vector ray_direction, t_scene *scene, t_cylinder *cylinder);
 
 #endif

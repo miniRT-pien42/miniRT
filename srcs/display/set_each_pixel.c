@@ -25,25 +25,25 @@ static t_vector	calc_ray_direction(const int y, const int x, t_scene *scene)
 void	set_each_pixel_color(\
 	t_mlx *mlxs, const int y, const int x, t_scene *scene)
 {
-	int				color;
-	t_vector		ray;
-	t_intersection	nearest;
-	t_shape			type;
+	int			color;
+	t_vector	ray;
+	void		*nearest_object;
+	t_shape		type;
 
 	ray = calc_ray_direction(y, x, scene);
-	nearest = get_nearest_object(ray, scene);
-	if (nearest.distance == INFINITY)
+	nearest_object = get_nearest_object(ray, scene);
+	if (nearest_object == NULL)
 		color = COLOR_BLUE;
 	else
 	{
 		//todo: #8 描画色取得(shadow-ray判定含む)
-		type = get_object_type(nearest.object);
+		type = get_object_type(nearest_object);
 		if (type == SPHERE)
-			color = convert_rgb(((t_sphere *)nearest.object)->color);
+			color = convert_rgb(((t_sphere *)nearest_object)->color);
 		else if (type == PLANE)
-			color = convert_rgb(((t_plane *)nearest.object)->color);
+			color = convert_rgb(((t_plane *)nearest_object)->color);
 		else if (type == CYLINDER)
-			color = convert_rgb(((t_cylinder *)nearest.object)->color);
+			color = convert_rgb(((t_cylinder *)nearest_object)->color);
 		else
 			color = COLOR_RED;
 	}

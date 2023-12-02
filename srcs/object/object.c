@@ -4,45 +4,50 @@
 
 t_shape	get_object_type(void *object)
 {
+	if (object == NULL)
+		return (SHAPE_NONE);
 	return (*(t_shape *)object);
 }
 
-static void	update_nearest_object(t_vector ray, \
-	t_scene *scene, t_deque_node *object_current, t_intersection *nearest)
+static double	get_clother_distance(t_vector ray, t_scene *scene, void *object)
 {
 	t_shape	type;
+	double	distance;
 
-	type = get_object_type(object_current->content);
-	if (type == SPHERE)
-	{
-		update_nearest_sphere(\
-			ray, scene, (t_sphere *)object_current->content, nearest);
-	}
-	else if (type == PLANE)
-	{
-		update_nearest_plane(\
-			ray, scene, (t_plane *)object_current->content, nearest);
-	}
-	else if (type == CYLINDER)
-	{
-		update_nearest_cylinder(\
-			ray, scene, (t_cylinder *)object_current->content, nearest);
-	}
+	type = get_object_type(object);
+	// if (type == SPHERE)
+	// 	distance = get_clother_diatance_to_sphere(ray, scene, (t_sphere *)object);
+	// else if (type == PLANE)
+	// 	distance = get_clother_diatance_to_plane(ray, scene, (t_plane *)object);
+	// else if (type == CYLINDER)
+	if (type == CYLINDER)
+		distance = get_clother_distance_to_cylinder(ray, scene, (t_cylinder *)object);
+	else
+		distance = NAN;
+	return (distance);
 }
 
-t_intersection	get_nearest_object(t_vector ray, t_scene *scene)
+void	*get_nearest_object(t_vector ray, t_scene *scene)
 {
-	t_intersection	nearest;
-	t_deque_node	*object_current;
+	t_deque_node	*current_node;
+	void			*nearest_object;
+	double			nearest_distance;
+	double			new_distance;
 
-	nearest.distance = INFINITY;
-	object_current = scene->list_object->node;
-	while (object_current)
+	current_node = scene->list_object->node;
+	nearest_object = NULL;
+	nearest_distance = INFINITY;
+	while (current_node)
 	{
-		update_nearest_object(ray, scene, object_current, &nearest);
-		object_current = object_current->next;
+		new_distance = get_clother_distance(ray, scene, current_node->content);
+		if (!isnan(new_distance) && new_distance < nearest_distance)
+		{
+			nearest_distance = new_distance;
+			nearest_object = current_node->content;
+		}
+		current_node = current_node->next;
 	}
-	return (nearest);
+	return (nearest_object);
 }
 
 static t_deque_node	*get_new_object_node(const char **line, const t_shape type)
