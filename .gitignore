@@ -16,3 +16,4 @@ cmake-build-debug
 !*.h
 #!playground/**
 !test/norm.py
+!rt_files/**

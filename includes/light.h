@@ -16,7 +16,7 @@ typedef struct s_light
 	double		bright;
 }	t_light;
 
-t_light_ambient	*init_light_ambient(char *line);
-t_light			*init_light(char *line);
+t_light_ambient	*init_light_ambient(const char **line);
+t_light			*init_light(const char **line);
 
 #endif

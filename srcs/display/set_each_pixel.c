@@ -8,14 +8,17 @@
 static t_vector	calc_ray_direction(const int y, const int x, t_scene *scene)
 {
 	t_vector		coord_on_screen;
+	const t_vector	center_screen = get_center_screen(scene->camera);
+	const double	rotation_angle = \
+		get_angle(set_axis_base(), scene->camera->dir_n);
 
 	coord_on_screen.x = (2.0 * x) / (WIDTH - 1) - 1.0;
 	coord_on_screen.y = -(2.0 * HEIGHT / WIDTH * y) / (HEIGHT - 1) + 1.0;
 	coord_on_screen.z = 0.0;
 	coord_on_screen = \
 		rotate_vector_by_quaternion(\
-			coord_on_screen, scene->rotation_angle, scene->camera->dir_n);
-	coord_on_screen = vec_add(coord_on_screen, scene->center_screen);
+			coord_on_screen, rotation_angle, scene->camera->dir_n);
+	coord_on_screen = vec_add(coord_on_screen, center_screen);
 	return (vec_subtract(coord_on_screen, scene->camera->pos));
 }
 
