@@ -13,9 +13,9 @@ t_discriminant	calc_discriminant(\
 	t_discriminant	discriminant;
 	const t_vector	v = vec_subtract(camera_pos, sphere->center);
 
-	discriminant.a = pow(get_scalar(ray), 2);
+	discriminant.a = pow(get_length(ray), 2);
 	discriminant.b = 2.0 * vec_dot(ray, v);
-	discriminant.c = pow(get_scalar(v), 2) - pow(sphere->diameter / 2, 2);
+	discriminant.c = pow(get_length(v), 2) - pow(sphere->diameter / 2, 2);
 	discriminant.d = pow(discriminant.b, 2) - \
 		4 * discriminant.a * discriminant.c;
 	return (discriminant);

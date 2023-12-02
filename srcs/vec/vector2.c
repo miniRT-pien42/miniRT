@@ -8,14 +8,14 @@ t_vector	vec_scalar(const t_vector v, double scalar)
 	return (ret_v);
 }
 
-double	get_scalar(const t_vector v)
+double	get_length(const t_vector v)
 {
 	return (sqrt(pow(v.x, 2) + pow(v.y, 2) + pow(v.z, 2)));
 }
 
 t_vector	vec_normalize(const t_vector v)
 {
-	const double	length = get_scalar(v);
+	const double	length = get_length(v);
 	const t_vector	ret_v = {v.x / length, v.y / length, v.x / length};
 
 	return (ret_v);
