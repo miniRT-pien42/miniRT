@@ -41,8 +41,8 @@ static t_deque_node	*get_new_object_node(const char **line, const t_shape type)
 		node = deque_node_new(init_sphere(line));
 	else if (type == PLANE)
 		node = deque_node_new(init_plane(line));
-	// else if (type == CYLINDER)
-	// 	node = deque_node_new(init_cylinder(line));
+	else if (type == CYLINDER)
+		node = deque_node_new(init_cylinder(line));
 	else
 		node = NULL;
 	return (node);

@@ -1,71 +1,18 @@
-#include <math.h>
-#include <stdbool.h>
-#include <stdio.h>
-#include "color.h"
-#include "display.h"
+#include "libft.h"
 #include "object.h"
-#include "helpers.h"
-#include "vector.h"
-#include "ray.h"
+#include "parse.h"
+#include <stdlib.h> // todo: rm (atof)
 
-// 円柱の中心座標ベクトル、円柱の軸方向(法線ベクトル), 半径、高さ
-const t_cylinder cylinder = {{0, -3, 10}, {0, 1, 0}, 1.0, 3.0};
-
-// 中心軸上での交差判定
-static t_discriminant	calc_discriminant(const t_ray *ray)
+t_cylinder	*init_cylinder(const char **line)
 {
-	t_discriminant	discriminant;
-    double			a;
-	double			b;
-    double			c;
+	t_cylinder	*cylinder;
 
-	a = vec_norm(vec_cross(ray->direction, cylinder.axis_normal));
-	a *= a;
-	b = 2 * vec_dot(vec_cross(ray->direction, cylinder.axis_normal), \
-					vec_cross(vec_subtract(ray->position, cylinder.center), cylinder.axis_normal));
-	c = vec_norm(vec_cross(vec_subtract(ray->position, cylinder.center), cylinder.axis_normal));
-	c = pow(c, 2) - pow(cylinder.r, 2);
-	discriminant.a = a;
-	discriminant.b = b;
-	discriminant.c = c;
-	discriminant.d = b * b - 4 * a * c;
-	return (discriminant);
+	cylinder = (t_cylinder *)x_malloc(sizeof(t_cylinder));
+	cylinder->type = CYLINDER;
+	cylinder->center = convert_line_to_vector(line[1], ',');
+	cylinder->axis_normal = convert_line_to_vector(line[2], ',');
+	cylinder->diameter = atof(line[3]);
+	cylinder->height = atof(line[4]);
+	cylinder->color = convert_line_to_rgb(line[5], ',');
+	return (cylinder);
 }
-
-bool	is_intersect_cylinder(const t_ray *ray)
-{
-    const t_discriminant	discriminant = calc_discriminant(ray);
-	double 					t;
-	double 					t1;
-	double 					t2;
-
-    // 交差しない
-    if (discriminant.d < 0) {
-        return (false);
-    }
-
-	if (discriminant.d == 0)
-		t = -discriminant.b / (2 * discriminant.a);
-	else
-	{
-		// rayとcylinderの距離(円柱の内側と外側)
-		t1 = (-discriminant.b - sqrt(discriminant.d)) / (2 * discriminant.a);
-		t2 = (-discriminant.b + sqrt(discriminant.d)) / (2 * discriminant.a);
-		t = (t1 > 0 && t2 > 0) ? fmin(t1, t2) : fmax(t1, t2);
-	}
-
-	if (t > 0)
-	{
-		// 交点位置pa
-		const t_vector	pa = vec_add(ray->position, vec_scalar(ray->direction, t));
-		// paからの法線ベクトル
-		const t_vector	pa_normal = vec_subtract(pa, cylinder.center);
-		// 中心軸上での法線とpaから求めた法線が同じ方向を向いていてheight以内かどうか
-		const double	height = vec_dot(cylinder.axis_normal, pa_normal);
-		if (0 <= height && height <= cylinder.height)
-			return (true);
-	}
-    // 交差しない
-    return (false);
-}
-

@@ -27,10 +27,12 @@ typedef struct s_sphere
 }	t_sphere;
 
 typedef struct s_cylinder {
-	t_vector	center; // 中心座標ベクトル
-	t_vector	axis_normal; // 法線ベクトル
-	double		r;
+	t_shape		type;
+	t_vector	center;
+	t_vector	axis_normal;
+	double		diameter;
 	double		height;
+	t_rgb		color;
 }	t_cylinder;
 
 typedef struct s_plane
@@ -52,6 +54,7 @@ typedef struct s_discriminant
 t_deque			*init_object(void);
 t_sphere		*init_sphere(const char **line);
 t_plane			*init_plane(const char **line);
+t_cylinder		*init_cylinder(const char **line);
 t_shape			get_object_type(void *object);
 t_intersection	get_nearest_object(t_vector ray, t_scene *scene);
 void			update_nearest_sphere(t_vector ray, t_scene *scene, \
