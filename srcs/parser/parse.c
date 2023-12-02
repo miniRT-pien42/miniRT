@@ -93,6 +93,5 @@ t_scene	parse(const char *file_name)
 	// 	return (FAILURE);
 	// }
 	// todo: validation
-	set_scene_with_camera(&scene);
 	return (scene);
 }
