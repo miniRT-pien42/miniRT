@@ -51,10 +51,3 @@ void	init_scene(t_scene *scene)
 {
 	scene->list_object = deque_new();
 }
-
-void	set_scene_with_camera(t_scene *scene)
-{
-	scene->center_screen = get_center_screen(scene->camera);
-	scene->rotation_angle = \
-		get_angle(set_axis_base(), scene->camera->dir_n);
-}

@@ -17,14 +17,11 @@ typedef struct s_scene
 	t_light_ambient	*light_ambient;
 	t_light			*light;
 	t_deque			*list_object;
-	t_vector		center_screen;
-	double			rotation_angle;
 }	t_scene;
 
 void		init_scene(t_scene *scene);
 void		parse_lines_to_scene(t_deque *lines, t_scene *scene);
 t_vector	set_axis_base(void);
-void		set_scene_with_camera(t_scene *scene);
 void		destroy_scene(t_scene *scene);
 
 #endif
