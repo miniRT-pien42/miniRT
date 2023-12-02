@@ -50,10 +50,12 @@ static void	init_image(t_mlx *mlxs)
 				&image->bits_per_pixel, &image->line_length, &image->endian);
 }
 
-void	init_mlxs(t_mlx *mlxs, t_display *display, t_image *image)
+void	init_mlxs(\
+				t_mlx *mlxs, t_display *display, t_image *image, t_scene *scene)
 {
 	mlxs->display = display;
 	mlxs->image = image;
 	init_window(mlxs);
 	init_image(mlxs);
+	mlxs->scene = scene;
 }
