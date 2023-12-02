@@ -22,37 +22,52 @@ t_discriminant	calc_discriminant(\
 }
 
 // objectへの距離取得。ray逆方向は-1をreturnして判定で弾けるようにする
-static double	get_valid_distance(double a, double b, bool *ptr_is_inside)
+static double	get_valid_distance(double a, double b)
 {
 	if (a * b < 0)
-	{
-		if (ptr_is_inside != NULL && !*ptr_is_inside)
-			*ptr_is_inside = true;
 		return (fmax(a, b));
-	}
 	else if (a < 0 && b < 0)
 		return (NO_INTERSECTION);
 	return (fmin(a, b));
 }
 
-// rayとsphereとの距離。sphareの内部にcameraがある場合は，sphere->is_camera_insideをtrueにしておく
-double	calc_distance_to_object(\
-	t_discriminant discriminant, bool *is_inside, bool is_abs)
+static void	get_list_distance(\
+	double *list_distance, t_discriminant discriminant)
 {
 	const double	num_bottom = 2.0 * discriminant.a;
 	const double	num_top1 = -1 * discriminant.b;
 	const double	num_top2 = sqrt(discriminant.d);
-	double			distance1;
-	double			distance2;
 
 	if (discriminant.d == 0)
-		return (num_top1 / num_bottom);
-	distance1 = (num_top1 + num_top2) / num_bottom;
-	distance2 = (num_top1 - num_top2) / num_bottom;
-	if (is_abs)
-		return (fmin(fabs(distance1), fabs(distance2)));
+	{
+		list_distance[0] = num_top1 / num_bottom;
+		list_distance[1] = INFINITY;
+	}
 	else
-		return (get_valid_distance(distance1, distance2, is_inside));
+	{
+		list_distance[0] = (num_top1 + num_top2) / num_bottom;
+		list_distance[1] = (num_top1 - num_top2) / num_bottom;
+	}
+}
+
+double	calc_distance_to_object(t_discriminant discriminant)
+{
+	double			list_distance[2];
+
+	get_list_distance(list_distance, discriminant);
+	if (list_distance[1] == INFINITY)
+		return (list_distance[0]);
+	return (get_valid_distance(list_distance[0], list_distance[1]));
+}
+
+double	calc_distance_to_object_abs(t_discriminant discriminant)
+{
+	double	list_distance[2];
+
+	get_list_distance(list_distance, discriminant);
+	if (list_distance[1] == INFINITY)
+		return (list_distance[0]);
+	return (fmin(fabs(list_distance[0]), fabs(list_distance[1])));
 }
 
 // cameraからのrayとsphereとの衝突判定。衝突していればtrueを返す。
@@ -71,8 +86,7 @@ void	update_nearest_sphere(\
 							ray, scene->camera->pos, sphere);
 	if (is_intersect_to_sphere(discriminant.d))
 	{
-		tmp_distance = calc_distance_to_object(\
-			discriminant, &sphere->is_camera_inside, false);
+		tmp_distance = calc_distance_to_object(discriminant);
 		if (tmp_distance < ptr_nearest->distance)
 		{
 			ptr_nearest->object = sphere;

@@ -23,12 +23,12 @@ void	check_light_inside_sphere(\
 		scene->light->pos, sphere);
 	if (is_intersect_to_sphere(discriminant.d))
 	{
-		calc_distance_to_object(\
-			discriminant, &sphere->is_light_inside, false);
+		calc_distance_to_object(discriminant);
 	}
 }
 
 // shadow-rayとsphereとの衝突判定。衝突していればtrueを返す=>その画素は影
+// sphere_targetは、影を落とされるかチェックする対象の球体
 bool	is_shadow_by_sphere(const t_vector shadow_ray,
 							const t_scene *scene, const t_sphere *sphere_target)
 {
@@ -41,7 +41,7 @@ bool	is_shadow_by_sphere(const t_vector shadow_ray,
 	object_current = scene->list_object->node;
 	discriminant_target = calc_discriminant(\
 							shadow_ray, scene->light->pos, sphere_target);
-	distance_target = calc_distance_to_object(discriminant_target, NULL, true);
+	distance_target = calc_distance_to_object_abs(discriminant_target);
 	while (object_current)
 	{
 		if (get_object_type(object_current->content) == SPHERE)
@@ -50,8 +50,9 @@ bool	is_shadow_by_sphere(const t_vector shadow_ray,
 				shadow_ray, scene->light->pos, object_current->content);
 			if (is_intersect_to_sphere(discriminant.d))
 			{
+				//rayとの交点がある場合、その交点までの距離を計算
 				tmp_distance = \
-					calc_distance_to_object(discriminant, NULL, true);
+					calc_distance_to_object_abs(discriminant);
 				if (tmp_distance < distance_target)
 					return (true);
 			}
