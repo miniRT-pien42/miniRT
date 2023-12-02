@@ -82,7 +82,7 @@ t_scene	parse(const char *file_name)
 	// t_result	result;
 
 	lines = read_file(file_name);
-	debug_deque_print(lines, __func__, print_2d_array);
+	debug_deque_print(lines, __func__, (void *)print_2d_array);
 	// todo: validation
 	init_scene(&scene);
 	parse_lines_to_scene(lines, &scene);
