@@ -28,6 +28,7 @@ void	set_each_pixel_color(\
 	int				color;
 	t_vector		ray;
 	t_intersection	nearest;
+	t_shape			type;
 
 	ray = calc_ray_direction(y, x, scene);
 	nearest = get_nearest_object(ray, scene);
@@ -36,11 +37,12 @@ void	set_each_pixel_color(\
 	else
 	{
 		//todo: #8 描画色取得(shadow-ray判定含む)
-		if (get_object_type(nearest.object) == SPHERE)
+		type = get_object_type(nearest.object);
+		if (type == SPHERE)
 			color = convert_rgb(((t_sphere *)nearest.object)->color);
-		else if (get_object_type(nearest.object) == PLANE)
+		else if (type == PLANE)
 			color = convert_rgb(((t_plane *)nearest.object)->color);
-		else if (get_object_type(nearest.object) == CYLINDER)
+		else if (type == CYLINDER)
 			color = convert_rgb(((t_cylinder *)nearest.object)->color);
 		else
 			color = COLOR_RED;
