@@ -23,6 +23,7 @@ SRCS		:=	cylinder/cylinder.c \
 				display/display.c \
 				display/set_each_pixel.c \
 				debug/debug.c \
+				debug/print_object.c \
 				debug/print_rt_file.c \
 				parser/convert.c \
 				parser/parse.c \
