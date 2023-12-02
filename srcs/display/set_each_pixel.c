@@ -25,16 +25,7 @@ static t_vector	calc_ray_direction(const int y, const int x, t_scene *scene)
 void	set_each_pixel_color(\
 	t_mlx *mlxs, const int y, const int x, t_scene *scene)
 {
-// 	int				color;
-// 	t_vector		ray_direction;
-
-// 	ray_direction = calc_ray_direction(y, x, scene);
-// 	const t_ray ray = {.position = scene->camera->pos, .direction = ray_direction};
-//     if (is_intersect_cylinder(&ray))
-// 		color = COLOR_PINK;
-// 	else
-// 		color = COLOR_BLUE;
-  int				color;
+	int				color;
 	t_vector		ray;
 	t_intersection	nearest;
 
@@ -49,6 +40,8 @@ void	set_each_pixel_color(\
 			color = convert_rgb(((t_sphere *)nearest.object)->color);
 		else if (get_object_type(nearest.object) == PLANE)
 			color = convert_rgb(((t_plane *)nearest.object)->color);
+		else if (get_object_type(nearest.object) == CYLINDER)
+			color = convert_rgb(((t_cylinder *)nearest.object)->color);
 		else
 			color = COLOR_RED;
 	}

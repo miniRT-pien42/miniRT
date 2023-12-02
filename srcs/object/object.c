@@ -28,6 +28,11 @@ t_intersection	get_nearest_object(t_vector ray, t_scene *scene)
 			update_nearest_plane(\
 				ray, scene, (t_plane *)object_current->content, &nearest);
 		}
+		else if (get_object_type(object_current->content) == CYLINDER)
+		{
+			update_nearest_cylinder(\
+				ray, scene, (t_cylinder *)object_current->content, &nearest);
+		}
 		object_current = object_current->next;
 	}
 	return (nearest);

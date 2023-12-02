@@ -1,7 +1,8 @@
 NAME		:=	miniRT
 
 SRC_DIR		:=	srcs
-SRCS		:=	cylinder/cylinder.c \
+SRCS		:=	cylinder/cylinder_ray.c \
+				cylinder/cylinder.c \
 				vec/vector1.c \
 				vec/vector2.c \
 				vec/vector3.c \

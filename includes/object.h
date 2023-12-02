@@ -61,8 +61,9 @@ void			update_nearest_sphere(t_vector ray, t_scene *scene, \
 	t_sphere *sphere, t_intersection *ptr_nearest);
 void			update_nearest_plane(t_vector ray, t_scene *scene, \
 	t_plane *plane, t_intersection *ptr_nearest);
+void			update_nearest_cylinder(t_vector ray, \
+	t_scene *scene, t_cylinder *cylinder, t_intersection *ptr_nearest);
 int				convert_rgb(t_rgb color);
-bool			is_intersect_cylinder(const t_ray *ray);
 void			add_to_list_object(\
 	t_deque *list_object, const char **line, const t_shape type);
 
