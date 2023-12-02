@@ -11,7 +11,7 @@ void	deque_print(t_deque *deque, void (*print)(void *))
 		printf("---------------------\n");
 		return ;
 	}
-	printf("cotent: \n");
+	printf("content: \n");
 	node = deque->node;
 	while (node)
 	{
