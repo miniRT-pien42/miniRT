@@ -8,6 +8,7 @@ SRCS		:=	cylinder/cylinder.c \
 				vec/quaternion.c \
 				helpers/helpers_math1.c \
 				error/error.c \
+				scene/destroy.c \
 				scene/scene.c \
 				ray/ray.c \
 				camera/camera.c \
@@ -22,6 +23,9 @@ SRCS		:=	cylinder/cylinder.c \
 				display/display.c \
 				display/set_each_pixel.c \
 				debug/debug.c \
+				debug/print_rt_file.c \
+				parser/convert.c \
+				parser/parse.c \
 				main.c
 
 OBJ_DIR		:=	objs

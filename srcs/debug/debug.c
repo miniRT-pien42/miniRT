@@ -1,7 +1,9 @@
+#include <stddef.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include "debug.h"
 
-void	check_scene_value(t_scene *scene)
+void	debug_print_scene_value(const t_scene *scene)
 {
 	size_t			i;
 	t_deque_node	*object_current;
@@ -24,8 +26,6 @@ void	check_scene_value(t_scene *scene)
 	printf("scene->light->bright = %f\n", scene->light->bright);
 
 	printf("** deque_print\n");
-	deque_print(scene->list_object);
-
 	while (object_current)
 	{
 		printf("** list_object:%zu %d\n", i, get_object_type(object_current->content));
@@ -49,7 +49,4 @@ void	check_scene_value(t_scene *scene)
 		object_current = object_current->next;
 		i++;
 	}
-
-	printf("scene->center_screen = (%f, %f, %f)\n", scene->center_screen.x, scene->center_screen.y, scene->center_screen.z);
-	printf("scene->rotation_angle = %f)\n", convert_rad_to_deg(scene->rotation_angle));
 }

@@ -1,10 +1,10 @@
 #ifndef DEBUG_H
 # define DEBUG_H
 
-# include <stdio.h>
-# include "vector.h"
 # include "scene.h"
 # include "ft_deque.h"
 
-void	check_scene_value(t_scene *scene);
+void	debug_print_scene_value(const t_scene *scene);
+void	print_2d_array(char **strs);
+
 #endif

@@ -4,7 +4,7 @@
 #include "color.h"
 #include "display.h"
 #include "object.h"
-#include "utils.h"
+#include "helpers.h"
 #include "vector.h"
 #include "ray.h"
 
@@ -19,11 +19,11 @@ static t_discriminant	calc_discriminant(const t_ray *ray)
 	double			b;
     double			c;
 
-	a = vec_norm(cross_product(ray->direction, cylinder.axis_normal));
+	a = vec_norm(vec_cross(ray->direction, cylinder.axis_normal));
 	a *= a;
-	b = 2 * vec_dot(cross_product(ray->direction, cylinder.axis_normal), \
-					cross_product(vec_subtract(ray->position, cylinder.center), cylinder.axis_normal));
-	c = vec_norm(cross_product(vec_subtract(ray->position, cylinder.center), cylinder.axis_normal));
+	b = 2 * vec_dot(vec_cross(ray->direction, cylinder.axis_normal), \
+					vec_cross(vec_subtract(ray->position, cylinder.center), cylinder.axis_normal));
+	c = vec_norm(vec_cross(vec_subtract(ray->position, cylinder.center), cylinder.axis_normal));
 	c = pow(c, 2) - pow(cylinder.r, 2);
 	discriminant.a = a;
 	discriminant.b = b;

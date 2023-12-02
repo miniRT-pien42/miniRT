@@ -2,10 +2,20 @@ NAME		:=	libft.a
 
 SRC_DIR		:=	srcs
 SRCS		:=	ft_free.c \
+				ft_memcpy.c \
+				ft_memmove.c \
 				ft_split.c \
+				ft_strchr.c \
+				ft_strcmp.c \
+				ft_strdup.c \
+				ft_streq.c \
+				ft_strjoin.c \
 				ft_strlcpy_void.c \
+				ft_strlcpy.c \
+				ft_strlen.c \
 				ft_strndup.c \
 				ft_strnlen.c \
+				get_next_line.c \
 				x_malloc.c
 
 #--------------------------------------------
