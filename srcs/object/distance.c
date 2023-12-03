@@ -28,7 +28,7 @@ double	get_closer_distance(double discriminant, double *list_distance)
 		closer_distance = list_distance[0];
 	else
 	{
-		if (distance[0] >= 0 && list_distance[1] >= 0)
+		if (list_distance[0] >= 0 && list_distance[1] >= 0)
 			closer_distance = fmin(list_distance[0], list_distance[1]);
 		else
 			closer_distance = fmax(list_distance[0], list_distance[1]);
