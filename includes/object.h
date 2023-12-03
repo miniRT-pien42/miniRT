@@ -50,6 +50,7 @@ void			*get_nearest_object(t_vector ray, t_scene *scene);
 t_deque			*init_object(void);
 void			add_to_list_object(\
 	t_deque *list_object, const char **line, const t_shape type);
+double			get_distance(t_vector ray, t_scene *scene, void *object);
 
 // object/distance.c
 void			calc_distance_by_discriminant(\
@@ -72,6 +73,10 @@ t_plane			*init_plane(const char **line);
 // plane/plane_ray.c
 double			get_distance_to_plane(\
 	t_vector ray, t_scene *scene, t_plane *plane);
+
+// plane/plane_color.c
+t_rgb			ray_tracing_plane(\
+	t_scene *scene, t_plane *nearest_object, t_vector ray);
 
 // cylinder/cylinder.c
 t_cylinder		*init_cylinder(const char **line);

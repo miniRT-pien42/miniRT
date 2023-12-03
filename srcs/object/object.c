@@ -9,7 +9,7 @@ t_shape	get_object_type(void *object)
 	return (*(t_shape *)object);
 }
 
-static double	get_distance(t_vector ray, t_scene *scene, void *object)
+double	get_distance(t_vector ray, t_scene *scene, void *object)
 {
 	t_shape	type;
 	double	distance;

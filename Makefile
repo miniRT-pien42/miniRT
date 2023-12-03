@@ -18,6 +18,7 @@ SRCS		:=	cylinder/cylinder_ray.c \
 				object/distance.c \
 				plane/plane.c \
 				plane/plane_ray.c \
+				plane/plane_color.c \
 				sphere/sphere.c \
 				sphere/sphere_ray.c \
 				sphere/sphere_color.c \

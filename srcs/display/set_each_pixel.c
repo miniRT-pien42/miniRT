@@ -36,12 +36,14 @@ void	set_each_pixel_color(\
 		color = COLOR_BLUE;
 	else
 	{
-		//todo: #8 描画色取得(shadow-ray判定含む)
 		type = get_object_type(nearest_object);
 		if (type == SPHERE)
 			color = convert_rgb(((t_sphere *)nearest_object)->color);
 		else if (type == PLANE)
-			color = convert_rgb(((t_plane *)nearest_object)->color);
+		{
+			color = convert_rgb(\
+				ray_tracing_plane(scene, (t_plane *)nearest_object, ray));
+		}
 		else if (type == CYLINDER)
 			color = convert_rgb(((t_cylinder *)nearest_object)->color);
 		else
