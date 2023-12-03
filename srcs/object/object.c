@@ -17,8 +17,8 @@ static double	get_distance(t_vector ray, t_scene *scene, void *object)
 	type = get_object_type(object);
 	if (type == SPHERE)
 		distance = get_closer_to_sphere(ray, scene, (t_sphere *)object);
-//	else if (type == PLANE)
-//		distance = get_clother_diatance_to_plane(ray, scene, (t_plane *)object);
+	else if (type == PLANE)
+		distance = get_closer_to_plane(ray, scene, (t_plane *)object);
 	else if (type == CYLINDER)
 		distance = get_clother_distance_to_cylinder(ray, scene, (t_cylinder *)object);
 	else

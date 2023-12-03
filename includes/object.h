@@ -70,8 +70,8 @@ int				convert_rgb(t_rgb color);//todo: move
 t_plane			*init_plane(const char **line);
 
 // plane/plane_ray.c
-void			update_nearest_plane(t_vector ray, t_scene *scene, \
-	t_plane *plane, t_intersection *ptr_nearest);
+double			get_closer_to_plane(\
+	t_vector ray, t_scene *scene, t_plane *plane);
 
 // cylinder/cylinder.c
 t_cylinder		*init_cylinder(const char **line);

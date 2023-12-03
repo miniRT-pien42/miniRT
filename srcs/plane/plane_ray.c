@@ -6,21 +6,19 @@
 #include "helpers.h"
 #include "ray.h"
 
-void	update_nearest_plane(\
-	t_vector ray, t_scene *scene, t_plane *plane, t_intersection *ptr_nearest)
+double	get_closer_to_plane(t_vector ray, t_scene *scene, t_plane *plane)
 {
 	double	num_bottom;
-	double	tmp_distance;
+	double	num_top;
+	double	closer_distance;
 
 	num_bottom = vec_dot(ray, plane->dir_n);
 	if (num_bottom == 0)
-		return ;
-	tmp_distance = \
-		vec_dot(vec_subtract(scene->camera->pos, plane->point), \
-		plane->dir_n) / num_bottom * -1;
-	if (tmp_distance > 0 && tmp_distance < ptr_nearest->distance)
-	{
-		ptr_nearest->object = plane;
-		ptr_nearest->distance = tmp_distance;
-	}
+		return (NAN);
+	num_top = \
+		vec_dot(vec_subtract(scene->camera->pos, plane->point), plane->dir_n);
+	closer_distance = num_top / num_bottom * -1;
+	if (closer_distance <= 0)
+		return (NAN);
+	return (closer_distance);
 }
