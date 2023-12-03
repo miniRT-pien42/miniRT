@@ -9,18 +9,17 @@ t_shape	get_object_type(void *object)
 	return (*(t_shape *)object);
 }
 
-static double	get_clother_distance(t_vector ray, t_scene *scene, void *object)
+static double	get_distance(t_vector ray, t_scene *scene, void *object)
 {
 	t_shape	type;
 	double	distance;
 
 	type = get_object_type(object);
-	// if (type == SPHERE)
-	// 	distance = get_clother_diatance_to_sphere(ray, scene, (t_sphere *)object);
-	// else if (type == PLANE)
-	// 	distance = get_clother_diatance_to_plane(ray, scene, (t_plane *)object);
-	// else if (type == CYLINDER)
-	if (type == CYLINDER)
+	if (type == SPHERE)
+		distance = get_closer_to_sphere(ray, scene, (t_sphere *)object);
+//	else if (type == PLANE)
+//		distance = get_clother_diatance_to_plane(ray, scene, (t_plane *)object);
+	else if (type == CYLINDER)
 		distance = get_clother_distance_to_cylinder(ray, scene, (t_cylinder *)object);
 	else
 		distance = NAN;
@@ -39,7 +38,7 @@ void	*get_nearest_object(t_vector ray, t_scene *scene)
 	nearest_distance = INFINITY;
 	while (current_node)
 	{
-		new_distance = get_clother_distance(ray, scene, current_node->content);
+		new_distance = get_distance(ray, scene, current_node->content);
 		if (!isnan(new_distance) && new_distance < nearest_distance)
 		{
 			nearest_distance = new_distance;
