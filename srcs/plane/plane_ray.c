@@ -6,19 +6,19 @@
 #include "helpers.h"
 #include "ray.h"
 
-double	get_closer_to_plane(t_vector ray, t_scene *scene, t_plane *plane)
+double	get_distance_to_plane(t_vector ray, t_scene *scene, t_plane *plane)
 {
 	double	num_bottom;
 	double	num_top;
-	double	closer_distance;
+	double	distance;
 
 	num_bottom = vec_dot(ray, plane->dir_n);
 	if (num_bottom == 0)
 		return (NAN);
 	num_top = \
 		vec_dot(vec_subtract(scene->camera->pos, plane->point), plane->dir_n);
-	closer_distance = num_top / num_bottom * -1;
-	if (closer_distance <= 0)
+	distance = num_top / num_bottom * -1;
+	if (distance <= 0)
 		return (NAN);
-	return (closer_distance);
+	return (distance);
 }

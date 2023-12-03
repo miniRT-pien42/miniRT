@@ -60,7 +60,7 @@ double			get_closer_distance(double discriminant, double *distance);
 t_sphere		*init_sphere(const char **line);
 
 // sphere/sphere_ray.c
-double			get_closer_to_sphere(\
+double			get_distance_to_sphere(\
 	t_vector ray, t_scene *scene, t_sphere *sphere);
 
 // sphere/sphere_color.c
@@ -70,7 +70,7 @@ int				convert_rgb(t_rgb color);//todo: move
 t_plane			*init_plane(const char **line);
 
 // plane/plane_ray.c
-double			get_closer_to_plane(\
+double			get_distance_to_plane(\
 	t_vector ray, t_scene *scene, t_plane *plane);
 
 // cylinder/cylinder.c
