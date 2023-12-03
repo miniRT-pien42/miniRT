@@ -1,36 +1,52 @@
 #include <math.h>
-#include "object.h"
 #include "scene.h"
 #include "ray.h"
-#include "ft_deque.h"
 
 t_shape	get_object_type(void *object)
 {
+	if (object == NULL)
+		return (SHAPE_NONE);
 	return (*(t_shape *)object);
 }
 
-t_intersection	get_nearest_object(t_vector ray, t_scene *scene)
+static double	get_distance(t_vector ray, t_scene *scene, void *object)
 {
-	t_intersection	nearest;
-	t_deque_node	*object_current;
+	t_shape	type;
+	double	distance;
 
-	nearest.distance = INFINITY;
-	object_current = scene->list_object->node;
-	while (object_current)
+	type = get_object_type(object);
+	if (type == SPHERE)
+		distance = get_distance_to_sphere(ray, scene, (t_sphere *)object);
+	else if (type == PLANE)
+		distance = get_distance_to_plane(ray, scene, (t_plane *)object);
+	else if (type == CYLINDER)
+		distance = get_clother_distance_to_cylinder(ray, scene, (t_cylinder *)object);
+	else
+		distance = NAN;
+	return (distance);
+}
+
+void	*get_nearest_object(t_vector ray, t_scene *scene)
+{
+	t_deque_node	*current_node;
+	void			*nearest_object;
+	double			nearest_distance;
+	double			new_distance;
+
+	current_node = scene->list_object->node;
+	nearest_object = NULL;
+	nearest_distance = INFINITY;
+	while (current_node)
 	{
-		if (get_object_type(object_current->content) == SPHERE)
+		new_distance = get_distance(ray, scene, current_node->content);
+		if (!isnan(new_distance) && new_distance < nearest_distance)
 		{
-			update_nearest_sphere(\
-				ray, scene, (t_sphere *)object_current->content, &nearest);
+			nearest_distance = new_distance;
+			nearest_object = current_node->content;
 		}
-		else if (get_object_type(object_current->content) == PLANE)
-		{
-			update_nearest_plane(\
-				ray, scene, (t_plane *)object_current->content, &nearest);
-		}
-		object_current = object_current->next;
+		current_node = current_node->next;
 	}
-	return (nearest);
+	return (nearest_object);
 }
 
 static t_deque_node	*get_new_object_node(const char **line, const t_shape type)
@@ -41,8 +57,8 @@ static t_deque_node	*get_new_object_node(const char **line, const t_shape type)
 		node = deque_node_new(init_sphere(line));
 	else if (type == PLANE)
 		node = deque_node_new(init_plane(line));
-	// else if (type == CYLINDER)
-	// 	node = deque_node_new(init_cylinder(line));
+	else if (type == CYLINDER)
+		node = deque_node_new(init_cylinder(line));
 	else
 		node = NULL;
 	return (node);

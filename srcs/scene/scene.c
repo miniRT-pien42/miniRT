@@ -26,8 +26,8 @@ static void	convert_line_with_identifier(t_deque_node *node, t_scene *scene)
 		add_to_list_object(scene->list_object, (const char **)line, PLANE);
 	else if (ft_streq(identifier, "sp"))
 		add_to_list_object(scene->list_object, (const char **)line, SPHERE);
-	// else if (ft_streq(identifier, "cy"))
-	// 	add_to_list_object(scene->list_object, (const char **)line, CYLINDER);
+	else if (ft_streq(identifier, "cy"))
+		add_to_list_object(scene->list_object, (const char **)line, CYLINDER);
 	// else
 	// 	return (FAILURE);
 	// return (SUCCESS);
