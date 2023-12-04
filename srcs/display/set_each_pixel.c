@@ -38,7 +38,10 @@ void	set_each_pixel_color(\
 	{
 		type = get_object_type(nearest_object);
 		if (type == SPHERE)
-			color = convert_rgb(((t_sphere *)nearest_object)->color);
+		{
+			color = convert_rgb(\
+				ray_tracing_sphere(scene, (t_sphere *)nearest_object, ray));
+		}
 		else if (type == PLANE)
 		{
 			color = convert_rgb(\

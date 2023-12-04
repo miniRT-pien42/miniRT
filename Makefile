@@ -7,6 +7,7 @@ SRCS		:=	cylinder/cylinder_ray.c \
 				vec/vector2.c \
 				vec/vector3.c \
 				vec/quaternion.c \
+				color/color.c \
 				helpers/helpers_math1.c \
 				error/error.c \
 				scene/destroy.c \

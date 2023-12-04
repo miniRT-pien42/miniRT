@@ -65,7 +65,8 @@ double			get_distance_to_sphere(\
 	t_vector ray, t_scene *scene, t_sphere *sphere);
 
 // sphere/sphere_color.c
-int				convert_rgb(t_rgb color);//todo: move
+t_rgb			ray_tracing_sphere(\
+	t_scene *scene, t_sphere *nearest_object, t_vector ray);
 
 // plane/plane.c
 t_plane			*init_plane(const char **line);

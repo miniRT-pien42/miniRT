@@ -36,4 +36,6 @@ typedef struct s_material
 	t_rgb	color;
 }	t_material;
 
+int				convert_rgb(t_rgb color);
+
 #endif
