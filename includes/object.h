@@ -77,7 +77,7 @@ double			get_distance_to_plane(\
 t_cylinder		*init_cylinder(const char **line);
 
 // cylinder/cylinder_ray.c
-double			get_clother_distance_to_cylinder(\
+double			get_distance_to_cylinder(\
 	t_vector ray_direction, t_scene *scene, t_cylinder *cylinder);
 
 #endif

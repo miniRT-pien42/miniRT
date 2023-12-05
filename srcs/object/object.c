@@ -9,6 +9,7 @@ t_shape	get_object_type(void *object)
 	return (*(t_shape *)object);
 }
 
+// If there are two intersection points, return the distance to the closer one.
 static double	get_distance(t_vector ray, t_scene *scene, void *object)
 {
 	t_shape	type;
@@ -20,7 +21,7 @@ static double	get_distance(t_vector ray, t_scene *scene, void *object)
 	else if (type == PLANE)
 		distance = get_distance_to_plane(ray, scene, (t_plane *)object);
 	else if (type == CYLINDER)
-		distance = get_clother_distance_to_cylinder(ray, scene, (t_cylinder *)object);
+		distance = get_distance_to_cylinder(ray, scene, (t_cylinder *)object);
 	else
 		distance = NAN;
 	return (distance);

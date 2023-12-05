@@ -54,7 +54,7 @@ static bool	is_within_cylinder_height(\
 }
 
 // discriminant >= 0 かつ is_within_cylinder_height() == true なら衝突している
-double	get_clother_distance_to_cylinder(\
+double	get_distance_to_cylinder(\
 				t_vector ray_direction, t_scene *scene, t_cylinder *cylinder)
 {
 	double	distance[2];
