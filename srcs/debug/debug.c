@@ -2,51 +2,66 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "debug.h"
+#include "scene.h"
+#include "object.h"
 
-void	debug_print_scene_value(const t_scene *scene)
+void	debug_print_vector(const char *name, const t_vector vec)
 {
-	size_t			i;
-	t_deque_node	*object_current;
-	t_sphere		*sphere;
-	t_plane			*plane;
+	printf("%s = (%f, %f, %f)\n", name, vec.x, vec.y, vec.z);
+}
 
-	i = 0;
-	object_current = scene->list_object->node;
+void	debug_print_rgb(const char *name, const t_rgb rgb)
+{
+	printf("%s = (%hhu, %hhu, %hhu)\n", name, rgb.r, rgb.g, rgb.b);
+}
+
+static void	debug_print_camera_and_light(const t_scene *scene)
+{
 	printf("** camera\n");
-	printf("scene->camera->pos = (%f, %f, %f)\n", scene->camera->pos.x, scene->camera->pos.y, scene->camera->pos.z);
-	printf("scene->camera->dir_n = (%f, %f, %f)\n", scene->camera->dir_n.x, scene->camera->dir_n.y, scene->camera->dir_n.z);
+	debug_print_vector("scene->camera->pos", scene->camera->pos);
+	debug_print_vector("scene->camera->dir_n", scene->camera->dir_n);
 	printf("scene->camera->fov = %d\n", scene->camera->fov);
 
 	printf("** light_ambient\n");
 	printf("scene->light_ambient->bright = %f\n", scene->light_ambient->bright);
-	printf("scene->light_ambient->color = (%hhu, %hhu, %hhu)\n", scene->light_ambient->color.r, scene->light_ambient->color.g, scene->light_ambient->color.b);
+	debug_print_rgb("scene->light_ambient->color", scene->light_ambient->color);
 
 	printf("** light\n");
-	printf("scene->light->pos = (%f, %f, %f)\n", scene->light->pos.x, scene->light->pos.y, scene->light->pos.z);
+	debug_print_vector("scene->light->pos", scene->light->pos);
 	printf("scene->light->bright = %f\n", scene->light->bright);
+}
 
+static void	debug_print_object(const t_scene *scene)
+{
+	size_t			i;
+	t_deque_node	*object_current;
+	t_shape			type;
+
+	i = 0;
+	object_current = scene->list_object->node;
 	printf("** deque_print\n");
 	while (object_current)
 	{
-		printf("** list_object:%zu %d\n", i, get_object_type(object_current->content));
-		if (get_object_type(object_current->content) == SPHERE)
-		{
-			sphere = (t_sphere *)object_current->content;
-			printf("object_current->center = (%f, %f, %f)\n", sphere->center.x, sphere->center.y, sphere->center.z);
-			printf("object_current->diameter = %f\n", sphere->diameter);
-			printf("object_current->color = (%hhu, %hhu, %hhu)\n", sphere->color.r, sphere->color.g, sphere->color.b);
-
-		}
-		else if (get_object_type(object_current->content) == PLANE)
-		{
-			plane = (t_plane *)object_current->content;
-			printf("object_current->point = (%f, %f, %f)\n", plane->point.x, plane->point.y, plane->point.z);
-			printf("object_current->dir_n = (%f, %f, %f)\n", plane->dir_n.x, plane->dir_n.y, plane->dir_n.z);
-			printf("object_current->color = (%hhu, %hhu, %hhu)\n", plane->color.r, plane->color.g, plane->color.b);
-		}
+		type = get_object_type(object_current->content);
+		printf("** list_object:%zu %d\n", i, type);
+		if (type == SPHERE)
+			debug_print_sphere((t_sphere *)object_current->content);
+		else if (type == PLANE)
+			debug_print_plane((t_plane *)object_current->content);
+		else if (type == CYLINDER)
+			debug_print_cylinder((t_cylinder *)object_current->content);
 		else
-			exit (EXIT_FAILURE);
+		{
+			printf("Error: unknown object\n");
+			exit(EXIT_FAILURE);
+		}
 		object_current = object_current->next;
 		i++;
 	}
+}
+
+void	debug_print_scene_value(const t_scene *scene)
+{
+	debug_print_camera_and_light(scene);
+	debug_print_object(scene);
 }
