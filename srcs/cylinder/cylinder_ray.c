@@ -43,7 +43,7 @@ static double	calc_discriminant_for_cylinder(\
 // pa:        交点位置
 // pa_normal: paからの法線ベクトル
 // 中心軸上での法線とpaから求めた法線が同じ方向を向いていてheight以内かどうかを返す
-static bool	is_within_cylinder_height(\
+static bool	is_intersect_cylinder(\
 					t_ray *ray, t_cylinder *cylinder, double distance)
 {
 	const t_vector	pa = vec_add(ray->position, vec_scalar(ray->direction, distance));
@@ -53,22 +53,24 @@ static bool	is_within_cylinder_height(\
 	return (0 <= height && height <= cylinder->height);
 }
 
-// discriminant >= 0 かつ is_within_cylinder_height() == true なら衝突している
+// discriminant >= 0 かつ交点の高さがcylinder.height以下なら衝突している
 double	get_distance_to_cylinder(\
 				t_vector ray_direction, t_scene *scene, t_cylinder *cylinder)
 {
 	double	distances[2];
 	double	discriminant;
 	t_ray	ray = (t_ray){.position = scene->camera->pos, .direction = ray_direction};
-	double	distance;
+	double	outside;
+	double	inside;
 
 	discriminant = calc_discriminant_for_cylinder(&ray, cylinder, distances);
 	if (discriminant < 0)
 		return (NAN);
-	distance = get_closer_distance(discriminant, distances);
-	if (distance <= 0)
-		return (NAN);
-	if (is_within_cylinder_height(&ray, cylinder, distance))
-		return (distance);
+	outside = fmin(distances[0], distances[1]);
+	if (is_intersect_cylinder(&ray, cylinder, outside))
+		return (outside);
+	inside = fmax(distances[0], distances[1]);
+	if (is_intersect_cylinder(&ray, cylinder, inside))
+		return (inside);
 	return (NAN);
 }
