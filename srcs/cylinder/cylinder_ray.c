@@ -28,24 +28,6 @@ static double	calc_c_for_cylinder(t_ray *ray, t_cylinder *cylinder)
 	return (c * c - cylinder_r * cylinder_r);
 }
 
-// 共通して使えそう
-static void	calc_distance_by_discriminant(\
-	const double a, const double b, const double d, double *distance)
-{
-	if (d < 0)
-		return ;
-	else if (d == 0)
-	{
-		distance[0] = -b / (2 * a);
-		distance[1] = -b / (2 * a);
-	}
-	else
-	{
-		distance[0] = (-b - sqrt(d)) / (2 * a);
-		distance[1] = (-b + sqrt(d)) / (2 * a);
-	}
-}
-
 static double	calc_discriminant_for_cylinder(\
 							t_ray *ray, t_cylinder *cylinder, double *distance)
 {
@@ -56,22 +38,6 @@ static double	calc_discriminant_for_cylinder(\
 
 	calc_distance_by_discriminant(a, b, d, distance);
 	return (d);
-}
-
-static double	get_clother_distance(double discriminant, double *distance)
-{
-	double	clother_distance;
-
-	if (discriminant == 0)
-		clother_distance = distance[0];
-	else
-	{
-		if (distance[0] >= 0 && distance[1] >= 0)
-			clother_distance = fmin(distance[0], distance[1]);
-		else
-			clother_distance = fmax(distance[0], distance[1]);
-	}
-	return (clother_distance);
 }
 
 // pa:        交点位置
@@ -99,7 +65,7 @@ double	get_clother_distance_to_cylinder(\
 	discriminant = calc_discriminant_for_cylinder(&ray, cylinder, distance);
 	if (discriminant < 0)
 		return (NAN);
-	clother_distance = get_clother_distance(discriminant, distance);
+	clother_distance = get_closer_distance(discriminant, distance);
 	if (clother_distance <= 0)
 		return (NAN);
 	if (is_within_cylinder_height(&ray, cylinder, clother_distance))

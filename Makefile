@@ -15,6 +15,7 @@ SRCS		:=	cylinder/cylinder_ray.c \
 				camera/camera.c \
 				light/light.c \
 				object/object.c \
+				object/distance.c \
 				plane/plane.c \
 				plane/plane_ray.c \
 				sphere/sphere.c \
