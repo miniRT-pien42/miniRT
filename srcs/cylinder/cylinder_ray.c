@@ -6,7 +6,7 @@ static double	calc_a_for_cylinder(t_ray *ray, t_cylinder *cylinder)
 {
 	double	a;
 
-	a = vec_norm(vec_cross(ray->direction, cylinder->axis_normal));
+	a = vec_norm(vec_cross(ray->direction, cylinder->normal));
 	return (a * a);
 }
 
@@ -14,8 +14,8 @@ static double	calc_b_for_cylinder(t_ray *ray, t_cylinder *cylinder)
 {
 	double	b;
 
-	b = 2 * vec_dot(vec_cross(ray->direction, cylinder->axis_normal), \
-					vec_cross(vec_subtract(ray->position, cylinder->center), cylinder->axis_normal));
+	b = 2 * vec_dot(vec_cross(ray->direction, cylinder->normal), \
+					vec_cross(vec_subtract(ray->position, cylinder->center), cylinder->normal));
 	return (b);
 }
 
@@ -24,7 +24,7 @@ static double	calc_c_for_cylinder(t_ray *ray, t_cylinder *cylinder)
 	double			c;
 	const double	cylinder_r = cylinder->diameter / 2;
 
-	c = vec_norm(vec_cross(vec_subtract(ray->position, cylinder->center), cylinder->axis_normal));
+	c = vec_norm(vec_cross(vec_subtract(ray->position, cylinder->center), cylinder->normal));
 	return (c * c - cylinder_r * cylinder_r);
 }
 
@@ -48,7 +48,7 @@ static bool	is_within_cylinder_height(\
 {
 	const t_vector	pa = vec_add(ray->position, vec_scalar(ray->direction, distance));
 	const t_vector	pa_normal = vec_subtract(pa, cylinder->center);
-	const double	height = vec_dot(cylinder->axis_normal, pa_normal);
+	const double	height = vec_dot(cylinder->normal, pa_normal);
 
 	return (0 <= height && height <= cylinder->height);
 }

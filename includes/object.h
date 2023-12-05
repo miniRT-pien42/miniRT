@@ -30,7 +30,7 @@ typedef struct s_sphere
 typedef struct s_cylinder {
 	t_shape		type;
 	t_vector	center;
-	t_vector	axis_normal;
+	t_vector	normal;
 	double		diameter;
 	double		height;
 	t_rgb		color;
