@@ -29,14 +29,14 @@ static double	calc_c_for_cylinder(t_ray *ray, t_cylinder *cylinder)
 }
 
 static double	calc_discriminant_for_cylinder(\
-							t_ray *ray, t_cylinder *cylinder, double *distance)
+							t_ray *ray, t_cylinder *cylinder, double *distances)
 {
 	const double	a = calc_a_for_cylinder(ray, cylinder);
 	const double	b = calc_b_for_cylinder(ray, cylinder);
 	const double	c = calc_c_for_cylinder(ray, cylinder);
 	const double	d = b * b - 4 * a * c;
 
-	calc_distance_by_discriminant(a, b, d, distance);
+	calc_distance_by_discriminant(a, b, d, distances);
 	return (d);
 }
 
@@ -44,9 +44,9 @@ static double	calc_discriminant_for_cylinder(\
 // pa_normal: paからの法線ベクトル
 // 中心軸上での法線とpaから求めた法線が同じ方向を向いていてheight以内かどうかを返す
 static bool	is_within_cylinder_height(\
-					t_ray *ray, t_cylinder *cylinder, double clother_distance)
+					t_ray *ray, t_cylinder *cylinder, double distance)
 {
-	const t_vector	pa = vec_add(ray->position, vec_scalar(ray->direction, clother_distance));
+	const t_vector	pa = vec_add(ray->position, vec_scalar(ray->direction, distance));
 	const t_vector	pa_normal = vec_subtract(pa, cylinder->center);
 	const double	height = vec_dot(cylinder->axis_normal, pa_normal);
 
@@ -57,18 +57,18 @@ static bool	is_within_cylinder_height(\
 double	get_distance_to_cylinder(\
 				t_vector ray_direction, t_scene *scene, t_cylinder *cylinder)
 {
-	double	distance[2];
+	double	distances[2];
 	double	discriminant;
 	t_ray	ray = (t_ray){.position = scene->camera->pos, .direction = ray_direction};
-	double	clother_distance;
+	double	distance;
 
-	discriminant = calc_discriminant_for_cylinder(&ray, cylinder, distance);
+	discriminant = calc_discriminant_for_cylinder(&ray, cylinder, distances);
 	if (discriminant < 0)
 		return (NAN);
-	clother_distance = get_closer_distance(discriminant, distance);
-	if (clother_distance <= 0)
+	distance = get_closer_distance(discriminant, distances);
+	if (distance <= 0)
 		return (NAN);
-	if (is_within_cylinder_height(&ray, cylinder, clother_distance))
-		return (clother_distance);
+	if (is_within_cylinder_height(&ray, cylinder, distance))
+		return (distance);
 	return (NAN);
 }
