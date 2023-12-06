@@ -15,11 +15,6 @@ t_vector	vec_subtract(const t_vector a, const t_vector b)
 	return (ret_v);
 }
 
-double	vec_norm(const t_vector v)
-{
-	return (sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
-}
-
 double	vec_dot(const t_vector a, const t_vector b)
 {
 	return (a.x * b.x + a.y * b.y + a.z * b.z);
