@@ -3,7 +3,8 @@
 
 t_vector	vec_scalar(const t_vector v, double scalar)
 {
-	const t_vector	ret_v = {v.x * scalar, v.y * scalar, v.z * scalar};
+	const t_vector	ret_v = \
+		{.x = v.x * scalar, .y = v.y * scalar, .z = v.z * scalar};
 
 	return (ret_v);
 }
@@ -11,7 +12,8 @@ t_vector	vec_scalar(const t_vector v, double scalar)
 t_vector	vec_normalize(const t_vector v)
 {
 	const double	length = vec_norm(v);
-	const t_vector	ret_v = {v.x / length, v.y / length, v.x / length};
+	const t_vector	ret_v = \
+		{.x = v.x / length, .y = v.y / length, .z = v.x / length};
 
 	return (ret_v);
 }
