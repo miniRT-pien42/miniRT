@@ -8,7 +8,7 @@
 typedef struct s_camera
 {
 	t_vector	pos;
-	t_vector	dir_n;
+	t_vector	dir_norm;
 	int			fov;
 }	t_camera;
 

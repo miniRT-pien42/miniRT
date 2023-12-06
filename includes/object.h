@@ -40,7 +40,7 @@ typedef struct s_plane
 {
 	t_shape		type;
 	t_vector	point;
-	t_vector	dir_n;
+	t_vector	normal;
 	t_rgb		color;
 }	t_plane;
 

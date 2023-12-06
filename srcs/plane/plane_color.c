@@ -20,7 +20,7 @@ static t_intersection	get_intersection_plane(\
 	intersection.distance = get_distance_to_plane(ray, scene, plane);
 	intersection.position = \
 		get_position_on_plane(scene, ray, intersection.distance);
-	intersection.normal = plane->dir_n;
+	intersection.normal = plane->normal;
 	intersection.incident = \
 		vec_normalize(vec_subtract(scene->light->pos, intersection.position));
 	intersection.l_dot = get_l_dot(intersection);

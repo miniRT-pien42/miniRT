@@ -10,7 +10,7 @@ t_plane	*init_plane(const char **line)
 	plane = (t_plane *)x_malloc(sizeof(t_plane));
 	plane->type = PLANE;
 	plane->point = convert_line_to_vector(line[1], ',');
-	plane->dir_n = convert_line_to_vector(line[2], ',');
+	plane->normal = convert_line_to_vector(line[2], ',');
 	plane->color = convert_line_to_rgb(line[3], ',');
 	return (plane);
 }

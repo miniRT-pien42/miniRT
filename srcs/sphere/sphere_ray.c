@@ -40,7 +40,6 @@ double	get_distance_to_sphere(t_vector ray, t_scene *scene, t_sphere *sphere)
 	double	discriminant;
 	double	distance;
 
-	distance = INFINITY;
 	discriminant = calc_discriminant_for_sphere(\
 		ray, sphere, scene->camera->pos, distances);
 	if (discriminant < 0)

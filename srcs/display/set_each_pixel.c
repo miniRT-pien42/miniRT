@@ -17,7 +17,7 @@ static t_vector	calc_ray_direction(const int y, const int x, t_scene *scene)
 	coord_on_screen.z = 0.0;
 	coord_on_screen = \
 		rotate_vector_by_quaternion(\
-			coord_on_screen, rotation_angle, scene->camera->dir_n);
+			coord_on_screen, rotation_angle, scene->camera->dir_norm);
 	coord_on_screen = vec_add(coord_on_screen, center_screen);
 	return (vec_subtract(coord_on_screen, scene->camera->pos));
 }
