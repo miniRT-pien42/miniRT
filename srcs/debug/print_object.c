@@ -19,7 +19,7 @@ void	debug_print_plane(t_plane *plane)
 void	debug_print_cylinder(t_cylinder *cylinder)
 {
 	debug_print_vector("cylinder->center", cylinder->center);
-	debug_print_vector("cylinder->axis_normal", cylinder->axis_normal);
+	debug_print_vector("cylinder->normal", cylinder->normal);
 	printf("cylinder->diameter = %f\n", cylinder->diameter);
 	printf("cylinder->height = %f\n", cylinder->height);
 	debug_print_rgb("cylinder->color", cylinder->color);

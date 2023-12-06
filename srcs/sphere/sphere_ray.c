@@ -22,7 +22,7 @@ static double	calc_c_for_sphere(t_sphere *sphere, t_vector v)
 }
 
 static double	calc_discriminant_for_sphere(\
-	t_vector ray, t_sphere *sphere, t_vector camera_pos, double *list_distance)
+	t_vector ray, t_sphere *sphere, t_vector camera_pos, double *distances)
 {
 	const t_vector	v = vec_subtract(camera_pos, sphere->center);
 	const double	a = calc_a_for_sphere(ray);
@@ -30,22 +30,22 @@ static double	calc_discriminant_for_sphere(\
 	const double	c = calc_c_for_sphere(sphere, v);
 	const double	d = pow(b, 2) - 4 * a * c;
 
-	calc_distance_by_discriminant(a, b, d, list_distance);
+	calc_distance_by_discriminant(a, b, d, distances);
 	return (d);
 }
 
 double	get_distance_to_sphere(t_vector ray, t_scene *scene, t_sphere *sphere)
 {
-	double	list_distance[2];
+	double	distances[2];
 	double	discriminant;
 	double	distance;
 
 	distance = INFINITY;
 	discriminant = calc_discriminant_for_sphere(\
-		ray, sphere, scene->camera->pos, list_distance);
+		ray, sphere, scene->camera->pos, distances);
 	if (discriminant < 0)
 		return (NAN);
-	distance = get_closer_distance(discriminant, list_distance);
+	distance = get_closer_distance(discriminant, distances);
 	if (distance <= 0)
 		return (NAN);
 	return (distance);

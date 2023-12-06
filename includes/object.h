@@ -30,7 +30,7 @@ typedef struct s_sphere
 typedef struct s_cylinder {
 	t_shape		type;
 	t_vector	center;
-	t_vector	axis_normal;
+	t_vector	normal;
 	double		diameter;
 	double		height;
 	t_rgb		color;
@@ -83,7 +83,7 @@ t_rgb			ray_tracing_plane(\
 t_cylinder		*init_cylinder(const char **line);
 
 // cylinder/cylinder_ray.c
-double			get_clother_distance_to_cylinder(\
+double			get_distance_to_cylinder(\
 	t_vector ray_direction, t_scene *scene, t_cylinder *cylinder);
 
 #endif
