@@ -19,7 +19,7 @@ static void	debug_print_camera_and_light(const t_scene *scene)
 {
 	printf("** camera\n");
 	debug_print_vector("scene->camera->pos", scene->camera->pos);
-	debug_print_vector("scene->camera->dir_n", scene->camera->dir_n);
+	debug_print_vector("scene->camera->dir_norm", scene->camera->dir_norm);
 	printf("scene->camera->fov = %d\n", scene->camera->fov);
 
 	printf("** light_ambient\n");

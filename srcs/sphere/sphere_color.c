@@ -12,13 +12,12 @@ static t_vector	get_position_on_sphere(\
 	return (vec_add(scene->camera->pos, vec_scalar(ray, distance)));
 }
 
-static t_vector	get_normal_on_sphere(\
-	t_scene *scene, t_vector ray, t_vector position)
+static t_vector	get_normal_on_sphere(t_vector position, t_sphere *sphere)
 {
 	t_vector	normal;
 
 	normal = vec_normalize(\
-			vec_subtract(intersection.position, sphere->center));//todo: カメラ内側なら反転
+			vec_subtract(position, sphere->center));//todo: カメラ内側なら反転
 	return (normal);
 }
 
@@ -38,7 +37,7 @@ static t_intersection	get_intersection_sphere(\
 	intersection.position = \
 		get_position_on_sphere(scene, ray, intersection.distance);
 	intersection.normal = \
-		get_normal_on_sphere(scene, ray, intersection.position);
+		get_normal_on_sphere(intersection.position, intersection.object);
 	intersection.incident = \
 		get_incident_on_sphere(scene->light->pos, intersection.position);
 	intersection.l_dot = get_l_dot(intersection);
