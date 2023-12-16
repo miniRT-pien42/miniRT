@@ -5,35 +5,49 @@
 #include "helpers.h"
 #include "ray.h"
 
-bool	is_shadow_plane(\
-	t_scene *scene, t_intersection intersection)
+#include <stdio.h>
+bool	is_shadow_intersection(\
+	t_scene *scene, t_intersection intersection, bool is_camera_inside)
 {
 	const t_vector	ray_shadow = \
 		vec_subtract(intersection.position, scene->light->pos);
 	t_deque_node	*current_node;
-	double			nearest_distance;
 	double			new_distance;
+	double			light_distance;
 
+	//lightとカメラが球内外に別れている => 影 true
+	if (is_camera_inside != is_inside_sphere(scene->light->pos, intersection.object, ray_shadow))
+		return (true);
 	current_node = scene->list_object->node;
-	nearest_distance = INFINITY;
+	light_distance = vec_norm(vec_subtract(scene->light->pos, intersection.position));
 	while (current_node)
 	{
-		new_distance = get_distance(ray_shadow, scene, current_node->content);
-		if (!isnan(new_distance) && new_distance < nearest_distance)
-			nearest_distance = new_distance;
+		if (current_node->content == intersection.object)
+		{
+			current_node = current_node->next;
+			continue ;
+		}
+		//ray_shadowとcurrent_node->contentの交点までの距離取得
+		new_distance = get_distance_to_sphere2(ray_shadow, scene->light->pos, current_node->content);
+		if (!isnan(new_distance) && new_distance < light_distance)
+			return (true);
 		current_node = current_node->next;
+		printf(": %f %f\n", new_distance, light_distance);
 	}
-	if (nearest_distance == INFINITY || \
-		nearest_distance != intersection.distance)
-		return (false);
-	return (true);
+	return (false);
 }
 
-double	get_l_dot(t_intersection intersection)
+double	get_l_dot(t_scene *scene, t_intersection intersection, bool is_camera_inside)
 {
-	double	l_dot;
+	double		l_dot;
+	t_vector	incident;
 
-	l_dot = vec_dot(intersection.incident, intersection.normal);
+	if (is_shadow_intersection(scene, intersection, is_camera_inside))
+		return (NO_INCIDENT);
+	incident = vec_normalize(vec_subtract(scene->light->pos, intersection.position));
+	l_dot = vec_dot(incident, intersection.normal);
+	if (l_dot < 0)
+		return (NO_INCIDENT);
 	l_dot = clipping(l_dot, 0, 1);
 	return (l_dot);
 }
