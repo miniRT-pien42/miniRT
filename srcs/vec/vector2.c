@@ -11,7 +11,7 @@ t_vector	vec_scalar(const t_vector v, double scalar)
 t_vector	vec_normalize(const t_vector v)
 {
 	const double	length = vec_norm(v);
-	const t_vector	ret_v = {v.x / length, v.y / length, v.x / length};
+	const t_vector	ret_v = {v.x / length, v.y / length, v.z / length};
 
 	return (ret_v);
 }
