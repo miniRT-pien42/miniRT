@@ -34,23 +34,7 @@ double	calc_discriminant_for_sphere(\
 	return (d);
 }
 //カメラから見える最短距離を取得
-double	get_distance_to_sphere(t_vector ray, t_scene *scene, t_sphere *sphere)
-{
-	double	distances[2];
-	double	discriminant;
-	double	distance;
-
-	discriminant = calc_discriminant_for_sphere(\
-		ray, sphere, scene->camera->pos, distances);
-	if (discriminant < 0)
-		return (NAN);
-	distance = get_closer_distance(discriminant, distances);
-	if (distance <= 0)
-		return (NAN);
-	return (distance);
-}
-//posからターゲットまでの最短 todo:get_distance_to_sphereと統一したい
-double	get_distance_to_sphere2(t_vector ray, t_vector pos, t_sphere *sphere)
+double	get_distance_to_sphere(t_vector ray, t_vector pos, t_sphere *sphere)
 {
 	double	distances[2];
 	double	discriminant;

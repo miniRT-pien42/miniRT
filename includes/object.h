@@ -64,8 +64,6 @@ t_sphere		*init_sphere(const char **line);
 double			calc_discriminant_for_sphere(\
 	t_vector ray, t_sphere *sphere, t_vector camera_pos, double *distances);
 double			get_distance_to_sphere(\
-	t_vector ray, t_scene *scene, t_sphere *sphere);
-double			get_distance_to_sphere2(\
 	t_vector ray, t_vector pos, t_sphere *sphere);
 
 // sphere/sphere_color.c

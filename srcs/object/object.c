@@ -17,7 +17,7 @@ double	get_distance(t_vector ray, t_scene *scene, void *object)
 
 	type = get_object_type(object);
 	if (type == SPHERE)
-		distance = get_distance_to_sphere(ray, scene, (t_sphere *)object);
+		distance = get_distance_to_sphere(ray, scene->camera->pos, (t_sphere *)object);
 	else if (type == PLANE)
 		distance = get_distance_to_plane(ray, scene, (t_plane *)object);
 	else if (type == CYLINDER)

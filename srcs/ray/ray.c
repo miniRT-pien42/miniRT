@@ -28,9 +28,9 @@ bool	is_shadow_intersection(\
 			current_node = current_node->next;
 			continue ;
 		}
-		new_distance = get_distance_to_sphere2(\
+		new_distance = get_distance_to_sphere(\
 			ray_shadow, scene->light->pos, current_node->content);
-		if (!isnan(new_distance) || (!isnan(new_distance) && new_distance < light_distance))
+		if (!isnan(new_distance) && new_distance < light_distance)
 			return (true);
 		current_node = current_node->next;
 	}

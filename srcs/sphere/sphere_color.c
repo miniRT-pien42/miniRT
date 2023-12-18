@@ -53,7 +53,7 @@ static t_intersection	get_intersection_sphere(\
 
 	is_camera_inside = is_inside_sphere(scene->camera->pos, sphere, ray);
 	intersection.object = sphere;
-	intersection.distance = get_distance_to_sphere(ray, scene, sphere);
+	intersection.distance = get_distance_to_sphere(ray, scene->camera->pos, sphere);
 	intersection.position = \
 		get_position_on_sphere(scene, ray, intersection.distance);
 	intersection.normal = \
