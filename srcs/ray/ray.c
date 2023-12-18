@@ -5,7 +5,6 @@
 #include "helpers.h"
 #include "ray.h"
 
-#include <stdio.h>
 bool	is_shadow_intersection(\
 	t_scene *scene, t_intersection intersection, bool is_camera_inside)
 {
@@ -29,13 +28,11 @@ bool	is_shadow_intersection(\
 			current_node = current_node->next;
 			continue ;
 		}
-		//ray_shadowとcurrent_node->contentの交点までの距離取得
 		new_distance = get_distance_to_sphere2(\
 			ray_shadow, scene->light->pos, current_node->content);
-		if (!isnan(new_distance) && new_distance < light_distance)
+		if (!isnan(new_distance) || (!isnan(new_distance) && new_distance < light_distance))
 			return (true);
 		current_node = current_node->next;
-		printf(": %f %f\n", new_distance, light_distance);
 	}
 	return (false);
 }
