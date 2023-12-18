@@ -38,7 +38,8 @@ bool	is_inside_sphere(t_vector pos_target, t_sphere *sphere, t_vector ray)
 		ray, sphere, pos_target, distances);
 	if (discriminant < 0)
 		return (NAN);//todo: ここにはこないはずだけど念の為
-	if (distances[0] * distances[1] < 0)
+	if ((distances[0] > 0 && distances[1] < 0) || \
+		(distances[0] < 0 && distances[1] > 0))
 		return (true);
 	return (false);
 }
