@@ -16,10 +16,12 @@ bool	is_shadow_intersection(\
 	double			light_distance;
 
 	//lightとカメラが球内外に別れている => 影 true
-	if (is_camera_inside != is_inside_sphere(scene->light->pos, intersection.object, ray_shadow))
+	if (is_camera_inside != \
+		is_inside_sphere(scene->light->pos, intersection.object, ray_shadow))
 		return (true);
 	current_node = scene->list_object->node;
-	light_distance = vec_norm(vec_subtract(scene->light->pos, intersection.position));
+	light_distance = vec_norm(\
+		vec_subtract(scene->light->pos, intersection.position));
 	while (current_node)
 	{
 		if (current_node->content == intersection.object)
@@ -28,7 +30,8 @@ bool	is_shadow_intersection(\
 			continue ;
 		}
 		//ray_shadowとcurrent_node->contentの交点までの距離取得
-		new_distance = get_distance_to_sphere2(ray_shadow, scene->light->pos, current_node->content);
+		new_distance = get_distance_to_sphere2(\
+			ray_shadow, scene->light->pos, current_node->content);
 		if (!isnan(new_distance) && new_distance < light_distance)
 			return (true);
 		current_node = current_node->next;
@@ -37,14 +40,16 @@ bool	is_shadow_intersection(\
 	return (false);
 }
 
-double	get_l_dot(t_scene *scene, t_intersection intersection, bool is_camera_inside)
+double	get_l_dot(\
+	t_scene *scene, t_intersection intersection, bool is_camera_inside)
 {
 	double		l_dot;
 	t_vector	incident;
 
 	if (is_shadow_intersection(scene, intersection, is_camera_inside))
 		return (NO_INCIDENT);
-	incident = vec_normalize(vec_subtract(scene->light->pos, intersection.position));
+	incident = vec_normalize(\
+		vec_subtract(scene->light->pos, intersection.position));
 	l_dot = vec_dot(incident, intersection.normal);
 	if (l_dot < 0)
 		return (NO_INCIDENT);

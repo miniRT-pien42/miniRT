@@ -12,7 +12,8 @@ static t_vector	get_position_on_sphere(\
 	return (vec_add(scene->camera->pos, vec_scalar(ray, distance)));
 }
 
-static t_vector	get_normal_on_sphere(t_vector position, t_sphere *sphere, bool is_camera_inside)
+static t_vector	get_normal_on_sphere(\
+	t_vector position, t_sphere *sphere, bool is_camera_inside)
 {
 	t_vector	normal;
 
