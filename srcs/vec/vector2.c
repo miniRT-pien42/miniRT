@@ -3,20 +3,8 @@
 
 t_vector	vec_scalar(const t_vector v, double scalar)
 {
-	t_vector	ret_v;
+	const t_vector	ret_v = {v.x * scalar, v.y * scalar, v.z * scalar};
 
-	if (v.x == 0 && scalar == INFINITY)
-		ret_v.x = 0;
-	else
-		ret_v.x = v.x * scalar;
-	if (v.y == 0 && scalar == INFINITY)
-		ret_v.y = 0;
-	else
-		ret_v.y = v.y * scalar;
-	if (v.z == 0 && scalar == INFINITY)
-		ret_v.z = 0;
-	else
-		ret_v.z = v.z * scalar;
 	return (ret_v);
 }
 
