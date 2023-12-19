@@ -14,6 +14,8 @@ bool	is_shadow_intersection(\
 	double			new_distance;
 	double			light_distance;
 
+	//todo: is_light_insideは取得済みの状態で渡したい。
+	//todo: shadow-rayの渡し方考える
 	//lightとカメラが球内外に別れている => 影 true
 	if (is_camera_inside != \
 		is_inside_sphere(scene->light->pos, intersection.object, ray_shadow))
@@ -37,11 +39,13 @@ bool	is_shadow_intersection(\
 	return (false);
 }
 
+//todo: 共通にしたいがis_camera_insideをどうするか
 double	get_l_dot(\
 	t_scene *scene, t_intersection intersection, bool is_camera_inside)
 {
 	double		l_dot;
 	t_vector	incident;
+	//bool		is_light_inside;
 
 	//この画素が影になるならNO_INCIDENT
 	if (is_shadow_intersection(scene, intersection, is_camera_inside))

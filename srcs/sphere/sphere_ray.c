@@ -35,9 +35,8 @@ double	calc_discriminant_for_sphere(\
 }
 
 // camera,lightからの最短距離を取得。
-// discriminant == 0 rayが対象に対し接線となる場合、接するものとして扱う
+// discriminant == 0 rayが対象に対し接線となる場合、交点を一つ持つものとして扱う
 // distance == 0 rayとobjectの交点がcamera,light位置と重なる場合は数値扱いとしNaNにしない
-
 double	get_distance_to_sphere(t_vector ray, t_vector pos, t_sphere *sphere)
 {
 	double	distances[2];
@@ -46,7 +45,6 @@ double	get_distance_to_sphere(t_vector ray, t_vector pos, t_sphere *sphere)
 
 	discriminant = calc_discriminant_for_sphere(\
 		ray, sphere, pos, distances);
-
 	if (discriminant < 0)
 		return (NAN);
 	distance = get_closer_distance(discriminant, distances);

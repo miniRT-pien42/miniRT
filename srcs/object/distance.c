@@ -18,7 +18,7 @@ void	calc_distance_by_discriminant(\
 		distances[1] = (-b + sqrt(d)) / (2 * a);
 	}
 }
-#include <stdio.h>
+
 double	get_closer_distance(double discriminant, double *distances)
 {
 	double	closer_distance;
