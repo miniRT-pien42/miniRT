@@ -20,7 +20,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 void	ft_strlcpy_void(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlen(const char *s);
-int 	ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strndup(const char *s, const size_t maxlen);
 size_t	ft_strnlen(const char *s, const size_t maxlen);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);

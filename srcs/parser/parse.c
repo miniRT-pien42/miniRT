@@ -35,6 +35,7 @@ static void	add_split_line(t_deque *lines, char **line)
 	char			**split_line_with_space;
 	t_deque_node	*node;
 
+	// todo: not allow head space
 	split_line_with_space = ft_split((const char *)*line, ' ');
 	ft_free((void **)line);
 	node = deque_node_new((void *)split_line_with_space);
@@ -53,7 +54,7 @@ static t_deque	*read_lines(const int fd)
 		line = get_next_line(fd, &result); // todo: if result==FAILURE
 		if (line == NULL)
 			break ;
-		// todo: remove last newline
+		// todo: remove last newline?
 		add_split_line(lines, &line);
 	}
 	return (lines);
@@ -69,7 +70,7 @@ static t_deque	*read_file(const char *file_name)
 	return (lines);
 }
 
-static void	del_lines(void *args)
+void	del_lines(void *args)
 {
 	char	**lines;
 
@@ -83,12 +84,12 @@ t_result	parse(const char *file_name, t_scene *scene)
 	// t_result	result;
 
 	lines = read_file(file_name);
-	debug_deque_print(lines, __func__, (void *)print_2d_array);
-	if (!is_valid_lines(lines))
+	if (!is_valid_lines(&lines))
 	{
 		deque_clear_all(&lines, del_lines);
 		return (FAILURE);
 	}
+	debug_deque_print(lines, __func__, (void *)print_2d_array);
 	init_scene(scene);
 	parse_lines_to_scene(lines, scene);
 	debug_print_scene_value(scene);
