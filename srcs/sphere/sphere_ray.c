@@ -54,7 +54,8 @@ double	get_distance_to_sphere(t_vector ray, t_vector pos, t_sphere *sphere)//tod
 		return (NAN);
 	}
 	distance = get_closer_distance(discriminant, distances);
-	if (distance <= 0)
+	//接する場合（distance==0）は数値扱いとしNaNにしない
+	if (distance < 0)
 		return (NAN);
 	return (distance);
 }
