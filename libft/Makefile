@@ -4,6 +4,8 @@ SRC_DIR		:=	srcs
 SRCS		:=	ft_free.c \
 				ft_memcpy.c \
 				ft_memmove.c \
+				ft_min.c \
+				ft_putstr_fd.c \
 				ft_split.c \
 				ft_strchr.c \
 				ft_strcmp.c \
@@ -13,8 +15,10 @@ SRCS		:=	ft_free.c \
 				ft_strlcpy_void.c \
 				ft_strlcpy.c \
 				ft_strlen.c \
+				ft_strncmp.c \
 				ft_strndup.c \
 				ft_strnlen.c \
+				ft_strnstr.c \
 				get_next_line.c \
 				x_malloc.c
 

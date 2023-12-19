@@ -2,17 +2,11 @@
 #include "parse.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "error.h"
 
 static bool	is_valid_argc(const int argc)
 {
 	return (argc == 2);
-}
-
-// todo: validate .rt file
-static bool	is_valid_file_path(const char *filepath)
-{
-	printf("filepath: %s\n", filepath);
-	return (true);
 }
 
 // todo: validate scene value
@@ -27,15 +21,9 @@ int	main(int argc, char **argv)
 	t_scene	scene;
 
 	if (!is_valid_argc(argc))
-	{
-		// todo: put error
-		return (EXIT_FAILURE);
-	}
+		error_exit(ERR_ARGS);
 	if (!is_valid_file_path(argv[1]))
-	{
-		// todo: put error
-		return (EXIT_FAILURE);
-	}
+		error_exit(ERR_FILEPATH);
 	scene = parse(argv[1]);
 	if (!is_valid_scene_value(&scene))
 	{
