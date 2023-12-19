@@ -1,7 +1,5 @@
-#include "ft_deque.h"
 #include "libft.h"
 #include "object.h"
-#include "parse.h"
 #include "scene.h"
 
 t_vector	set_axis_base(void)

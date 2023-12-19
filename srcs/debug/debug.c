@@ -1,7 +1,4 @@
 #include "debug.h"
-#include "object.h"
-#include "scene.h"
-#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 

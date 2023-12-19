@@ -1,5 +1,4 @@
 #include "helpers.h"
-#include "vector.h"
 #include <math.h>
 
 //2つの正規化ベクトルが並行で逆方向か判定

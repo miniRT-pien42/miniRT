@@ -1,5 +1,4 @@
 #include "scene.h"
-#include "vector.h"
 #include <math.h>
 
 //回転クォータニオン axisは基準となるz軸

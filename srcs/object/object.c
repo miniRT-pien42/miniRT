@@ -1,5 +1,4 @@
 #include "object.h"
-#include "ray.h"
 #include "scene.h"
 #include <math.h>
 

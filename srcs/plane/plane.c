@@ -1,7 +1,6 @@
 #include "libft.h"
 #include "object.h"
 #include "parse.h"
-#include <stdlib.h> // todo: rm (atof)
 
 t_plane	*init_plane(const char **line)
 {

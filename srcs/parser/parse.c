@@ -1,12 +1,7 @@
 #include "debug.h"
-#include "ft_deque.h"
 #include "get_next_line.h"
 #include "libft.h"
-#include "result.h"
-#include "scene.h"
 #include <fcntl.h> // open
-#include <stdio.h>
-#include <stdlib.h>
 
 /*
 A   ratio      r,g,b

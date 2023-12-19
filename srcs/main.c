@@ -1,8 +1,5 @@
 #include "debug.h"
-#include "display.h"
 #include "parse.h"
-#include "scene.h"
-#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
