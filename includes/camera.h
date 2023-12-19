@@ -12,7 +12,7 @@ typedef struct s_camera
 	int			fov;
 }	t_camera;
 
-t_camera	*init_camera(char *line);
+t_camera	*init_camera(const char **line);
 t_vector	get_center_screen(t_camera *camera);
 
 #endif

@@ -1,17 +1,21 @@
 NAME		:=	miniRT
 
 SRC_DIR		:=	srcs
-SRCS		:=	vec/vector1.c \
+SRCS		:=	cylinder/cylinder_ray.c \
+				cylinder/cylinder.c \
+				vec/vector1.c \
 				vec/vector2.c \
 				vec/vector3.c \
 				vec/quaternion.c \
 				helpers/helpers_math1.c \
 				error/error.c \
+				scene/destroy.c \
 				scene/scene.c \
 				ray/ray.c \
 				camera/camera.c \
 				light/light.c \
 				object/object.c \
+				object/distance.c \
 				plane/plane.c \
 				plane/plane_ray.c \
 				sphere/sphere.c \
@@ -21,6 +25,10 @@ SRCS		:=	vec/vector1.c \
 				display/display.c \
 				display/set_each_pixel.c \
 				debug/debug.c \
+				debug/print_object.c \
+				debug/print_rt_file.c \
+				parser/convert.c \
+				parser/parse.c \
 				main.c
 
 OBJ_DIR		:=	objs

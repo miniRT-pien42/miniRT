@@ -1,19 +1,17 @@
-#include <stdlib.h>
 #include <math.h>
 #include "camera.h"
-#include "value_tmp.h"
+#include "libft.h"
+#include "parse.h"
+#include <stdlib.h> // todo: rm (atof)
 
-t_camera	*init_camera(char *line)
+t_camera	*init_camera(const char **line)
 {
 	t_camera	*camera;
 
-	(void)line;//todo: #3
-	camera = (t_camera *)malloc(sizeof(t_camera));
-	if (camera == NULL)
-		return (NULL);
-	camera->pos = (t_vector)CAMERA_POS;
-	camera->dir_n = (t_vector)CAMERA_DIR_N;
-	camera->fov = CAMERA_FOV;
+	camera = (t_camera *)x_malloc(sizeof(t_camera));
+	camera->pos = convert_line_to_vector(line[1], ',');
+	camera->dir_n = convert_line_to_vector(line[2], ',');
+	camera->fov = atof(line[3]);
 	return (camera);
 }
 

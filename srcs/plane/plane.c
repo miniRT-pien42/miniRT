@@ -1,17 +1,16 @@
-#include <stdlib.h>
 #include "libft.h"
 #include "object.h"
-#include "value_tmp.h"
+#include "parse.h"
+#include <stdlib.h> // todo: rm (atof)
 
-t_plane	*init_plane(char *line)
+t_plane	*init_plane(const char **line)
 {
 	t_plane	*plane;
 
-	(void)line;//todo: #3
 	plane = (t_plane *)x_malloc(sizeof(t_plane));
-	plane->type = PLANE1_TYPE;
-	plane->point = (t_vector)PLANE1_POINT;
-	plane->dir_n = (t_vector)PLANE1_DIR_N;
-	plane->color = (t_rgb)PLANE1_COLOR;
+	plane->type = PLANE;
+	plane->point = convert_line_to_vector(line[1], ',');
+	plane->dir_n = convert_line_to_vector(line[2], ',');
+	plane->color = convert_line_to_rgb(line[3], ',');
 	return (plane);
 }

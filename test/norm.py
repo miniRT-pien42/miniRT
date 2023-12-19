@@ -6,7 +6,7 @@ import sys
 # All directories & files -> NORM_CHECK_PATH = ""
 # Select paths            -> NORM_CHECK_PATH = "dir_name file_path ..."
 
-NORM_CHECK_PATH = "includes srcs"
+NORM_CHECK_PATH = "includes srcs libft"
 
 # 2. Your setting
 # Nothing is ignored      -> IGNORE_WARNING = []
