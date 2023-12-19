@@ -7,6 +7,7 @@
 #include "display.h"
 #include "debug.h"
 #include "parse.h"
+#include "error.h"
 
 static bool	is_valid_argc(const int argc)
 {
@@ -32,10 +33,7 @@ int	main(int argc, char **argv)
 	t_scene	scene;
 
 	if (!is_valid_argc(argc))
-	{
-		// todo: put error
-		return (EXIT_FAILURE);
-	}
+		error_exit(ERR_ARGS);
 	if (!is_valid_file_path(argv[1]))
 	{
 		// todo: put error
