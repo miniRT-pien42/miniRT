@@ -62,7 +62,7 @@ t_sphere		*init_sphere(const char **line);
 
 // sphere/sphere_ray.c
 double			calc_discriminant_for_sphere(\
-	t_vector ray, t_sphere *sphere, t_vector camera_pos, double *distances);
+	t_vector ray, t_sphere *sphere, t_vector pos, double *distances);
 double			get_distance_to_sphere(\
 	t_vector ray, t_vector pos, t_sphere *sphere);
 

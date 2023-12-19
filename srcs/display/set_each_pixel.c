@@ -21,7 +21,7 @@ static t_vector	calc_ray_direction(const int y, const int x, t_scene *scene)
 	coord_on_screen = vec_add(coord_on_screen, center_screen);
 	return (vec_subtract(coord_on_screen, scene->camera->pos));
 }
-
+#include <stdio.h>
 void	set_each_pixel_color(\
 	t_mlx *mlxs, const int y, const int x, t_scene *scene)
 {
@@ -30,7 +30,9 @@ void	set_each_pixel_color(\
 	void		*nearest_object;
 	t_shape		type;
 
+	printf("cooord x: %d y: %d\n", x, y);
 	ray = calc_ray_direction(y, x, scene);
+	printf("camera_ray %f %f %f\n", ray.x, ray.y, ray.z);
 	nearest_object = get_nearest_object(ray, scene);
 	if (nearest_object == NULL)
 		color = COLOR_BLUE;
