@@ -7,6 +7,7 @@
 #include "get_next_line.h"
 #include "result.h"
 #include "debug.h"
+#include "parse.h"
 
 /*
 A   ratio      r,g,b
@@ -52,6 +53,7 @@ static t_deque	*read_lines(const int fd)
 		line = get_next_line(fd, &result); // todo: if result==FAILURE
 		if (line == NULL)
 			break ;
+		// todo: remove last newline
 		add_split_line(lines, &line);
 	}
 	return (lines);
@@ -75,17 +77,21 @@ static void	del_lines(void *args)
 	free_2d_array(&lines);
 }
 
-t_scene	parse(const char *file_name)
+t_result	parse(const char *file_name, t_scene *scene)
 {
-	t_scene	scene;
 	t_deque	*lines;
 	// t_result	result;
 
 	lines = read_file(file_name);
 	debug_deque_print(lines, __func__, (void *)print_2d_array);
-	// todo: validation
-	init_scene(&scene);
-	parse_lines_to_scene(lines, &scene);
+	if (!is_valid_lines(lines))
+	{
+		deque_clear_all(&lines, del_lines);
+		return (FAILURE);
+	}
+	init_scene(scene);
+	parse_lines_to_scene(lines, scene);
+	debug_print_scene_value(scene);
 	deque_clear_all(&lines, del_lines);
 	// if (result == FAILURE)
 	// {
@@ -93,5 +99,5 @@ t_scene	parse(const char *file_name)
 	// 	return (FAILURE);
 	// }
 	// todo: validation
-	return (scene);
+	return (SUCCESS);
 }
