@@ -1,7 +1,7 @@
-#include "scene.h"
-#include "libft.h"
 #include "ft_deque.h"
+#include "libft.h"
 #include "object.h"
+#include "scene.h"
 
 static void	del_object(void *args)
 {

@@ -1,8 +1,8 @@
 #ifndef LIGHT_H
 # define LIGHT_H
 
-# include "vector.h"
 # include "color.h"
+# include "vector.h"
 
 typedef struct s_light_ambient
 {

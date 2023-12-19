@@ -1,6 +1,6 @@
-#include <stdio.h>
 #include "debug.h"
 #include "object.h"
+#include <stdio.h>
 
 void	debug_print_sphere(t_sphere *sphere)
 {

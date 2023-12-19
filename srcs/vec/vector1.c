@@ -1,5 +1,5 @@
-#include <math.h>
 #include "vector.h"
+#include <math.h>
 
 t_vector	vec_add(const t_vector a, const t_vector b)
 {

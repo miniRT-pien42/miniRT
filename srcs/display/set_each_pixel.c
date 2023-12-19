@@ -1,9 +1,9 @@
+#include "display.h"
 #include "object.h"
+#include "ray.h"
+#include "scene.h"
 #include <math.h>
 #include <stdlib.h>
-#include "display.h"
-#include "scene.h"
-#include "ray.h"
 
 // screen上の点の位置
 static t_vector	calc_ray_direction(const int y, const int x, t_scene *scene)

@@ -1,6 +1,6 @@
-#include <math.h>
-#include "vector.h"
 #include "scene.h"
+#include "vector.h"
+#include <math.h>
 
 //回転クォータニオン axisは基準となるz軸
 static t_quaternion	get_rotate_quaternion(t_vector axis, double angle)

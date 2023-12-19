@@ -1,7 +1,7 @@
-#include <math.h>
-#include "scene.h"
-#include "ray.h"
 #include "object.h"
+#include "ray.h"
+#include "scene.h"
+#include <math.h>
 
 t_shape	get_object_type(void *object)
 {

@@ -1,10 +1,10 @@
+#include "display.h"
+#include "mlx.h"
+#include "scene.h"
+#include "vector.h"
 #include <stddef.h>
 #include <stdlib.h> // exit
 #include <X11/X.h> // mlx_hook
-#include "scene.h"
-#include "vector.h"
-#include "display.h"
-#include "mlx.h"
 
 void	my_mlx_pixel_put(\
 					t_image *image, const int y, const int x, const int color)
