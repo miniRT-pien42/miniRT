@@ -22,5 +22,6 @@ t_rgb		convert_line_to_rgb(const char *line, const char delimiter);
 /* validation */
 bool		is_valid_file_path(const char *filepath);
 bool		is_valid_lines(const t_deque *lines);
+bool		is_valid_scene_value(const t_scene *scene);
 
 #endif

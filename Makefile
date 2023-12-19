@@ -29,6 +29,7 @@ SRCS		:=	cylinder/cylinder_ray.c \
 				debug/print_rt_file.c \
 				parser/check_file_path.c \
 				parser/check_lines.c \
+				parser/check_scene_value.c \
 				parser/convert.c \
 				parser/parse.c \
 				main.c

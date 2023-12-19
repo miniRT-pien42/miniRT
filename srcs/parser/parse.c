@@ -93,11 +93,11 @@ t_result	parse(const char *file_name, t_scene *scene)
 	parse_lines_to_scene(lines, scene);
 	debug_print_scene_value(scene);
 	deque_clear_all(&lines, del_lines);
-	// if (result == FAILURE)
-	// {
-	// 	destroy_scene(&scene);
-	// 	return (FAILURE);
-	// }
-	// todo: validation
+	if (!is_valid_scene_value(scene))
+	{
+		deque_clear_all(&lines, del_lines);
+		// destroy_scene(&scene);
+		return (FAILURE);
+	}
 	return (SUCCESS);
 }
