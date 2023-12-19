@@ -1,3 +1,4 @@
+#include "object.h"
 #include <math.h>
 #include <stdlib.h>
 #include "display.h"

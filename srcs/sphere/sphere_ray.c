@@ -4,6 +4,7 @@
 #include "display.h"
 #include "scene.h"
 #include "helpers.h"
+#include "object.h"
 #include "ray.h"
 
 static double	calc_a_for_sphere(t_vector ray)

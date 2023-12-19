@@ -4,6 +4,7 @@
 #include "display.h"
 #include "scene.h"
 #include "helpers.h"
+#include "object.h"
 #include "ray.h"
 
 double	get_distance_to_plane(t_vector ray, t_scene *scene, t_plane *plane)
