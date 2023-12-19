@@ -35,10 +35,7 @@ int	main(int argc, char **argv)
 	if (!is_valid_argc(argc))
 		error_exit(ERR_ARGS);
 	if (!is_valid_file_path(argv[1]))
-	{
-		// todo: put error
-		return (EXIT_FAILURE);
-	}
+		error_exit(ERR_FILEPATH);
 	scene = parse(argv[1]);
 	if (!is_valid_scene_value(&scene))
 	{
