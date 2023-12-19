@@ -8,6 +8,7 @@ void	*ft_free(void **ptr);
 void	*free_2d_array(char ***ptr);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 void	*ft_memmove(void *dst, const void *src, size_t len);
+void	ft_putstr_fd(const char *s, int fd);
 char	**ft_split(char const *s, char c);
 char	*ft_strchr(char *s, int int_c);
 bool	ft_strchr_bool(const char *s, int int_c);
