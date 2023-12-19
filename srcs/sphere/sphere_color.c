@@ -29,7 +29,7 @@ static t_vector	get_normal_on_sphere(\
 	}
 	return (normal);
 }
-#include <stdio.h>
+
 bool	is_inside_sphere(t_vector pos_target, t_sphere *sphere, t_vector ray)
 {
 	double	distances[2];
@@ -37,8 +37,6 @@ bool	is_inside_sphere(t_vector pos_target, t_sphere *sphere, t_vector ray)
 
 	discriminant = calc_discriminant_for_sphere(\
 		ray, sphere, pos_target, distances);
-	if (discriminant == 0) printf("*?*?*?*?*?*?*?*? light == sphere\n");
-	else printf("*!*!*!*!*!*! %f\n", discriminant);
 	if (discriminant < 0)
 		return (NAN);
 	if ((distances[0] > 0 && distances[1] < 0) || \
