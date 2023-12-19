@@ -14,13 +14,6 @@ static bool	is_valid_argc(const int argc)
 	return (argc == 2);
 }
 
-// todo: validate .rt file
-static bool	is_valid_file_path(const char *filepath)
-{
-	printf("filepath: %s\n", filepath);
-	return (true);
-}
-
 // todo: validate scene value
 static bool	is_valid_scene_value(const t_scene *scene)
 {
