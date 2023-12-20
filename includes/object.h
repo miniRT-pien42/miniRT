@@ -67,10 +67,10 @@ double			get_distance_to_sphere(\
 	t_vector ray, t_vector pos, t_sphere *sphere);
 
 // sphere/sphere_color.c
+t_vector	get_normal_on_sphere(\
+	t_vector position, t_sphere *sphere, bool is_camera_inside);
 bool			is_inside_sphere(\
 	t_vector pos_target, t_sphere *sphere, t_vector ray);
-t_rgb			ray_tracing_sphere(\
-	t_scene *scene, t_sphere *nearest_object, t_vector ray);
 
 // plane/plane.c
 t_plane			*init_plane(const char **line);
@@ -80,8 +80,6 @@ double			get_distance_to_plane(\
 	t_vector ray, t_vector pos, t_plane *plane);
 
 // plane/plane_color.c
-t_rgb			ray_tracing_plane(\
-	t_scene *scene, t_plane *nearest_object, t_vector ray);
 
 // cylinder/cylinder.c
 t_cylinder		*init_cylinder(const char **line);

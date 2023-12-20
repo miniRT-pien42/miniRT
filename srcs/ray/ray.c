@@ -5,8 +5,20 @@
 #include "helpers.h"
 #include "ray.h"
 
+static bool	is_sphere_dark(t_scene *scene, t_intersection intersection, t_vector ray, t_vector ray_shadow)
+{
+	const bool	is_camera_inside = \
+		is_inside_sphere(scene->camera->pos, intersection.object, ray);
+	const bool	is_light_inside = \
+		is_inside_sphere(scene->light->pos, intersection.object, ray_shadow);
+
+	if (is_camera_inside != is_light_inside)
+		return (true);
+	return (false);
+}
+
 bool	is_shadow_intersection(\
-	t_scene *scene, t_intersection intersection, bool is_camera_inside)
+	t_scene *scene, t_intersection intersection, t_vector ray)
 {
 	const t_vector	ray_shadow = \
 		vec_subtract(intersection.position, scene->light->pos);
@@ -15,44 +27,32 @@ bool	is_shadow_intersection(\
 	double			light_distance;
 	const t_shape	type = get_object_type(intersection.object);
 
-	//todo: is_light_insideは取得済みの状態で渡したい。
-	//todo: shadow-rayの渡し方考える
-	//lightとカメラが球内外に別れている => 影 true
-	if (type == SPHERE)
-	{
-		if (is_camera_inside != \
-			is_inside_sphere(scene->light->pos, intersection.object, ray_shadow))
-			return (true);
-	}
+	if (type == SPHERE && is_sphere_dark(scene, intersection, ray, ray_shadow))
+		return (true);
 	current_node = scene->list_object->node;
-	light_distance = get_distance(\
-				ray_shadow, scene->light->pos, intersection.object);
+	light_distance = get_distance(ray_shadow, scene->light->pos, intersection.object);
 	while (current_node)
 	{
-		if (current_node->content == intersection.object)
+		if (current_node->content != intersection.object)
 		{
-			current_node = current_node->next;
-			continue ;
-		}
-		new_distance = get_distance(\
+			new_distance = get_distance(\
 			ray_shadow, scene->light->pos, current_node->content);
-		if (!isnan(new_distance) && new_distance < light_distance)
-			return (true);
+			if (!isnan(new_distance) && new_distance < light_distance)
+				return (true);
+		}
 		current_node = current_node->next;
 	}
 	return (false);
 }
 
-//todo: 共通にしたいがis_camera_insideをどうするか
 double	get_l_dot(\
-	t_scene *scene, t_intersection intersection, bool is_camera_inside)
+	t_scene *scene, t_intersection intersection, t_vector ray)
 {
 	double		l_dot;
 	t_vector	incident;
-	//bool		is_light_inside;
 
 	//この画素が影になるならNO_INCIDENT
-	if (is_shadow_intersection(scene, intersection, is_camera_inside))
+	if (is_shadow_intersection(scene, intersection, ray))
 		return (NO_INCIDENT);
 	//この画素が影にならないならincident（光の入射をとってきてl_dot計算）
 	incident = vec_normalize(\
@@ -74,10 +74,20 @@ t_rgb_f	get_lux_ambient(const t_light_ambient *ambient)
 	return (lux_ambient);
 }
 
-t_rgb_f	get_lux_light(const t_light *light, t_rgb color, double l_dot)
+t_rgb_f	get_lux_light(const t_light *light, void *nearest_object, double l_dot)
 {
 	t_rgb_f	lux_light;
+	const t_shape	type = get_object_type(nearest_object);
+	t_rgb	color;
 
+	if (type == SPHERE)
+		color = ((t_sphere *)nearest_object)->color;
+	else if (type == PLANE)
+		color = ((t_plane *)nearest_object)->color;
+	else if (type == CYLINDER)
+		color = ((t_cylinder *)nearest_object)->color;
+	else
+		exit(EXIT_FAILURE);
 	lux_light.r = color.r / 255.0 * light->bright * l_dot;
 	lux_light.g = color.g / 255.0 * light->bright * l_dot;
 	lux_light.b = color.b / 255.0 * light->bright * l_dot;

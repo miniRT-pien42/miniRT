@@ -22,35 +22,90 @@ static t_vector	calc_ray_direction(const int y, const int x, t_scene *scene)
 	return (vec_subtract(coord_on_screen, scene->camera->pos));
 }
 
+static t_vector	get_position_on_object(t_scene *scene, t_vector ray, double distance)
+{
+	return (vec_add(scene->camera->pos, vec_scalar(ray, distance)));
+}
+
+static t_vector	get_normal(t_scene *scene, t_intersection intersection, t_vector ray, t_shape type)
+{
+	t_vector	normal;
+	bool		is_camera_inside;
+
+	if (type == SPHERE)
+	{
+		is_camera_inside = is_inside_sphere(scene->camera->pos, intersection.object, ray);
+		normal = \
+			get_normal_on_sphere(intersection.position, intersection.object, is_camera_inside);
+	}
+	else if (type == PLANE)
+		normal = ((t_plane *)intersection.object)->normal;
+	else if (type == CYLINDER)
+	{
+		normal = (t_vector){0, 0, 0};//todo: cy
+	}
+	else
+		normal = (t_vector){0, 0, 0};
+	return (normal);
+}
+
+static t_intersection	get_intersection(\
+	t_scene *scene, void *nearest_object, t_vector ray)
+{
+	t_intersection	intersection;
+	t_shape			type;
+	type = get_object_type(nearest_object);
+
+	intersection.object = nearest_object;
+	intersection.distance = get_distance(ray, scene->camera->pos, intersection.object);
+	intersection.position = \
+		get_position_on_object(scene, ray, intersection.distance);
+	intersection.normal = get_normal(scene, intersection, ray, type);
+	intersection.l_dot = get_l_dot(scene, intersection, ray);
+	//法線ベクトルがカメラから見て奥を向いている場合は反転
+	if (type == PLANE && intersection.l_dot == NO_INCIDENT)
+	{
+		intersection.normal = vec_scalar(intersection.normal, -1);
+		intersection.l_dot = get_l_dot(scene, intersection, ray);
+	}
+	return (intersection);
+}
+
+static t_rgb	ray_tracing(\
+	t_scene *scene, void *nearest_object, t_vector ray)
+{
+	t_intersection	intersection;
+	t_material		material;
+
+	//交点の情報を取得
+	intersection = get_intersection(scene, nearest_object, ray);
+	//lux_totalを環境光で初期化。影にならない場合はlightの明るさもadd
+	material.lux_total = get_lux_ambient(scene->light_ambient);
+	//影になるか判定。ならない場合のみifに入ってlightの明るさ計算
+	if (!is_shadow_intersection(scene, intersection, ray))
+	{
+		material.lux_light = \
+			get_lux_light(scene->light, nearest_object, intersection.l_dot);
+		material.lux_total = \
+			get_lux_total(material.lux_total, material.lux_light);
+	}
+	material.color = (t_rgb){material.lux_total.r * 255, \
+		material.lux_total.g * 255, material.lux_total.b * 255};
+	return (material.color);
+}
+
 void	set_each_pixel_color(\
 	t_mlx *mlxs, const int y, const int x, t_scene *scene)
 {
 	int			color;
 	t_vector	ray;
 	void		*nearest_object;
-	t_shape		type;
 
 	ray = calc_ray_direction(y, x, scene);
 	nearest_object = get_nearest_object(ray, scene);
 	if (nearest_object == NULL)
 		color = COLOR_BLUE;
 	else
-	{
-		type = get_object_type(nearest_object);
-		if (type == SPHERE)
-		{
-			color = convert_rgb(\
-				ray_tracing_sphere(scene, (t_sphere *)nearest_object, ray));
-		}
-		else if (type == PLANE)
-		{
-			color = convert_rgb(\
-				ray_tracing_plane(scene, (t_plane *)nearest_object, ray));
-		}
-		else if (type == CYLINDER)
-			color = convert_rgb(((t_cylinder *)nearest_object)->color);
-		else
-			color = COLOR_RED;
-	}
+		color = convert_rgb(ray_tracing(scene, nearest_object, ray));
 	my_mlx_pixel_put(mlxs->image, y, x, color);
 }

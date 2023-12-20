@@ -23,12 +23,11 @@ typedef struct s_intersection
 }	t_intersection;
 
 // ray/ray.c
-bool	is_shadow_intersection(\
-	t_scene *scene, t_intersection intersection, bool is_camera_inside);
+bool	is_shadow_intersection(t_scene *scene, t_intersection intersection, t_vector ray);
 double	get_l_dot(\
-	t_scene *scene, t_intersection intersection, bool is_camera_inside);
+	t_scene *scene, t_intersection intersection, t_vector ray);
 t_rgb_f	get_lux_ambient(const t_light_ambient *ambient);
-t_rgb_f	get_lux_light(const t_light *light, t_rgb color, double l_dot);
+t_rgb_f	get_lux_light(const t_light *light, void *nearest_object, double l_dot);
 t_rgb_f	get_lux_total(t_rgb_f lux_ambient, t_rgb_f lux_light);
 
 #endif
