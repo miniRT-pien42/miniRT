@@ -26,17 +26,6 @@ static void	remove_empty_lines(t_deque **lines)
 	*lines = new_lines;
 }
 
-// todo: to libft?
-size_t	calc_length_of_2d_array(const char **array)
-{
-	size_t	i;
-
-	i = 0;
-	while (array[i])
-		i++;
-	return (i);
-}
-
 static bool	has_at_least_3_lines(const t_deque *lines)
 {
 	return (lines->size >= 3);

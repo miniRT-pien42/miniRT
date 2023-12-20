@@ -25,7 +25,6 @@ t_rgb		convert_line_to_rgb(const char *line, const char delimiter);
 bool		is_valid_file_path(const char *filepath);
 bool		starts_with_valid_identifier(t_deque *lines);
 void		split_line_with_space(t_deque *lines);
-size_t		calc_length_of_2d_array(const char **array);
 bool		is_correct_number_of_blocks(const t_deque *lines);
 bool		is_valid_lines(t_deque **lines);
 bool		is_valid_scene_value(const t_scene *scene);

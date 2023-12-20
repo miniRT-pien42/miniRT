@@ -29,7 +29,7 @@ static bool	is_correct_each_number_of_blocks(char **line)
 	char	*type;
 
 	type = line[0];
-	block_size = calc_length_of_2d_array((const char **)line);
+	block_size = ft_len_2d_array((const char **)line);
 	if (has_type_3_blocks(type))
 		return (block_size == 3);
 	else if (has_type_4_blocks(type))
