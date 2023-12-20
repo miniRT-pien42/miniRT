@@ -2,6 +2,7 @@ NAME		:=	libft.a
 
 SRC_DIR		:=	srcs
 SRCS		:=	ft_free.c \
+				ft_len_2d_array.c \
 				ft_memcpy.c \
 				ft_memmove.c \
 				ft_min.c \

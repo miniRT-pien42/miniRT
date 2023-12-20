@@ -6,6 +6,7 @@
 
 void	*ft_free(void **ptr);
 void	*free_2d_array(char ***ptr);
+size_t	ft_len_2d_array(const char **array);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 void	*ft_memmove(void *dst, const void *src, size_t len);
 size_t	ft_min(const size_t x, const size_t y);
