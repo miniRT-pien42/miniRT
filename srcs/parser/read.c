@@ -6,9 +6,6 @@
 #include <fcntl.h> // open
 #include <stdlib.h>
 
-// todo: remove
-#include <stdio.h>
-
 static t_deque	*read_lines(const int fd)
 {
 	t_deque			*lines;
@@ -41,15 +38,23 @@ t_deque	*read_file(const char *file_name)
 
 static bool	starts_with_specified_prefixes(const char *line, const char **types)
 {
-	(void)line;
-	(void)types;
-	return (true);
+	const size_t	len_types = ft_len_2d_array(types);
+	size_t			i;
+
+	i = 0;
+	while (i < len_types)
+	{
+		if (ft_strncmp(line, types[i], ft_strlen(types[i])) == 0)
+			return (true);
+		i++;
+	}
+	return (false);
 }
 
 bool	starts_with_valid_identifier(t_deque *lines)
 {
-	t_deque_node	*node;
-	char			*line;
+	t_deque_node		*node;
+	char				*line;
 	static const char	*all_types[] = {TYPE_AMBIENT, TYPE_CAMERA, TYPE_LIGHT, \
 								TYPE_PLANE, TYPE_SPHERE, TYPE_CYLINDER, NULL};
 
@@ -62,7 +67,6 @@ bool	starts_with_valid_identifier(t_deque *lines)
 			deque_clear_all(&lines, free);
 			return (false);
 		}
-		printf("[%s]\n", line);
 		node = node->next;
 	}
 	return (true);
