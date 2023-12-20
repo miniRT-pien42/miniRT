@@ -26,9 +26,10 @@ static void	remove_empty_lines(t_deque **lines)
 	*lines = new_lines;
 }
 
+// 3 = A, C, L
 static bool	has_at_least_3_lines(const t_deque *lines)
 {
-	return (lines->size >= 3);
+	return (lines->size >= AT_LEAST_LINES);
 }
 
 bool	is_valid_lines(t_deque **lines)

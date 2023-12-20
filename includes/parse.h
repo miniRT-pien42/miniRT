@@ -6,6 +6,7 @@
 
 # define OPEN_ERROR		(-1)
 # define FILE_EXTENSION	".rt"
+# define AT_LEAST_LINES	3
 
 typedef struct s_scene	t_scene;
 typedef struct s_rgb	t_rgb;
