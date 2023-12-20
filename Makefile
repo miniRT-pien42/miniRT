@@ -33,6 +33,7 @@ SRCS		:=	cylinder/cylinder_ray.c \
 				parser/convert.c \
 				parser/is_correct_blocks.c \
 				parser/parse.c \
+				parser/read.c \
 				main.c
 
 OBJ_DIR		:=	objs

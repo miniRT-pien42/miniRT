@@ -15,6 +15,7 @@ typedef struct s_deque	t_deque;
 /* parse */
 t_result	parse(const char *file_name, t_scene *scene);
 void		del_lines(void *args);
+t_deque		*read_file(const char *file_name);
 
 /* convert */
 t_vector	convert_line_to_vector(const char *line, const char delimiter);
