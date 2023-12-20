@@ -36,7 +36,7 @@ bool	is_shadow_intersection(\
 		if (current_node->content != intersection.object)
 		{
 			new_distance = get_distance(\
-			ray_shadow, scene->light->pos, current_node->content);
+				ray_shadow, scene->light->pos, current_node->content);
 			if (!isnan(new_distance) && new_distance < light_distance)
 				return (true);
 		}

@@ -30,14 +30,9 @@ static t_vector	get_position_on_object(t_scene *scene, t_vector ray, double dist
 static t_vector	get_normal(t_scene *scene, t_intersection intersection, t_vector ray, t_shape type)
 {
 	t_vector	normal;
-	bool		is_camera_inside;
 
 	if (type == SPHERE)
-	{
-		is_camera_inside = is_inside_sphere(scene->camera->pos, intersection.object, ray);
-		normal = \
-			get_normal_on_sphere(intersection.position, intersection.object, is_camera_inside);
-	}
+		normal = get_normal_on_sphere(scene, intersection, ray);
 	else if (type == PLANE)
 		normal = ((t_plane *)intersection.object)->normal;
 	else if (type == CYLINDER)

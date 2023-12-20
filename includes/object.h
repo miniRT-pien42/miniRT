@@ -67,8 +67,8 @@ double			get_distance_to_sphere(\
 	t_vector ray, t_vector pos, t_sphere *sphere);
 
 // sphere/sphere_color.c
-t_vector	get_normal_on_sphere(\
-	t_vector position, t_sphere *sphere, bool is_camera_inside);
+t_vector		get_normal_on_sphere(\
+	t_scene *scene, t_intersection intersection, t_vector ray);
 bool			is_inside_sphere(\
 	t_vector pos_target, t_sphere *sphere, t_vector ray);
 

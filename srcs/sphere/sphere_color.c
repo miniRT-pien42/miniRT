@@ -7,20 +7,17 @@
 #include "ray.h"
 
 t_vector	get_normal_on_sphere(\
-	t_vector position, t_sphere *sphere, bool is_camera_inside)
+	t_scene *scene, t_intersection intersection, t_vector ray)
 {
-	t_vector	normal;
+	t_vector		normal;
+	const t_sphere	*sphere = intersection.object;
+	const bool		is_camera_inside = \
+		is_inside_sphere(scene->camera->pos, intersection.object, ray);
 
 	if (is_camera_inside)
-	{
-		normal = vec_normalize(\
-			vec_subtract(sphere->center, position));
-	}
+		normal = vec_normalize(vec_subtract(sphere->center, intersection.position));
 	else
-	{
-		normal = vec_normalize(\
-			vec_subtract(position, sphere->center));
-	}
+		normal = vec_normalize(vec_subtract(intersection.position, sphere->center));
 	return (normal);
 }
 
