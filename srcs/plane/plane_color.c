@@ -21,9 +21,13 @@ static t_intersection	get_intersection_plane(\
 	intersection.position = \
 		get_position_on_plane(scene, ray, intersection.distance);
 	intersection.normal = plane->normal;
-	intersection.incident = \
-		vec_normalize(vec_subtract(scene->light->pos, intersection.position));
-	intersection.l_dot = get_l_dot(intersection);
+	intersection.l_dot = get_l_dot(scene, intersection, false);
+	//法線ベクトルがカメラから見て奥を向いている場合は反転
+	if (intersection.l_dot == NO_INCIDENT)
+	{
+		intersection.normal = vec_scalar(intersection.normal, -1);
+		intersection.l_dot = get_l_dot(scene, intersection, false);
+	}
 	return (intersection);
 }
 
@@ -38,13 +42,13 @@ t_rgb	ray_tracing_plane(\
 	//lux_totalを環境光で初期化。影にならない場合はlightの明るさもadd
 	material.lux_total = get_lux_ambient(scene->light_ambient);
 	//影になるか判定。ならない場合のみifに入ってlightの明るさ計算
-	//if (!is_shadow_plane(scene, intersection))
-	//{
-	material.lux_light = \
-		get_lux_light(scene->light, nearest_object->color, intersection.l_dot);
-	material.lux_total = \
-		get_lux_total(material.lux_total, material.lux_light);
-	//}
+	if (!is_shadow_intersection(scene, intersection, false))
+	{
+		material.lux_light = \
+			get_lux_light(scene->light, nearest_object->color, intersection.l_dot);
+		material.lux_total = \
+			get_lux_total(material.lux_total, material.lux_light);
+	}
 	material.color = (t_rgb){material.lux_total.r * 255, \
 		material.lux_total.g * 255, material.lux_total.b * 255};
 	return (material.color);
