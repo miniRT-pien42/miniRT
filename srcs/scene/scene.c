@@ -16,17 +16,17 @@ static void	convert_line_with_identifier(t_deque_node *node, t_scene *scene)
 
 	line = (char **)node->content;
 	identifier = line[0];
-	if (ft_streq(identifier, "A"))
+	if (ft_streq(identifier, TYPE_AMBIENT))
 		scene->light_ambient = init_light_ambient((const char **)line);
-	else if (ft_streq(identifier, "C"))
+	else if (ft_streq(identifier, TYPE_CAMERA))
 		scene->camera = init_camera((const char **)line);
-	else if (ft_streq(identifier, "L"))
+	else if (ft_streq(identifier, TYPE_LIGHT))
 		scene->light = init_light((const char **)line);
-	else if (ft_streq(identifier, "pl"))
+	else if (ft_streq(identifier, TYPE_PLANE))
 		add_to_list_object(scene->list_object, (const char **)line, PLANE);
-	else if (ft_streq(identifier, "sp"))
+	else if (ft_streq(identifier, TYPE_SPHERE))
 		add_to_list_object(scene->list_object, (const char **)line, SPHERE);
-	else if (ft_streq(identifier, "cy"))
+	else if (ft_streq(identifier, TYPE_CYLINDER))
 		add_to_list_object(scene->list_object, (const char **)line, CYLINDER);
 	// else
 	// 	return (FAILURE);

@@ -1,24 +1,25 @@
 #include "ft_deque.h"
 #include "libft.h"
 #include "parse.h"
+#include "scene.h"
 #include <stdbool.h>
 
 static bool	has_type_3_blocks(const char *type)
 {
-	return (ft_streq(type, "A"));
+	return (ft_streq(type, TYPE_AMBIENT));
 }
 
 static bool	has_type_4_blocks(const char *type)
 {
-	return (ft_streq(type, "C") \
-			|| ft_streq(type, "L") \
-			|| ft_streq(type, "sp") \
-			|| ft_streq(type, "pl"));
+	return (ft_streq(type, TYPE_CAMERA) \
+			|| ft_streq(type, TYPE_LIGHT) \
+			|| ft_streq(type, TYPE_PLANE) \
+			|| ft_streq(type, TYPE_SPHERE));
 }
 
 static bool	has_type_6_blocks(const char *type)
 {
-	return (ft_streq(type, "cy"));
+	return (ft_streq(type, TYPE_CYLINDER));
 }
 
 // A: 3 blocks, C/L/sp/pl: 4 blocks, cy: 6 blocks
