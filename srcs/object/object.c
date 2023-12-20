@@ -10,18 +10,17 @@ t_shape	get_object_type(void *object)
 }
 
 // If there are two intersection points, return the distance to the closer one.
-double	get_distance(t_vector ray, t_scene *scene, void *object)
+double	get_distance(t_vector ray, t_vector pos, void *object)
 {
-	t_shape	type;
+	const t_shape	type = get_object_type(object);
 	double	distance;
 
-	type = get_object_type(object);
 	if (type == SPHERE)
-		distance = get_distance_to_sphere(ray, scene->camera->pos, (t_sphere *)object);
+		distance = get_distance_to_sphere(ray, pos, (t_sphere *)object);
 	else if (type == PLANE)
-		distance = get_distance_to_plane(ray, scene, (t_plane *)object);
+		distance = get_distance_to_plane(ray, pos, (t_plane *)object);
 	else if (type == CYLINDER)
-		distance = get_distance_to_cylinder(ray, scene, (t_cylinder *)object);
+		distance = get_distance_to_cylinder(ray, pos, (t_cylinder *)object);
 	else
 		distance = NAN;
 	return (distance);
@@ -39,7 +38,7 @@ void	*get_nearest_object(t_vector ray, t_scene *scene)
 	nearest_distance = INFINITY;
 	while (current_node)
 	{
-		new_distance = get_distance(ray, scene, current_node->content);
+		new_distance = get_distance(ray, scene->camera->pos, current_node->content);
 		if (!isnan(new_distance) && new_distance < nearest_distance)
 		{
 			nearest_distance = new_distance;

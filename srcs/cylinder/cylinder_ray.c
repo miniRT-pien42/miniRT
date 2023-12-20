@@ -55,11 +55,11 @@ static bool	is_intersect_cylinder(\
 
 // discriminant >= 0 かつ交点の高さがcylinder.height以下なら衝突している
 double	get_distance_to_cylinder(\
-				t_vector ray_direction, t_scene *scene, t_cylinder *cylinder)
+				t_vector ray_direction, t_vector pos, t_cylinder *cylinder)
 {
 	double	distances[2];
 	double	discriminant;
-	t_ray	ray = (t_ray){.position = scene->camera->pos, .direction = ray_direction};
+	t_ray	ray = (t_ray){.position = pos, .direction = ray_direction};
 	double	outside;
 	double	inside;
 

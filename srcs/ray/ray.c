@@ -13,15 +13,19 @@ bool	is_shadow_intersection(\
 	t_deque_node	*current_node;
 	double			new_distance;
 	double			light_distance;
+	const t_shape	type = get_object_type(intersection.object);
 
 	//todo: is_light_insideは取得済みの状態で渡したい。
 	//todo: shadow-rayの渡し方考える
 	//lightとカメラが球内外に別れている => 影 true
-	if (is_camera_inside != \
-		is_inside_sphere(scene->light->pos, intersection.object, ray_shadow))
-		return (true);
+	if (type == SPHERE)
+	{
+		if (is_camera_inside != \
+			is_inside_sphere(scene->light->pos, intersection.object, ray_shadow))
+			return (true);
+	}
 	current_node = scene->list_object->node;
-	light_distance = get_distance_to_sphere(\
+	light_distance = get_distance(\
 				ray_shadow, scene->light->pos, intersection.object);
 	while (current_node)
 	{
@@ -30,7 +34,7 @@ bool	is_shadow_intersection(\
 			current_node = current_node->next;
 			continue ;
 		}
-		new_distance = get_distance_to_sphere(\
+		new_distance = get_distance(\
 			ray_shadow, scene->light->pos, current_node->content);
 		if (!isnan(new_distance) && new_distance < light_distance)
 			return (true);

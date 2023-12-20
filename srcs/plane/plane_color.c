@@ -17,7 +17,7 @@ static t_intersection	get_intersection_plane(\
 	t_intersection	intersection;
 
 	intersection.object = plane;
-	intersection.distance = get_distance_to_plane(ray, scene, plane);
+	intersection.distance = get_distance_to_plane(ray, scene->camera->pos, plane);
 	intersection.position = \
 		get_position_on_plane(scene, ray, intersection.distance);
 	intersection.normal = plane->normal;
