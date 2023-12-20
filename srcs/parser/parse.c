@@ -41,9 +41,12 @@ t_result	parse(const char *file_name, t_scene *scene)
 	// t_result	result;
 
 	lines = read_file(file_name);
+	if (!starts_with_valid_identifier(lines))
+		return (FAILURE);
+	split_line_with_space(lines);
 	if (!is_valid_lines(&lines))
 	{
-		deque_clear_all(&lines, del_lines);
+		deque_clear_all(&lines, del_lines); // todo: inside is_valid_lines?
 		return (FAILURE);
 	}
 	debug_deque_print(lines, __func__, (void *)print_2d_array);
