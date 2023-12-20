@@ -37,10 +37,10 @@ static t_vector	get_normal(t_scene *scene, t_intersection intersection, t_vector
 		normal = ((t_plane *)intersection.object)->normal;
 	else if (type == CYLINDER)
 	{
-		normal = (t_vector){0, 0, 0};//todo: cy
+		normal = (t_vector){.x = 0, .y = 0, .z = 0};//todo: cy
 	}
 	else
-		normal = (t_vector){0, 0, 0};
+		normal = (t_vector){.x = 0, .y = 0, .z = 0};
 	return (normal);
 }
 
@@ -84,8 +84,8 @@ static t_rgb	ray_tracing(\
 		material.lux_total = \
 			get_lux_total(material.lux_total, material.lux_light);
 	}
-	material.color = (t_rgb){material.lux_total.r * 255, \
-		material.lux_total.g * 255, material.lux_total.b * 255};
+	material.color = (t_rgb){.r = material.lux_total.r * 255, \
+		.g = material.lux_total.g * 255, .b = material.lux_total.b * 255};
 	return (material.color);
 }
 
