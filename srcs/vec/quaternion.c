@@ -28,12 +28,14 @@ static t_quaternion	get_multiply_quaternion(t_quaternion q1, t_quaternion q2)
 
 static t_vector	rotate_vector(t_vector v, t_quaternion q)
 {
-	const t_quaternion	q_v = {0.0, v.x, v.y, v.z};
-	const t_quaternion	q_conjugate = {q.w, -q.x, -q.y, -q.z};
+	const t_quaternion	q_v = \
+		(t_quaternion){.w = 0.0, .x = v.x, .y = v.y, .z = v.z};
+	const t_quaternion	q_conjugate = \
+		(t_quaternion){.w = q.w, .x = -q.x, .y = -q.y, .z = -q.z};
 	const t_quaternion	q_rotate = \
 		get_multiply_quaternion(get_multiply_quaternion(q, q_v), q_conjugate);
 
-	return ((t_vector){q_rotate.x, q_rotate.y, q_rotate.z});
+	return ((t_vector){.x = q_rotate.x, .y = q_rotate.y, .z = q_rotate.z});
 }
 
 t_vector	rotate_vector_by_quaternion(\
