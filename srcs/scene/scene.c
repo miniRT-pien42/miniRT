@@ -6,7 +6,7 @@
 
 t_vector	set_axis_base(void)
 {
-	return ((t_vector){AXIS_BASE_X, AXIS_BASE_Y, AXIS_BASE_Z});
+	return ((t_vector){.x = AXIS_BASE_X, .y = AXIS_BASE_Y, .z = AXIS_BASE_Z});
 }
 
 static void	convert_line_with_identifier(t_deque_node *node, t_scene *scene)
