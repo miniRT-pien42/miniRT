@@ -1,10 +1,6 @@
-#include <stdlib.h>
-#include <math.h>
-#include "vector.h"
-#include "display.h"
+#include "object.h"
 #include "scene.h"
-#include "helpers.h"
-#include "ray.h"
+#include <math.h>
 
 static double	calc_a_for_sphere(t_vector ray)
 {

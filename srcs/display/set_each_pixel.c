@@ -1,8 +1,5 @@
-#include <math.h>
-#include <stdlib.h>
-#include "display.h"
+#include "object.h"
 #include "scene.h"
-#include "ray.h"
 
 // screen上の点の位置
 static t_vector	calc_ray_direction(const int y, const int x, t_scene *scene)
@@ -32,7 +29,8 @@ void	set_each_pixel_color(\
 
 	ray = calc_ray_direction(y, x, scene);
 	nearest_object = get_nearest_object(ray, scene);
-	if (nearest_object == NULL)
+	if (nearest_object == NULL \
+		|| scene->camera->fov == 0 || scene->camera->fov == 180)
 		color = COLOR_BLUE;
 	else
 	{

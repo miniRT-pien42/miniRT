@@ -1,6 +1,6 @@
-#include <math.h>
+#include "object.h"
 #include "scene.h"
-#include "ray.h"
+#include <math.h>
 
 t_shape	get_object_type(void *object)
 {
