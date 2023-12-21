@@ -41,5 +41,7 @@ bool	is_valid_lines(t_deque **lines)
 		return (false);
 	if (!has_at_least_3_lines((const t_deque *)*lines))
 		return (false);
+	if (!is_scene_value_unique((const t_deque *)*lines))
+		return (false);
 	return (true);
 }

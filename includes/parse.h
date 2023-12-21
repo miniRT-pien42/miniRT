@@ -13,6 +13,14 @@ typedef struct s_rgb	t_rgb;
 typedef enum e_result	t_result;
 typedef struct s_deque	t_deque;
 
+typedef enum e_identifier
+{
+	ID_AMBIENT = 0,
+	ID_CAMERA = 1,
+	ID_LIGHT = 2,
+	ID_OTHER = 3,
+}	t_identifier;
+
 /* parse */
 t_result	parse(const char *file_name, t_scene *scene);
 void		del_lines(void *args);
@@ -26,8 +34,9 @@ t_rgb		convert_line_to_rgb(const char *line, const char delimiter);
 bool		is_valid_file_path(const char *filepath);
 bool		starts_with_valid_identifier(t_deque *lines);
 void		split_line_with_space(t_deque *lines);
-bool		is_correct_number_of_blocks(const t_deque *lines);
 bool		is_valid_lines(t_deque **lines);
+bool		is_correct_number_of_blocks(const t_deque *lines);
 bool		is_valid_scene_value(const t_scene *scene);
+bool		is_scene_value_unique(const t_deque *lines);
 
 #endif
