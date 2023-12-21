@@ -32,7 +32,8 @@ void	set_each_pixel_color(\
 
 	ray = calc_ray_direction(y, x, scene);
 	nearest_object = get_nearest_object(ray, scene);
-	if (nearest_object == NULL)
+	if (nearest_object == NULL \
+		|| scene->camera->fov == 0 || scene->camera->fov == 180)
 		color = COLOR_BLUE;
 	else
 	{

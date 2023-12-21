@@ -22,8 +22,9 @@ t_vector	get_center_screen(t_camera *camera)
 	double	diameter;
 	double	t;
 
+	if (camera->fov == 0 || camera->fov == 180)
+		return (camera->pos);
 	diameter = 2.0;
 	t = (diameter / 2) / tan(convert_deg_to_rad(camera->fov / 2.0));
 	return (vec_add(camera->pos, vec_scalar(camera->dir_n, t)));
-
 }
