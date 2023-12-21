@@ -1,8 +1,8 @@
 #include "scene.h"
 #include "object.h"
 #include "ray.h"
-//#include <stdlib.h>
-//#include <math.h>
+#include <stdlib.h>
+#include <math.h>
 
 static bool	is_sphere_dark(t_scene *scene, t_intersection intersection, t_vector ray, t_vector ray_shadow)
 {
