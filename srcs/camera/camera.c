@@ -1,7 +1,7 @@
-#include <math.h>
 #include "camera.h"
 #include "libft.h"
 #include "parse.h"
+#include <math.h>
 #include <stdlib.h> // todo: rm (atof)
 
 t_camera	*init_camera(const char **line)

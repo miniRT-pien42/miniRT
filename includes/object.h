@@ -79,8 +79,6 @@ t_plane			*init_plane(const char **line);
 double			get_distance_to_plane(\
 	t_vector ray, t_vector pos, t_plane *plane);
 
-// plane/plane_color.c
-
 // cylinder/cylinder.c
 t_cylinder		*init_cylinder(const char **line);
 

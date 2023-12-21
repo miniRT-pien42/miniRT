@@ -1,6 +1,6 @@
 #include "object.h"
-#include "scene.h"
 #include "ray.h"
+#include "scene.h"
 
 // screen上の点の位置
 static t_vector	calc_ray_direction(const int y, const int x, t_scene *scene)
