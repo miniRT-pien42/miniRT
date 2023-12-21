@@ -1,6 +1,4 @@
 #include <math.h>
-#include "ray.h"
-#include "scene.h"
 
 void	calc_distance_by_discriminant(\
 	const double a, const double b, const double d, double *distances)

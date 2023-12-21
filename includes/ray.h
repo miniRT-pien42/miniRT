@@ -1,8 +1,9 @@
 #ifndef RAY_H
 # define RAY_H
 
-# include "object.h"
 # include "light.h"
+# include "object.h"
+# include "vector.h"
 
 # define NO_INTERSECTION	(-1)
 # define NO_INCIDENT	(-1)

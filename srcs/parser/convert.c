@@ -1,6 +1,6 @@
+#include "color.h"
 #include "libft.h"
 #include "vector.h"
-#include "color.h"
 #include <stdlib.h> // todo: rm (atof)
 
 t_vector	convert_line_to_vector(const char *line, const char delimiter)

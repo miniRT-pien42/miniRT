@@ -1,9 +1,9 @@
 #ifndef OBJECT_H
 # define OBJECT_H
 
-# include "vector.h"
 # include "color.h"
 # include "ft_deque.h"
+# include "vector.h"
 
 typedef struct s_sphere			t_sphere;
 typedef struct s_scene			t_scene;

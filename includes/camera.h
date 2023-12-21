@@ -1,7 +1,6 @@
 #ifndef CAMERA_H
 # define CAMERA_H
 
-# include "vector.h"
 # include "display.h"
 # include "helpers.h"
 

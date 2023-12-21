@@ -7,7 +7,6 @@
 
 # include "camera.h"
 # include "light.h"
-# include "object.h"
 
 typedef struct s_deque	t_deque;
 

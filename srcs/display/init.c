@@ -1,7 +1,7 @@
-#include <stdlib.h> // free
 #include "display.h"
-#include "mlx.h"
 #include "error.h"
+#include "mlx.h"
+#include <stdlib.h> // free
 
 static void	*init_mlx_p(void)
 {

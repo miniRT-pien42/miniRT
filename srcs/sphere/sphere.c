@@ -1,5 +1,5 @@
-#include "object.h"
 #include "libft.h"
+#include "object.h"
 #include "parse.h"
 #include <stdlib.h> // todo: rm (atof)
 

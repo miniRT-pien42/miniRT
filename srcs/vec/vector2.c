@@ -1,5 +1,5 @@
-#include <math.h>
 #include "vector.h"
+#include <math.h>
 
 t_vector	vec_scalar(const t_vector v, double scalar)
 {

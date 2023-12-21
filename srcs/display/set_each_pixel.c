@@ -1,6 +1,4 @@
-#include <math.h>
-#include <stdlib.h>
-#include "display.h"
+#include "object.h"
 #include "scene.h"
 #include "ray.h"
 

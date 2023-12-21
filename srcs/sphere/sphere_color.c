@@ -5,6 +5,7 @@
 #include "scene.h"
 #include "helpers.h"
 #include "ray.h"
+#include "object.h"
 
 t_vector	get_normal_on_sphere(\
 	t_scene *scene, t_intersection intersection, t_vector ray)
