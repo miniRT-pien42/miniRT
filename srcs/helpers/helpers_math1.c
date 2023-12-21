@@ -1,5 +1,5 @@
-#include <math.h>
 #include "vector.h"
+#include <math.h>
 
 double	clipping(const double num, const double min, const double max)
 {

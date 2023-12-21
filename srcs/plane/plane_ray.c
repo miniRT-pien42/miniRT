@@ -1,10 +1,6 @@
-#include <stdlib.h>
-#include <math.h>
-#include "vector.h"
-#include "display.h"
+#include "object.h"
 #include "scene.h"
-#include "helpers.h"
-#include "ray.h"
+#include <math.h>
 
 double	get_distance_to_plane(t_vector ray, t_scene *scene, t_plane *plane)
 {

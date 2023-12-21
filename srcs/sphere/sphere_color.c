@@ -1,8 +1,4 @@
-#include <math.h>
-#include "vector.h"
-#include "ray.h"
 #include "object.h"
-#include "color.h"
 
 int	convert_rgb(t_rgb color)
 {

@@ -1,7 +1,7 @@
 #ifndef HELPERS_H
 # define HELPERS_H
 
-# define EPSILON 1e-6
+# define EPSILON (1e-6)
 
 # include "vector.h"
 

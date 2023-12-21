@@ -1,12 +1,7 @@
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include "scene.h"
-// #include "ray.h"
-// #include "vector.h"
-#include "display.h"
 #include "debug.h"
 #include "parse.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include "error.h"
 
 static bool	is_valid_argc(const int argc)

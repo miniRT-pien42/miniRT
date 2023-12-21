@@ -1,6 +1,4 @@
 #include <math.h>
-#include "ray.h"
-#include "scene.h"
 
 // 共通して使えそう
 void	calc_distance_by_discriminant(\
