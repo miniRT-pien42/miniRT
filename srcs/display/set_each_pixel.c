@@ -34,9 +34,7 @@ static t_vector	get_normal(t_scene *scene, t_intersection intersection, t_vector
 	else if (type == PLANE)
 		normal = ((t_plane *)intersection.object)->normal;
 	else if (type == CYLINDER)
-	{
-		normal = (t_vector){.x = 0, .y = 0, .z = 0};//todo: cy
-	}
+		normal = get_normal_on_cylinder(scene, intersection, ray);
 	else
 		normal = (t_vector){.x = 0, .y = 0, .z = 0};
 	return (normal);

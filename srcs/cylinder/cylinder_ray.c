@@ -29,7 +29,7 @@ static double	calc_c_for_cylinder(t_ray *ray, t_cylinder *cylinder)
 	return (c * c - cylinder_r * cylinder_r);
 }
 
-static double	calc_discriminant_for_cylinder(\
+double	calc_discriminant_for_cylinder(\
 							t_ray *ray, t_cylinder *cylinder, double *distances)
 {
 	const double	a = calc_a_for_cylinder(ray, cylinder);
@@ -44,7 +44,7 @@ static double	calc_discriminant_for_cylinder(\
 // pa:        交点位置
 // pa_normal: paからの法線ベクトル
 // 中心軸上での法線とpaから求めた法線が同じ方向を向いていてheight以内かどうかを返す
-static bool	is_intersect_cylinder(\
+bool	is_intersect_cylinder(\
 					t_ray *ray, t_cylinder *cylinder, double distance)
 {
 	const t_vector	pa = vec_add(ray->position, vec_scalar(ray->direction, distance));

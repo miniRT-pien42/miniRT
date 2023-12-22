@@ -83,7 +83,16 @@ double			get_distance_to_plane(\
 t_cylinder		*init_cylinder(const char **line);
 
 // cylinder/cylinder_ray.c
+double			calc_discriminant_for_cylinder(\
+	t_ray *ray, t_cylinder *cylinder, double *distances);
+bool			is_intersect_cylinder(\
+	t_ray *ray, t_cylinder *cylinder, double distance);
 double			get_distance_to_cylinder(\
 	t_vector ray_direction, t_vector pos, t_cylinder *cylinder);
+
+// cylinder/cylinder_color.c
+t_vector	get_normal_on_cylinder(\
+	t_scene *scene, t_intersection intersection, t_vector ray);
+bool	is_inside_cylinder(t_vector pos_target, t_cylinder *cylinder, t_vector ray);
 
 #endif
