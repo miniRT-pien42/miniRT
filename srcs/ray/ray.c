@@ -16,19 +16,6 @@ static bool	is_sphere_dark(t_scene *scene, t_intersection intersection, t_vector
 	return (false);
 }
 
-//内外に別れている、かつ壁にぶつかる
-static bool	is_cylinder_dark(t_scene *scene, t_intersection intersection, t_vector ray, t_vector ray_shadow)
-{
-	const bool	is_camera_inside = \
-		is_inside_cylinder(scene->camera->pos, intersection.object, ray);
-	const bool	is_light_inside = \
-		is_inside_cylinder(scene->light->pos, intersection.object, ray_shadow);
-
-	if (is_camera_inside != is_light_inside)
-		return (true);
-	return (false);
-}
-
 bool	is_shadow_intersection(\
 	t_scene *scene, t_intersection intersection, t_vector ray)
 {
@@ -40,8 +27,6 @@ bool	is_shadow_intersection(\
 	const t_shape	type = get_object_type(intersection.object);
 
 	if (type == SPHERE && is_sphere_dark(scene, intersection, ray, ray_shadow))
-		return (true);
-	if (type == CYLINDER && is_cylinder_dark(scene, intersection, ray, ray_shadow))
 		return (true);
 	current_node = scene->list_object->node;
 	//rayを通したlightからobjectまでの距離 todo: 1になる？

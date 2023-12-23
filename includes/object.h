@@ -93,6 +93,5 @@ double			get_distance_to_cylinder(\
 // cylinder/cylinder_color.c
 t_vector	get_normal_on_cylinder(\
 	t_scene *scene, t_intersection intersection, t_vector ray);
-bool	is_inside_cylinder(t_vector pos_target, t_cylinder *cylinder, t_vector ray);
 
 #endif

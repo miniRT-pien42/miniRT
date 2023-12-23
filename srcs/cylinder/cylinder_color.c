@@ -6,56 +6,49 @@
 #include "helpers.h"
 #include "ray.h"
 
-static t_vector	vec_center_pos(t_intersection intersection)
+//シリンダーの軸が始点Aと方向ベクトルaxis(※正規化済み)で決まる
+//AP 交点Pから軸始点Aへのベクトル
+//Pから軸に投影する点Cは、軸の方向ベクトルaxisにそって移動する距離（APとaxisのドット積）によって決まる
+//C = A + (AP・axis) * axis
+static t_vector	nearest_pos_on_axis(t_vector pos, const t_cylinder *cylinder)
 {
-	const t_cylinder	*cylinder = intersection.object;
-	t_vector	center_this_height;
-	const double distance_to_center = \
-		get_length(vec_subtract(cylinder->center, intersection.position));
-	double		height_to_center = \
-		sqrt(distance_to_center * distance_to_center - (cylinder->diameter / 2) * (cylinder->diameter / 2));
+	const t_vector	ap = vec_subtract(cylinder->center, pos);
+	const double height = vec_dot(cylinder->normal, ap);
 
-	center_this_height = vec_add(cylinder->center, vec_scalar(cylinder->normal, height_to_center));
-	return (center_this_height);
+	return (vec_add(cylinder->center, vec_scalar(cylinder->normal, height)));
 }
 
-//カメラray、交点=>シリンダ中心のベクトルから内積を求めて、内外判定
+//交点から中心時軸に投影したポイントPを求める
+//カメラから中心軸上に投影したポイントを求め、cy半径との距離を比べる
+static bool	is_inside_cylinder(t_vector pos, const t_cylinder *cylinder)
+{
+	const t_vector	np = nearest_pos_on_axis(pos, cylinder);
+	const double	distance_camera_to_center = get_length(vec_subtract(np, cylinder->center));
+
+	if (distance_camera_to_center <= cylinder->diameter)
+		return (true);
+	return (false);
+}
+
+//カメラray、交点=>シリンダ中心のベクトルから内積を求めて、内外判定で法線反転
 t_vector	get_normal_on_cylinder(\
 	t_scene *scene, t_intersection intersection, t_vector ray)
 {
-	(void)scene;
+	(void)ray;
 	t_vector			normal;
 	const t_cylinder	*cylinder = intersection.object;
-	double				dot_cy;
-	t_vector	center_this_height = vec_center_pos(intersection);
+	const bool	is_camera_inside	= is_inside_cylinder(scene->camera->pos, cylinder);
+	const t_vector	np = nearest_pos_on_axis(intersection.position, cylinder);
 
-	normal = vec_subtract(intersection.position, cylinder->center);
-	dot_cy = vec_dot(normal, ray);
-	if (0 <= dot_cy)
+	if (is_camera_inside)
 	{
 		normal = vec_normalize(\
-			vec_subtract(intersection.position, center_this_height));
+			vec_subtract(np, intersection.position));
 	}
 	else
 	{
 		normal = vec_normalize(\
-			vec_subtract(center_this_height, intersection.position));
+			vec_subtract(intersection.position, np));
 	}
 	return (normal);
-}
-
-bool	is_inside_cylinder(t_vector pos_target, t_cylinder *cylinder, t_vector ray)
-{
-	double	distances[2];
-	double	discriminant;
-
-	t_ray	ray_d = (t_ray){.position = pos_target, .direction = ray};
-	discriminant = calc_discriminant_for_cylinder(\
-		&ray_d, cylinder, distances);
-	if (discriminant < 0)
-		return (false);
-	if ((is_intersect_cylinder(&ray_d, cylinder, distances[0])) || \
-		(is_intersect_cylinder(&ray_d, cylinder, distances[1])))
-		return (true);
-	return (false);
 }
