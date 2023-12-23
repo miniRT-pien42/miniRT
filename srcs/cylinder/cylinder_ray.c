@@ -68,10 +68,10 @@ double	get_distance_to_cylinder(\
 	if (discriminant < 0)
 		return (NAN);
 	outside = fmin(distances[0], distances[1]);
-	if (is_intersect_cylinder(&ray, cylinder, outside))
+	if (is_intersect_cylinder(&ray, cylinder, outside) && outside > 0)
 		return (outside);
 	inside = fmax(distances[0], distances[1]);
-	if (is_intersect_cylinder(&ray, cylinder, inside))
+	if (is_intersect_cylinder(&ray, cylinder, inside) && inside > 0)
 		return (inside);
 	return (NAN);
 }
