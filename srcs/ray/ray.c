@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <math.h>
 
+#include <stdio.h>
 static bool	is_sphere_dark(t_scene *scene, t_intersection intersection, t_vector ray, t_vector ray_shadow)
 {
 	const bool	is_camera_inside = \
@@ -15,21 +16,32 @@ static bool	is_sphere_dark(t_scene *scene, t_intersection intersection, t_vector
 		return (true);
 	return (false);
 }
+//todo: lightがinsideならfalse
+static bool	is_cylinder_self_shadow(t_intersection intersection, t_vector ray_shadow)
+{
+	double	distances[2];
+	double	discriminant;
+	t_ray	ray = (t_ray){.position = intersection.position, .direction = ray_shadow};
+
+	discriminant = calc_discriminant_for_cylinder(&ray, intersection.object, distances);
+	if (discriminant < 0)
+		return (false);
+	if ((distances[0] != distances[1]) && (fabs(fmax(distances[0], distances[1])) < EPSILON))
+		return (true);
+	return (false);
+
+
+	return (false);
+}
 
 bool	is_shadow_intersection(\
-	t_scene *scene, t_intersection intersection, t_vector ray)
+	t_scene *scene, t_intersection intersection, t_vector ray_shadow)
 {
-	const t_vector	ray_shadow = \
-		vec_subtract(intersection.position, scene->light->pos);
 	t_deque_node	*current_node;
 	double			new_distance;
 	double			light_distance;
-	const t_shape	type = get_object_type(intersection.object);
 
-	if (type == SPHERE && is_sphere_dark(scene, intersection, ray, ray_shadow))
-		return (true);
 	current_node = scene->list_object->node;
-	//rayを通したlightからobjectまでの距離 todo: 1になる？
 	light_distance = get_distance(ray_shadow, scene->light->pos, intersection.object);
 	while (current_node)
 	{
@@ -50,9 +62,16 @@ double	get_l_dot(\
 {
 	double		l_dot;
 	t_vector	incident;
+	const t_shape	type = get_object_type(intersection.object);
+	const t_vector	ray_shadow = \
+		vec_subtract(intersection.position, scene->light->pos);
 
 	//この画素が影になるならNO_INCIDENT
-	if (is_shadow_intersection(scene, intersection, ray))
+	if (type == SPHERE && is_sphere_dark(scene, intersection, ray, ray_shadow))
+		return (NO_INCIDENT);
+	if (type == CYLINDER && is_cylinder_self_shadow(intersection, ray_shadow))
+		return (NO_INCIDENT);
+	if (is_shadow_intersection(scene, intersection, ray_shadow))
 		return (NO_INCIDENT);
 	//この画素が影にならないならincident（光の入射をとってきてl_dot計算）
 	incident = vec_normalize(\

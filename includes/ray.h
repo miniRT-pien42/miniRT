@@ -24,7 +24,8 @@ typedef struct s_intersection
 }	t_intersection;
 
 // ray/ray.c
-bool	is_shadow_intersection(t_scene *scene, t_intersection intersection, t_vector ray);
+bool	is_shadow_intersection(\
+	t_scene *scene, t_intersection intersection, t_vector ray_shadow);
 double	get_l_dot(\
 	t_scene *scene, t_intersection intersection, t_vector ray);
 t_rgb_f	get_lux_ambient(const t_light_ambient *ambient);
