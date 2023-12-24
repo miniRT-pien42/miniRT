@@ -27,10 +27,10 @@ t_vector	get_normal_on_sphere(\
 {
 	t_vector		normal;
 	const t_sphere	*sphere = intersection.object;
-	const bool		is_camera_inside = \
-		is_inside_sphere(scene->camera->pos, intersection.object, ray);
+	const bool		is_inside_view = \
+		is_inside_sphere(scene->camera->pos, sphere, ray);
 
-	if (is_camera_inside)
+	if (is_inside_view)
 		normal = vec_normalize(vec_subtract(sphere->center, intersection.position));
 	else
 		normal = vec_normalize(vec_subtract(intersection.position, sphere->center));
