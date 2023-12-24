@@ -7,7 +7,7 @@
 #include "ray.h"
 #include "object.h"
 
-static bool	is_inside_sphere(t_vector pos_target, t_sphere *sphere, t_vector ray)
+static bool	is_inside_sphere(t_vector pos_target, const t_sphere *sphere, t_vector ray)
 {
 	double	distances[2];
 	double	discriminant;

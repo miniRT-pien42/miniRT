@@ -12,13 +12,13 @@ static double	calc_b_for_sphere(t_vector ray, t_vector v)
 	return (2.0 * vec_dot(ray, v));
 }
 
-static double	calc_c_for_sphere(t_sphere *sphere, t_vector v)
+static double	calc_c_for_sphere(const t_sphere *sphere, t_vector v)
 {
 	return (pow(get_length(v), 2) - pow(sphere->diameter / 2, 2));
 }
 
 double	calc_discriminant_for_sphere(\
-	t_vector ray, t_sphere *sphere, t_vector pos, double *distances)
+	t_vector ray, const t_sphere *sphere, t_vector pos, double *distances)
 {
 	const t_vector	v = vec_subtract(pos, sphere->center);
 	const double	a = calc_a_for_sphere(ray);

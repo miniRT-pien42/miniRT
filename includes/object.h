@@ -62,7 +62,7 @@ t_sphere		*init_sphere(const char **line);
 
 // sphere/sphere_ray.c
 double			calc_discriminant_for_sphere(\
-	t_vector ray, t_sphere *sphere, t_vector pos, double *distances);
+	t_vector ray, const t_sphere *sphere, t_vector pos, double *distances);
 double			get_distance_to_sphere(\
 	t_vector ray, t_vector pos, t_sphere *sphere);
 
@@ -84,7 +84,7 @@ t_cylinder		*init_cylinder(const char **line);
 double			calc_discriminant_for_cylinder(\
 	t_ray *ray, t_cylinder *cylinder, double *distances);
 bool			is_intersect_cylinder(\
-	t_ray *ray, t_cylinder *cylinder, double distance);
+	t_ray *ray, const t_cylinder *cylinder, double distance);
 double			get_distance_to_cylinder(\
 	t_vector ray_direction, t_vector pos, t_cylinder *cylinder);
 

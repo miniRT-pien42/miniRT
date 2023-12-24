@@ -45,7 +45,7 @@ double	calc_discriminant_for_cylinder(\
 // pa_normal: paからの法線ベクトル
 // 中心軸上での法線とpaから求めた法線が同じ方向を向いていてheight以内かどうかを返す
 bool	is_intersect_cylinder(\
-					t_ray *ray, t_cylinder *cylinder, double distance)
+					t_ray *ray, const t_cylinder *cylinder, double distance)
 {
 	const t_vector	pa = vec_add(ray->position, vec_scalar(ray->direction, distance));
 	const t_vector	pa_normal = vec_subtract(pa, cylinder->center);
