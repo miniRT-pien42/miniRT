@@ -12,11 +12,25 @@ static bool	is_cylinder_self_shadow(t_intersection intersection, t_vector ray_sh
 	double	distances[2];
 	double	discriminant;
 	t_ray	ray = (t_ray){.position = intersection.position, .direction = ray_shadow};
+	double	intersection_other;
 
 	discriminant = calc_discriminant_for_cylinder(&ray, intersection.object, distances);
 	if (discriminant < 0)
 		return (false);
-	if ((distances[0] != distances[1]) && (fabs(fmax(distances[0], distances[1])) < EPSILON))
+	//discriminant >= 0なので交点は存在する
+	//交点1つなら単純に光が当たる
+	//交点2つの内、intersectionがほぼ0。
+	// もう一つが負なら手前に交点があるので影（内側が見えている）
+	// 正なら交点は向こう側なので影にならない（外側が見えている）
+	//heightに収まっているかチェック
+	if (discriminant == 0)
+		return (false);
+	if (fmax(fabs(distances[0]), fabs(distances[1])) == fabs(distances[0]))
+		intersection_other = distances[0];
+	else
+		intersection_other = distances[1];
+	if (discriminant > 0 && intersection_other < 0 && \
+		is_intersect_cylinder(&ray, intersection.object, intersection_other))
 		return (true);
 	return (false);
 
