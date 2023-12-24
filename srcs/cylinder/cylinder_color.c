@@ -20,14 +20,24 @@ static t_vector	nearest_pos_on_axis(t_vector pos, const t_cylinder *cylinder)
 
 //交点から中心時軸に投影したポイントPを求める
 //カメラから中心軸上に投影したポイントを求め、cy半径との距離を比べる
-static bool	is_inside_cylinder(t_vector pos, const t_cylinder *cylinder, t_vector ray)
+bool	is_inside_cylinder(t_vector pos, const t_cylinder *cylinder, t_vector ray)
 {
 	double	distances[2];
+	double	discriminant;
 	t_ray	ray_d = (t_ray){.position = pos, .direction = ray};
 
-	calc_discriminant_for_cylinder(&ray_d, (t_cylinder *)cylinder, distances);
+	discriminant = calc_discriminant_for_cylinder(\
+		&ray_d, (t_cylinder *)cylinder, distances);
+	if (discriminant < 0)
+		return (false);//todo: ここにはこないはず。error
+	//片方が負ならシリンダ内部にカメラがある
+	if ((distances[0] > 0 && distances[1] < 0) || \
+		(distances[0] < 0 && distances[1] > 0))
+		return (true);
+	//共に正ならシリンダを外から見ている。見えているポイントが指定された高さの範囲内なら外側が見えている
 	if (is_intersect_cylinder(&ray_d, cylinder, fmin(distances[0], distances[1])))
 		return (false);
+	//共に正でシリンダを外から見ているが、外側は指定の高さ範囲外。内側なら範囲内。
 	if (is_intersect_cylinder(&ray_d, cylinder, fmax(distances[0], distances[1])))
 		return (true);
 	return (false);
@@ -43,12 +53,12 @@ t_vector	get_normal_on_cylinder(\
 	const bool			is_inside_view	= is_inside_cylinder(scene->camera->pos, cylinder, ray);
 	const t_vector		np = nearest_pos_on_axis(intersection.position, cylinder);
 
-	if (is_intersect_inside)
+	if (is_inside_view)//内側が見えている
 	{
 		normal = vec_normalize(\
 			vec_subtract(np, intersection.position));
 	}
-	else
+	else//外側が見えている
 	{
 		normal = vec_normalize(\
 			vec_subtract(intersection.position, np));

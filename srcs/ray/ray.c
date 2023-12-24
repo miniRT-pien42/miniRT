@@ -7,7 +7,7 @@
 #include <stdio.h>
 
 //todo: lightがinsideならfalse
-static bool	is_cylinder_self_shadow(t_intersection intersection, t_vector ray_shadow)
+static bool	is_cylinder_self_shadow(t_intersection intersection, t_vector ray_shadow, t_vector pos_light)
 {
 	double	distances[2];
 	double	discriminant;
@@ -30,7 +30,8 @@ static bool	is_cylinder_self_shadow(t_intersection intersection, t_vector ray_sh
 	else
 		intersection_other = distances[1];
 	if (discriminant > 0 && intersection_other < 0 && \
-		is_intersect_cylinder(&ray, intersection.object, intersection_other))
+		is_intersect_cylinder(&ray, intersection.object, intersection_other) && \
+		!is_inside_cylinder(pos_light, intersection.object, ray_shadow))
 		return (true);
 	return (false);
 
@@ -74,7 +75,7 @@ double	get_l_dot(\
 	const t_vector	ray_shadow = \
 		vec_subtract(intersection.position, scene->light->pos);
 
-	if (type == CYLINDER && is_cylinder_self_shadow(intersection, ray_shadow))
+	if (type == CYLINDER && is_cylinder_self_shadow(intersection, ray_shadow, scene->light->pos))
 		return (NO_INCIDENT);
 	if (is_shadow_intersection(scene, intersection, ray_shadow))
 		return (NO_INCIDENT);
