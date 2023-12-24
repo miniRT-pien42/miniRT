@@ -7,6 +7,21 @@
 #include "ray.h"
 #include "object.h"
 
+static bool	is_inside_sphere(t_vector pos_target, t_sphere *sphere, t_vector ray)
+{
+	double	distances[2];
+	double	discriminant;
+
+	discriminant = calc_discriminant_for_sphere(\
+		ray, sphere, pos_target, distances);
+	if (discriminant < 0)
+		return (false);//todo: ここにはこないはず。error
+	if ((distances[0] > 0 && distances[1] < 0) || \
+		(distances[0] < 0 && distances[1] > 0))
+		return (true);
+	return (false);
+}
+
 t_vector	get_normal_on_sphere(\
 	t_scene *scene, t_intersection intersection, t_vector ray)
 {
@@ -20,19 +35,4 @@ t_vector	get_normal_on_sphere(\
 	else
 		normal = vec_normalize(vec_subtract(intersection.position, sphere->center));
 	return (normal);
-}
-
-bool	is_inside_sphere(t_vector pos_target, t_sphere *sphere, t_vector ray)
-{
-	double	distances[2];
-	double	discriminant;
-
-	discriminant = calc_discriminant_for_sphere(\
-		ray, sphere, pos_target, distances);
-	if (discriminant < 0)
-		return (NAN);
-	if ((distances[0] > 0 && distances[1] < 0) || \
-		(distances[0] < 0 && distances[1] > 0))
-		return (true);
-	return (false);
 }

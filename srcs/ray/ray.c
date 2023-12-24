@@ -5,17 +5,7 @@
 #include <math.h>
 
 #include <stdio.h>
-static bool	is_sphere_dark(t_scene *scene, t_intersection intersection, t_vector ray, t_vector ray_shadow)
-{
-	const bool	is_camera_inside = \
-		is_inside_sphere(scene->camera->pos, intersection.object, ray);
-	const bool	is_light_inside = \
-		is_inside_sphere(scene->light->pos, intersection.object, ray_shadow);
 
-	if (is_camera_inside != is_light_inside)
-		return (true);
-	return (false);
-}
 //todo: lightがinsideならfalse
 static bool	is_cylinder_self_shadow(t_intersection intersection, t_vector ray_shadow)
 {
@@ -57,8 +47,12 @@ bool	is_shadow_intersection(\
 	return (false);
 }
 
+//陰になる要因として
+//1: 他の物体の影になる
+//2: 自分の影になる
+//3: 入射光がない
 double	get_l_dot(\
-	t_scene *scene, t_intersection intersection, t_vector ray)
+	t_scene *scene, t_intersection intersection)
 {
 	double		l_dot;
 	t_vector	incident;
@@ -66,9 +60,6 @@ double	get_l_dot(\
 	const t_vector	ray_shadow = \
 		vec_subtract(intersection.position, scene->light->pos);
 
-	//この画素が影になるならNO_INCIDENT
-	if (type == SPHERE && is_sphere_dark(scene, intersection, ray, ray_shadow))
-		return (NO_INCIDENT);
 	if (type == CYLINDER && is_cylinder_self_shadow(intersection, ray_shadow))
 		return (NO_INCIDENT);
 	if (is_shadow_intersection(scene, intersection, ray_shadow))
