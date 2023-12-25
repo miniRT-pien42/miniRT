@@ -5,6 +5,13 @@
 # define AXIS_BASE_Y	0.0
 # define AXIS_BASE_Z	1.0
 
+# define TYPE_AMBIENT	"A"
+# define TYPE_CAMERA	"C"
+# define TYPE_LIGHT		"L"
+# define TYPE_PLANE		"pl"
+# define TYPE_SPHERE	"sp"
+# define TYPE_CYLINDER	"cy"
+
 # include "camera.h"
 # include "light.h"
 

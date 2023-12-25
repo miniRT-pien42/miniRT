@@ -6,6 +6,7 @@
 
 void	*ft_free(void **ptr);
 void	*free_2d_array(char ***ptr);
+size_t	ft_len_2d_array(const char **array);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 void	*ft_memmove(void *dst, const void *src, size_t len);
 size_t	ft_min(const size_t x, const size_t y);
@@ -20,7 +21,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 void	ft_strlcpy_void(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlen(const char *s);
-int 	ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strndup(const char *s, const size_t maxlen);
 size_t	ft_strnlen(const char *s, const size_t maxlen);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);

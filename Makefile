@@ -30,8 +30,12 @@ SRCS		:=	cylinder/cylinder_color.c \
 				debug/print_object.c \
 				debug/print_rt_file.c \
 				parser/check_file_path.c \
+				parser/check_lines.c \
+				parser/check_scene_value.c \
 				parser/convert.c \
+				parser/is_correct_blocks.c \
 				parser/parse.c \
+				parser/read.c \
 				main.c
 
 OBJ_DIR		:=	objs
