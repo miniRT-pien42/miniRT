@@ -52,13 +52,11 @@ static t_intersection	get_intersection(\
 	intersection.position = \
 		get_position_on_object(scene, ray, intersection.distance);
 	intersection.normal = get_normal(scene, intersection, ray, type);
-	intersection.l_dot = get_l_dot(scene, intersection);
-	//法線ベクトルがカメラから見て奥を向いている場合は反転
-	if (type == PLANE && intersection.l_dot == NO_INCIDENT)
-	{
+	//PLANE法線をcamera側に
+	if (type == PLANE && \
+		vec_dot(intersection.normal, vec_normalize(vec_subtract(intersection.position, scene->camera->pos))) > 0)
 		intersection.normal = vec_scalar(intersection.normal, -1);
-		intersection.l_dot = get_l_dot(scene, intersection);
-	}
+	intersection.l_dot = get_l_dot(scene, intersection);
 	return (intersection);
 }
 

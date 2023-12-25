@@ -65,7 +65,7 @@ bool	is_shadow_intersection(\
 //陰になる要因として
 //1: 他の物体の影になる
 //2: 自分の影になる
-//3: 入射光がない
+//3: 法線と入射が90°以上（光源が裏側）
 double	get_l_dot(\
 	t_scene *scene, t_intersection intersection)
 {
