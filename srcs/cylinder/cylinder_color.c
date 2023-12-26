@@ -1,10 +1,11 @@
-#include <stdlib.h>
-#include <math.h>
-#include "vector.h"
 #include "display.h"
-#include "scene.h"
+#include "error.h"
 #include "helpers.h"
 #include "ray.h"
+#include "scene.h"
+#include "vector.h"
+#include <stdlib.h>
+#include <math.h>
 
 //シリンダーの軸が始点Aと方向ベクトルaxis(※正規化済み)で決まる
 //AP 交点Pから軸始点Aへのベクトル
@@ -29,7 +30,7 @@ bool	is_inside_cylinder(t_vector pos, const t_cylinder *cylinder, t_vector ray)
 	discriminant = calc_discriminant_for_cylinder(\
 		&ray_d, (t_cylinder *)cylinder, distances);
 	if (discriminant < 0)
-		return (false);//todo: ここにはこないはず。error
+		error_exit(ERR_INTERSECTION);
 	//片方が負ならシリンダ内部にカメラがある
 	if ((distances[0] > 0 && distances[1] < 0) || \
 		(distances[0] < 0 && distances[1] > 0))

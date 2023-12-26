@@ -6,6 +6,7 @@
 #include "helpers.h"
 #include "ray.h"
 #include "object.h"
+#include "error.h"
 
 static bool	is_inside_sphere(t_vector pos_target, const t_sphere *sphere, t_vector ray)
 {
@@ -15,7 +16,7 @@ static bool	is_inside_sphere(t_vector pos_target, const t_sphere *sphere, t_vect
 	discriminant = calc_discriminant_for_sphere(\
 		ray, sphere, pos_target, distances);
 	if (discriminant < 0)
-		return (false);//todo: ここにはこないはず。error
+		error_exit(ERR_INTERSECTION);
 	if ((distances[0] > 0 && distances[1] < 0) || \
 		(distances[0] < 0 && distances[1] > 0))
 		return (true);
