@@ -45,7 +45,7 @@ t_result	parse(const char *file_name, t_scene *scene)
 		deque_clear_all(&lines, free);
 		return (FAILURE);
 	}
-	split_line_with_space(lines);
+	split_lines(lines);
 	if (!is_valid_lines(&lines))
 	{
 		deque_clear_all(&lines, del_lines);

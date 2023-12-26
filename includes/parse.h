@@ -46,7 +46,7 @@ t_rgb			convert_line_to_rgb(const char *line);
 /* validation */
 bool			is_valid_file_path(const char *filepath);
 bool			starts_with_valid_identifier(t_deque *lines);
-void			split_line_with_space(t_deque *lines);
+void			split_lines(t_deque *lines);
 bool			is_valid_lines(t_deque **lines);
 t_identifier	set_identifier(const char *head_line);
 bool			is_correct_number_of_blocks(const t_deque *lines);

@@ -1,6 +1,7 @@
 #include "ft_deque.h"
 #include "get_next_line.h"
 #include "libft.h"
+#include "parse.h"
 #include "result.h"
 #include "scene.h"
 #include <fcntl.h> // open
@@ -69,6 +70,7 @@ bool	starts_with_valid_identifier(t_deque *lines)
 }
 
 // split lines with white-space.
+void	split_lines(t_deque *lines)
 {
 	t_deque_node	*node;
 	char			*line;
