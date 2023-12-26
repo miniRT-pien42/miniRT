@@ -16,14 +16,11 @@ t_light_ambient	*init_light_ambient(const char **line, t_result *result)
 	return (light_ambient);
 }
 
-// todo: set result
 t_light	*init_light(const char **line, t_result *result)
 {
 	t_light	*light;
 
-	*result = SUCCESS;
 	light = (t_light *)x_malloc(sizeof(t_light));
-	light->pos = convert_line_to_vector(line[1]);
-	light->bright = atof(line[2]);
+	light->pos = convert_line_to_vector(line[1], result);
 	return (light);
 }
