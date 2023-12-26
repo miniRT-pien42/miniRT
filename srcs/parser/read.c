@@ -4,7 +4,6 @@
 #include "result.h"
 #include "scene.h"
 #include <fcntl.h> // open
-#include <stdlib.h>
 
 static t_deque	*read_lines(const int fd)
 {
@@ -63,10 +62,7 @@ bool	starts_with_valid_identifier(t_deque *lines)
 	{
 		line = (char *)node->content;
 		if (!starts_with_specified_prefixes(line, all_types))
-		{
-			deque_clear_all(&lines, free);
 			return (false);
-		}
 		node = node->next;
 	}
 	return (true);
