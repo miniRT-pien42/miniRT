@@ -53,19 +53,20 @@ void	*get_nearest_object(t_vector ray, t_scene *scene)
 	return (nearest_object);
 }
 
+// only PLANE or SPHERE or CYLINDER
 static t_deque_node	*get_new_object_node(\
 						const char **line, const t_shape type, t_result *result)
 {
 	t_deque_node	*node;
+	void			*object;
 
 	if (type == SPHERE)
-		node = deque_node_new((void *)init_sphere(line, result));
+		object = (void *)init_sphere(line, result);
 	else if (type == PLANE)
-		node = deque_node_new((void *)init_plane(line, result));
+		object = (void *)init_plane(line, result);
 	else if (type == CYLINDER)
-		node = deque_node_new((void *)init_cylinder(line, result));
-	else
-		node = NULL;
+		object = (void *)init_cylinder(line, result);
+	node = deque_node_new(object);
 	return (node);
 }
 
