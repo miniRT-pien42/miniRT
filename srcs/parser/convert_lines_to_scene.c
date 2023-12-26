@@ -7,23 +7,24 @@
 static t_result	convert_line_with_identifier(const char **line, t_scene *scene)
 {
 	const t_identifier	id = set_identifier(line[0]);
+	const char			**value_line = (const char **)&line[1];
 	t_result			result;
 	t_deque				*list_object;
 
 	result = SUCCESS;
 	list_object = scene->list_object;
 	if (id == ID_AMBIENT)
-		scene->light_ambient = init_light_ambient(line, &result);
+		scene->light_ambient = init_light_ambient(value_line, &result);
 	else if (id == ID_CAMERA)
-		scene->camera = init_camera(line, &result);
+		scene->camera = init_camera(value_line, &result);
 	else if (id == ID_LIGHT)
-		scene->light = init_light(line, &result);
+		scene->light = init_light(value_line, &result);
 	else if (id == ID_PLANE)
-		result = add_to_list_object(list_object, line, PLANE);
+		result = add_to_list_object(list_object, value_line, PLANE);
 	else if (id == ID_SPHERE)
-		result = add_to_list_object(list_object, line, SPHERE);
+		result = add_to_list_object(list_object, value_line, SPHERE);
 	else if (id == ID_CYLINDER)
-		result = add_to_list_object(list_object, line, CYLINDER);
+		result = add_to_list_object(list_object, value_line, CYLINDER);
 	return (result);
 }
 
