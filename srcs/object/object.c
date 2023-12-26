@@ -39,7 +39,7 @@ void	*get_nearest_object(t_vector ray, t_scene *scene)
 	while (current_node)
 	{
 		new_distance = get_distance(ray, scene->camera->pos, current_node->content);
-		if (!isnan(new_distance) && new_distance < nearest_distance)
+		if (!isnan(new_distance) && new_distance < nearest_distance && fabs(new_distance) >EPSILON)
 		{
 			nearest_distance = new_distance;
 			nearest_object = current_node->content;
