@@ -51,7 +51,7 @@ bool	is_intersect_cylinder(\
 	const t_vector	pa_normal = vec_subtract(pa, cylinder->center);
 	const double	height = vec_dot(cylinder->normal, pa_normal);
 
-	return (0 <= height && height <= cylinder->height);
+	return (-cylinder->height / 2 <= height && height <= cylinder->height / 2);
 }
 
 // discriminant >= 0 かつ交点の高さがcylinder.height以下なら衝突している
