@@ -2,6 +2,7 @@
 # define PARSE_H
 
 # include <stdbool.h>
+# include <stdint.h>
 # include <vector.h>
 
 # define OPEN_ERROR				(-1)
@@ -17,6 +18,8 @@
 # define ELEM_COUNT_PLANE		4
 # define ELEM_COUNT_SPHERE		4
 # define ELEM_COUNT_CYLINDER	6
+
+# define UNUSED		0
 
 typedef struct s_scene	t_scene;
 typedef struct s_rgb	t_rgb;
@@ -41,7 +44,7 @@ t_deque			*read_file(const char *file_name);
 
 /* convert */
 t_vector		convert_line_to_vector(const char *line);
-t_rgb			convert_line_to_rgb(const char *line);
+uint8_t			convert_to_uint8_in_range(const char *s, const int min, const int max, t_result *result);;
 
 /* validation */
 bool			is_valid_file_path(const char *filepath);

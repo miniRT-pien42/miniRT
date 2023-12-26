@@ -31,6 +31,7 @@ SRCS		:=	cylinder/cylinder_ray.c \
 				parser/check_scene_value.c \
 				parser/convert_lines_to_scene.c \
 				parser/convert.c \
+				parser/convert_to_uint8.c \
 				parser/is_correct_blocks.c \
 				parser/is_correct_value_count.c \
 				parser/is_unique.c \
