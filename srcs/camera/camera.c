@@ -14,7 +14,7 @@ t_camera	*init_camera(const char **line, t_result *result)
 	camera = (t_camera *)x_malloc(sizeof(t_camera));
 	camera->pos = convert_line_to_vector(line[1]);
 	camera->dir_n = convert_line_to_vector(line[2]);
-	camera->fov = atof(line[3]);
+	camera->fov = convert_to_uint8_in_range(line[3], FOV_MIN, FOV_MAX, result);
 	return (camera);
 }
 
