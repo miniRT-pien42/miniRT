@@ -13,6 +13,6 @@ t_plane	*init_plane(const char **line, t_result *result)
 	plane->type = PLANE;
 	plane->point = convert_line_to_vector(line[1]);
 	plane->dir_n = convert_line_to_vector(line[2]);
-	plane->color = convert_line_to_rgb(line[3]);
+	plane->color = convert_line_to_rgb(line[3], result);
 	return (plane);
 }

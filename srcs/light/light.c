@@ -12,7 +12,7 @@ t_light_ambient	*init_light_ambient(const char **line, t_result *result)
 	*result = SUCCESS;
 	light_ambient = (t_light_ambient *)x_malloc(sizeof(t_light_ambient));
 	light_ambient->bright = atof(line[1]);
-	light_ambient->color = convert_line_to_rgb(line[2]);
+	light_ambient->color = convert_line_to_rgb(line[2], result);
 	return (light_ambient);
 }
 

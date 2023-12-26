@@ -14,6 +14,6 @@ t_sphere	*init_sphere(const char **line, t_result *result)
 	sphere->type = SPHERE;
 	sphere->center = convert_line_to_vector(line[1]);
 	sphere->diameter = atof(line[2]);
-	sphere->color = convert_line_to_rgb(line[3]);
+	sphere->color = convert_line_to_rgb(line[3], result);
 	return (sphere);
 }

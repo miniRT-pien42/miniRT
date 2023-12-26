@@ -16,6 +16,6 @@ t_cylinder	*init_cylinder(const char **line, t_result *result)
 	cylinder->normal = convert_line_to_vector(line[2]);
 	cylinder->diameter = atof(line[3]);
 	cylinder->height = atof(line[4]);
-	cylinder->color = convert_line_to_rgb(line[5]);
+	cylinder->color = convert_line_to_rgb(line[5], result);
 	return (cylinder);
 }
