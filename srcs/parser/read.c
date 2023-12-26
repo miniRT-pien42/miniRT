@@ -68,7 +68,7 @@ bool	starts_with_valid_identifier(t_deque *lines)
 	return (true);
 }
 
-void	split_line_with_space(t_deque *lines)
+// split lines with white-space.
 {
 	t_deque_node	*node;
 	char			*line;
@@ -78,7 +78,7 @@ void	split_line_with_space(t_deque *lines)
 	while (node)
 	{
 		line = (char *)node->content;
-		split_line = ft_split((const char *)line, ' ');
+		split_line = ft_split((const char *)line, DELIMITER_WHITE_SPACE);
 		ft_free((void **)&line);
 		node->content = (void *)split_line;
 		node = node->next;

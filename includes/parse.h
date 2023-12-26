@@ -4,10 +4,12 @@
 # include <stdbool.h>
 # include <vector.h>
 
-# define OPEN_ERROR			(-1)
-# define FILE_EXTENSION		".rt"
-# define AT_LEAST_LINES		3
-# define DELIMITER_VALUE	','
+# define OPEN_ERROR				(-1)
+# define FILE_EXTENSION			".rt"
+# define AT_LEAST_LINES			3
+# define DELIMITER_WHITE_SPACE	" \f\n\r\t\v"
+# define DELIMITER_VALUE_STR	","
+# define DELIMITER_VALUE_CHAR	','
 
 # define ELEM_COUNT_AMBIENT		3
 # define ELEM_COUNT_CAMERA		4
