@@ -8,6 +8,13 @@
 # define FILE_EXTENSION	".rt"
 # define AT_LEAST_LINES	3
 
+# define ELEM_COUNT_AMBIENT		3
+# define ELEM_COUNT_CAMERA		4
+# define ELEM_COUNT_LIGHT		4
+# define ELEM_COUNT_PLANE		4
+# define ELEM_COUNT_SPHERE		4
+# define ELEM_COUNT_CYLINDER	6
+
 typedef struct s_scene	t_scene;
 typedef struct s_rgb	t_rgb;
 typedef enum e_result	t_result;
