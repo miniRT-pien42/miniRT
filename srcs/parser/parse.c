@@ -55,10 +55,5 @@ t_result	parse(const char *file_name, t_scene *scene)
 		return (FAILURE);
 	}
 	debug_print_scene_value(scene);
-	if (!is_valid_scene_value(scene))
-	{
-		destroy_scene(scene);
-		return (FAILURE);
-	}
 	return (SUCCESS);
 }
