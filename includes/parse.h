@@ -47,10 +47,14 @@ void			del_lines(void *args);
 t_deque			*read_file(const char *file_name);
 
 /* convert */
-t_vector		convert_line_to_vector(const char *line);
-t_rgb			convert_line_to_rgb(const char *line, t_result *result);
 uint8_t			convert_to_uint8_in_range(\
 				const char *s, const int min, const int max, t_result *result);
+t_rgb			convert_line_to_rgb(const char *line, t_result *result);
+double			convert_to_double_in_range(\
+		const char *s, const double min, const double max, t_result *result);
+t_vector		convert_line_to_vector_in_range(\
+		const char *line, const double min, const double max, t_result *result);
+t_vector		convert_line_to_vector(const char *line, t_result *result);
 
 /* validation */
 bool			is_valid_file_path(const char *filepath);
