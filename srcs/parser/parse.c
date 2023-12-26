@@ -12,7 +12,7 @@ A   ratio      r,g,b
 C   x,y,z      nx,ny,nz    fov
 	[double]   [-1.0-1.0]  [0-180]
 
-L   x,y,z      raio        (r,g,b)
+L   x,y,z      ratio       (r,g,b)
 	[double]   [0.0-1.0]   [0-255]
 
 pl  x,y,z      nx,ny,nz    r,g,b
