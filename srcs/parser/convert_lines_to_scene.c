@@ -2,42 +2,48 @@
 #include "scene.h"
 #include "object.h"
 #include "parse.h"
+#include "result.h"
 
-static void	convert_line_with_identifier(t_deque_node *node, t_scene *scene)
+static t_result	convert_line_with_identifier(t_deque_node *node, t_scene *scene)
 {
-	char			**line;
-	t_identifier	id;
+	const char			**line = (const char **)node->content;
+	const t_identifier	id = set_identifier(line[0]);
+	t_result			result;
+	t_deque				*list_object;
 
-	line = (char **)node->content;
-	id = set_identifier(line[0]);
+	result = SUCCESS;
+	list_object = scene->list_object;
 	if (id == ID_AMBIENT)
-		scene->light_ambient = init_light_ambient((const char **)line);
+		scene->light_ambient = init_light_ambient((const char **)line, &result);
 	else if (id == ID_CAMERA)
-		scene->camera = init_camera((const char **)line);
+		scene->camera = init_camera((const char **)line, &result);
 	else if (id == ID_LIGHT)
-		scene->light = init_light((const char **)line);
+		scene->light = init_light((const char **)line, &result);
 	else if (id == ID_PLANE)
-		add_to_list_object(scene->list_object, (const char **)line, PLANE);
+		result = add_to_list_object(list_object, (const char **)line, PLANE);
 	else if (id == ID_SPHERE)
-		add_to_list_object(scene->list_object, (const char **)line, SPHERE);
+		result = add_to_list_object(list_object, (const char **)line, SPHERE);
 	else if (id == ID_CYLINDER)
-		add_to_list_object(scene->list_object, (const char **)line, CYLINDER);
-	// else
-	// 	return (FAILURE);
-	// return (SUCCESS);
+		result = add_to_list_object(list_object, (const char **)line, CYLINDER);
+	return (result);
 }
 
-void	parse_lines_to_scene(t_deque *lines, t_scene *scene)
+t_result	parse_lines_to_scene(t_deque *lines, t_scene *scene)
 {
 	t_deque_node	*node;
+	t_result		result;
 
-	init_scene(scene);
 	node = lines->node;
 	while (node)
 	{
-		convert_line_with_identifier(node, scene);
-		// todo: return (FAILURE);
+		result = convert_line_with_identifier(node, scene);
+		if (result == FAILURE)
+		{
+			deque_clear_all(&lines, del_lines);
+			return (FAILURE);
+		}
 		node = node->next;
 	}
-	// todo: return (SUCCESS);
+	deque_clear_all(&lines, del_lines);
+	return (SUCCESS);
 }

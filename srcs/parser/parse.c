@@ -36,8 +36,8 @@ void	del_lines(void *args)
 
 t_result	parse(const char *file_name, t_scene *scene)
 {
-	t_deque	*lines;
-	// t_result	result;
+	t_deque		*lines;
+	t_result	result;
 
 	lines = read_file(file_name);
 	split_lines(lines);
@@ -47,9 +47,14 @@ t_result	parse(const char *file_name, t_scene *scene)
 		return (FAILURE);
 	}
 	debug_deque_print(lines, __func__, (void *)print_2d_array);
-	parse_lines_to_scene(lines, scene); // todo: handle error
+	init_scene(scene);
+	result = parse_lines_to_scene(lines, scene);
+	if (result == FAILURE)
+	{
+		destroy_scene(scene);
+		return (FAILURE);
+	}
 	debug_print_scene_value(scene);
-	deque_clear_all(&lines, del_lines);
 	if (!is_valid_scene_value(scene))
 	{
 		destroy_scene(scene);

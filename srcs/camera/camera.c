@@ -2,12 +2,15 @@
 #include "camera.h"
 #include "libft.h"
 #include "parse.h"
+#include "result.h"
 #include <stdlib.h> // todo: rm (atof)
 
-t_camera	*init_camera(const char **line)
+// todo: set result
+t_camera	*init_camera(const char **line, t_result *result)
 {
 	t_camera	*camera;
 
+	*result = SUCCESS;
 	camera = (t_camera *)x_malloc(sizeof(t_camera));
 	camera->pos = convert_line_to_vector(line[1]);
 	camera->dir_n = convert_line_to_vector(line[2]);
