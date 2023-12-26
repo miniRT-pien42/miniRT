@@ -52,6 +52,7 @@ t_identifier	set_identifier(const char *head_line)
 	return (ID_OTHER);
 }
 
+// if is_correct_number_of_blocks() passed, the identifiers are valid.
 bool	is_valid_lines(t_deque **lines)
 {
 	if (*lines == NULL || deque_is_empty(*lines))
