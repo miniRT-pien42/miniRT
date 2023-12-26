@@ -12,6 +12,7 @@ typedef struct s_light_ambient
 	t_rgb	color;
 }	t_light_ambient;
 
+// color: unused in mandatory
 typedef struct s_light
 {
 	t_vector	pos;
