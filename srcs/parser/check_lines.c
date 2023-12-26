@@ -32,6 +32,25 @@ static bool	has_at_least_3_lines(const t_deque *lines)
 	return (lines->size >= AT_LEAST_LINES);
 }
 
+t_identifier	set_identifier(const char *head_line)
+{
+	if (head_line == NULL)
+		return (ID_OTHER);
+	if (ft_strcmp(head_line, TYPE_AMBIENT) == 0)
+		return (ID_AMBIENT);
+	if (ft_strcmp(head_line, TYPE_CAMERA) == 0)
+		return (ID_CAMERA);
+	if (ft_strcmp(head_line, TYPE_LIGHT) == 0)
+		return (ID_LIGHT);
+	if (ft_strcmp(head_line, TYPE_PLANE) == 0)
+		return (ID_PLANE);
+	if (ft_strcmp(head_line, TYPE_SPHERE) == 0)
+		return (ID_SPHERE);
+	if (ft_strcmp(head_line, TYPE_CYLINDER) == 0)
+		return (ID_CYLINDER);
+	return (ID_OTHER);
+}
+
 bool	is_valid_lines(t_deque **lines)
 {
 	if (*lines == NULL || deque_is_empty(*lines))

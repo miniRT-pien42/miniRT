@@ -16,19 +16,6 @@ static void	init_exist_of_scene(bool *is_scene_exists, const size_t size)
 	}
 }
 
-static t_identifier	set_identifier(const char *head_line)
-{
-	if (head_line == NULL)
-		return (ID_OTHER);
-	if (ft_strcmp(head_line, TYPE_AMBIENT) == 0)
-		return (ID_AMBIENT);
-	if (ft_strcmp(head_line, TYPE_CAMERA) == 0)
-		return (ID_CAMERA);
-	if (ft_strcmp(head_line, TYPE_LIGHT) == 0)
-		return (ID_LIGHT);
-	return (ID_OTHER);
-}
-
 static bool	is_unique(bool *is_scene_exists)
 {
 	return (is_scene_exists[ID_AMBIENT] \
