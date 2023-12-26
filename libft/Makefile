@@ -1,7 +1,9 @@
 NAME		:=	libft.a
 
 SRC_DIR		:=	srcs
-SRCS		:=	ft_free.c \
+SRCS		:=	ft_atoi.c \
+				ft_free.c \
+				ft_isdigit.c \
 				ft_len_2d_array.c \
 				ft_memcpy.c \
 				ft_memmove.c \
