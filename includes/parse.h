@@ -47,6 +47,7 @@ void			split_line_with_space(t_deque *lines);
 bool			is_valid_lines(t_deque **lines);
 t_identifier	set_identifier(const char *head_line);
 bool			is_correct_number_of_blocks(const t_deque *lines);
+bool			is_correct_value_counts(const t_deque *lines);
 bool			is_valid_scene_value(const t_scene *scene);
 bool			is_scene_value_unique(const t_deque *lines);
 

@@ -1,6 +1,7 @@
 #include "ft_deque.h"
 #include "libft.h"
 #include "parse.h"
+#include "scene.h"
 #include <stdbool.h>
 
 // remove empty lines and pack into a new deque.
@@ -61,6 +62,8 @@ bool	is_valid_lines(t_deque **lines)
 	if (!has_at_least_3_lines((const t_deque *)*lines))
 		return (false);
 	if (!is_scene_value_unique((const t_deque *)*lines))
+		return (false);
+	if (!is_correct_value_counts((const t_deque *)*lines))
 		return (false);
 	return (true);
 }
