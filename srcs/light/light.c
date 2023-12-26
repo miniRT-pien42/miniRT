@@ -22,5 +22,6 @@ t_light	*init_light(const char **line, t_result *result)
 	light->pos = convert_line_to_vector(line[1], result);
 	light->bright = convert_to_double_in_range(\
 										line[2], RATIO_MIN, RATIO_MAX, result);
+	light->color = convert_line_to_rgb(line[3], result);
 	return (light);
 }

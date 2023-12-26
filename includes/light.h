@@ -16,6 +16,7 @@ typedef struct s_light
 {
 	t_vector	pos;
 	double		bright;
+	t_rgb		color;
 }	t_light;
 
 t_light_ambient	*init_light_ambient(const char **line, t_result *result);
