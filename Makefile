@@ -9,7 +9,6 @@ SRCS		:=	cylinder/cylinder_ray.c \
 				vec/quaternion.c \
 				helpers/helpers_math1.c \
 				error/error.c \
-				scene/destroy.c \
 				scene/scene.c \
 				ray/ray.c \
 				camera/camera.c \
@@ -30,6 +29,7 @@ SRCS		:=	cylinder/cylinder_ray.c \
 				parser/check_file_path.c \
 				parser/check_lines.c \
 				parser/check_scene_value.c \
+				parser/convert_lines_to_scene.c \
 				parser/convert.c \
 				parser/is_correct_blocks.c \
 				parser/is_correct_value_count.c \
