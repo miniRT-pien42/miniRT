@@ -24,6 +24,8 @@
 # define RGB_MAX	255
 # define FOV_MIN	0
 # define FOV_MAX	180
+# define RATIO_MIN	(0.0)
+# define RATIO_MAX	(1.0)
 # define DIR_N_MIN	(-1.0)
 # define DIR_N_MAX	(1.0)
 
