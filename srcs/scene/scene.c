@@ -1,5 +1,6 @@
 #include "libft.h"
 #include "object.h"
+#include "parse.h"
 #include "scene.h"
 
 t_vector	set_axis_base(void)
@@ -9,22 +10,22 @@ t_vector	set_axis_base(void)
 
 static void	convert_line_with_identifier(t_deque_node *node, t_scene *scene)
 {
-	char	**line;
-	char	*identifier;
+	char			**line;
+	t_identifier	id;
 
 	line = (char **)node->content;
-	identifier = line[0];
-	if (ft_streq(identifier, TYPE_AMBIENT))
+	id = set_identifier(line[0]);
+	if (id == ID_AMBIENT)
 		scene->light_ambient = init_light_ambient((const char **)line);
-	else if (ft_streq(identifier, TYPE_CAMERA))
+	else if (id == ID_CAMERA)
 		scene->camera = init_camera((const char **)line);
-	else if (ft_streq(identifier, TYPE_LIGHT))
+	else if (id == ID_LIGHT)
 		scene->light = init_light((const char **)line);
-	else if (ft_streq(identifier, TYPE_PLANE))
+	else if (id == ID_PLANE)
 		add_to_list_object(scene->list_object, (const char **)line, PLANE);
-	else if (ft_streq(identifier, TYPE_SPHERE))
+	else if (id == ID_SPHERE)
 		add_to_list_object(scene->list_object, (const char **)line, SPHERE);
-	else if (ft_streq(identifier, TYPE_CYLINDER))
+	else if (id == ID_CYLINDER)
 		add_to_list_object(scene->list_object, (const char **)line, CYLINDER);
 	// else
 	// 	return (FAILURE);
