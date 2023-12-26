@@ -4,9 +4,10 @@
 # include <stdbool.h>
 # include <vector.h>
 
-# define OPEN_ERROR		(-1)
-# define FILE_EXTENSION	".rt"
-# define AT_LEAST_LINES	3
+# define OPEN_ERROR			(-1)
+# define FILE_EXTENSION		".rt"
+# define AT_LEAST_LINES		3
+# define DELIMITER_VALUE	','
 
 # define ELEM_COUNT_AMBIENT		3
 # define ELEM_COUNT_CAMERA		4
@@ -37,8 +38,8 @@ void			del_lines(void *args);
 t_deque			*read_file(const char *file_name);
 
 /* convert */
-t_vector		convert_line_to_vector(const char *line, const char delimiter);
-t_rgb			convert_line_to_rgb(const char *line, const char delimiter);
+t_vector		convert_line_to_vector(const char *line);
+t_rgb			convert_line_to_rgb(const char *line);
 
 /* validation */
 bool			is_valid_file_path(const char *filepath);

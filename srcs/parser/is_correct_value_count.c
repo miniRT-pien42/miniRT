@@ -8,7 +8,7 @@ static size_t	count_value(const char *s)
 	value_count = 0;
 	while (*s)
 	{
-		if (*s == ',')
+		if (*s == DELIMITER_VALUE)
 			value_count++;
 		s++;
 	}
