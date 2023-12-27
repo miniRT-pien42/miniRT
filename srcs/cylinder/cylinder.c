@@ -2,9 +2,7 @@
 #include "object.h"
 #include "parse.h"
 #include "result.h"
-#include <stdlib.h> // todo: rm (atof)
 
-// todo: set result with atof
 t_cylinder	*init_cylinder(const char **line, t_result *result)
 {
 	t_cylinder	*cylinder;
@@ -15,8 +13,8 @@ t_cylinder	*init_cylinder(const char **line, t_result *result)
 	cylinder->center = convert_line_to_vector(line[0], result);
 	cylinder->normal = convert_line_to_vector_in_range(\
 										line[1], DIR_N_MIN, DIR_N_MAX, result);
-	cylinder->diameter = atof(line[2]);
-	cylinder->height = atof(line[3]);
+	cylinder->diameter = convert_to_double(line[2], result);
+	cylinder->height = convert_to_double(line[3], result);
 	cylinder->color = convert_line_to_rgb(line[4], result);
 	return (cylinder);
 }
