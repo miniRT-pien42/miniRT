@@ -22,6 +22,7 @@ SRCS		:=	ft_atoi.c \
 				ft_strndup.c \
 				ft_strnlen.c \
 				ft_strnstr.c \
+				ft_strtod.c \
 				get_next_line.c \
 				x_malloc.c
 
