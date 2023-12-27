@@ -16,17 +16,15 @@ bool	is_cylinder_self_shadow(\
 
 	discriminant = \
 		calc_discriminant_for_cylinder(ray_shadow, intersection.object, distances);
-	if (discriminant < 0)
+	if (discriminant <= 0)
 		return (false);
-	if (discriminant == 0)
-		return (false);
-	if (fmax(fabs(distances[0]), fabs(distances[1])) == fabs(distances[0]))
+	//distances[0]の方が絶対値が大きい
+	if (fabs(distances[0]) > fabs(distances[1]))
 		intersection_other = distances[0];
 	else
 		intersection_other = distances[1];
-	if (discriminant > 0 && intersection_other < 0 && \
-		is_intersect_cylinder(ray_shadow, intersection.object, intersection_other) && \
-		!is_inside_cylinder(intersection.object, ray_shadow))
+	if (intersection_other < 0 && \
+		is_intersect_cylinder(ray_shadow, intersection.object, intersection_other))
 		return (true);
 	return (false);
 }
@@ -45,7 +43,7 @@ static t_vector	nearest_pos_on_axis(t_vector pos, const t_cylinder *cylinder)
 
 //交点から中心時軸に投影したポイントPを求める
 //カメラから中心軸上に投影したポイントを求め、cy半径との距離を比べる
-bool	is_inside_cylinder(const t_cylinder *cylinder, const t_ray *ray_shadow)
+bool	is_camera_inside_cylinder(const t_cylinder *cylinder, const t_ray *ray_shadow)
 {
 	double		distances[2];
 	double		discriminant;
@@ -56,7 +54,9 @@ bool	is_inside_cylinder(const t_cylinder *cylinder, const t_ray *ray_shadow)
 		error_exit(ERR_INTERSECTION);
 	//片方が負ならシリンダ内部にカメラがある
 	if ((distances[0] > 0 && distances[1] < 0) || \
-		(distances[0] < 0 && distances[1] > 0))
+		(distances[0] < 0 && distances[1] > 0) || \
+		(fabs(distances[0]) < EPSILON && distances[1] > 0) || \
+		(fabs(distances[1]) < EPSILON && distances[0] > 0))
 		return (true);
 	//共に正ならシリンダを外から見ている。見えているポイントが指定された高さの範囲内なら外側が見えている
 	if (is_intersect_cylinder(\
@@ -75,7 +75,7 @@ t_vector	get_normal_on_cylinder(t_intersection intersection, const t_ray *ray)
 {
 	t_vector			normal;
 	const t_cylinder	*cylinder = intersection.object;
-	const bool			is_inside_view = is_inside_cylinder(cylinder, ray);
+	const bool			is_inside_view = is_camera_inside_cylinder(cylinder, ray);
 	const t_vector		np = \
 		nearest_pos_on_axis(intersection.position, cylinder);
 
@@ -84,7 +84,7 @@ t_vector	get_normal_on_cylinder(t_intersection intersection, const t_ray *ray)
 		normal = vec_normalize(\
 			vec_subtract(np, intersection.position));
 	}
-	else//外側が見えている
+	else
 	{
 		normal = vec_normalize(\
 			vec_subtract(intersection.position, np));
