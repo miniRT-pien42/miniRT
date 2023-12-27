@@ -19,22 +19,21 @@ bool	is_intersect_cylinder(\
 
 // discriminant >= 0 かつ交点の高さがcylinder.height以下なら衝突している
 double	get_distance_to_cylinder(\
-				t_vector ray_direction, t_vector pos, t_cylinder *cylinder)
+				const t_ray *ray, t_cylinder *cylinder)
 {
 	double		distances[2];
 	double		discriminant;
-	const t_ray	ray = (t_ray){.position = pos, .direction = ray_direction};
 	double		outside;
 	double		inside;
 
-	discriminant = calc_discriminant_for_cylinder(&ray, cylinder, distances);
+	discriminant = calc_discriminant_for_cylinder(ray, cylinder, distances);
 	if (discriminant < 0)
 		return (NAN);
 	outside = fmin(distances[0], distances[1]);
-	if (is_intersect_cylinder(&ray, cylinder, outside) && outside > 0)
+	if (is_intersect_cylinder(ray, cylinder, outside) && outside > 0)
 		return (outside);
 	inside = fmax(distances[0], distances[1]);
-	if (is_intersect_cylinder(&ray, cylinder, inside) && inside > 0)
+	if (is_intersect_cylinder(ray, cylinder, inside) && inside > 0)
 		return (inside);
 	return (NAN);
 }

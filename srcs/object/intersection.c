@@ -4,7 +4,7 @@
 #include <math.h>
 
 bool	is_shadow_intersection(\
-	t_scene *scene, t_intersection intersection, t_vector ray_shadow)
+	t_scene *scene, t_intersection intersection, const t_ray *ray_shadow)
 {
 	t_deque_node	*current_node;
 	double			new_distance;
@@ -28,13 +28,13 @@ bool	is_shadow_intersection(\
 }
 
 static t_vector	get_position_on_object(\
-	t_scene *scene, t_vector ray, double distance)
+	t_scene *scene, const t_ray *ray, double distance)
 {
-	return (vec_add(scene->camera->pos, vec_scalar(ray, distance)));
+	return (vec_add(scene->camera->pos, vec_scalar(ray->direction, distance)));
 }
 
 static t_vector	get_normal(\
-	t_scene *scene, t_intersection intersection, t_vector ray, t_shape type)
+	t_scene *scene, t_intersection intersection, const t_ray *ray, t_shape type)
 {
 	t_vector	normal;
 
@@ -43,14 +43,14 @@ static t_vector	get_normal(\
 	else if (type == PLANE)
 		normal = ((t_plane *)intersection.object)->normal;
 	else if (type == CYLINDER)
-		normal = get_normal_on_cylinder(scene, intersection, ray);
+		normal = get_normal_on_cylinder(intersection, ray);
 	else
 		normal = (t_vector){.x = 0, .y = 0, .z = 0};
 	return (normal);
 }
 
 t_intersection	get_intersection(\
-	t_scene *scene, void *nearest_object, t_vector ray)
+	t_scene *scene, void *nearest_object, const t_ray *ray)
 {
 	t_intersection	intersection;
 	const t_shape	type = get_object_type(nearest_object);

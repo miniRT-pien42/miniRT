@@ -1,4 +1,5 @@
 #include "object.h"
+#include "ray.h"
 #include "scene.h"
 #include <math.h>
 
@@ -10,7 +11,7 @@ t_shape	get_object_type(void *object)
 }
 
 // If there are two intersection points, return the distance to the closer one.
-double	get_distance(t_vector ray, t_vector pos, void *object)
+double	get_distance(const t_ray *ray, t_vector pos, void *object)
 {
 	const t_shape	type = get_object_type(object);
 	double			distance;
@@ -20,13 +21,13 @@ double	get_distance(t_vector ray, t_vector pos, void *object)
 	else if (type == PLANE)
 		distance = get_distance_to_plane(ray, pos, (t_plane *)object);
 	else if (type == CYLINDER)
-		distance = get_distance_to_cylinder(ray, pos, (t_cylinder *)object);
+		distance = get_distance_to_cylinder(ray, (t_cylinder *)object);
 	else
 		distance = NAN;
 	return (distance);
 }
 
-void	*get_nearest_object(t_vector ray, t_scene *scene)
+void	*get_nearest_object(const t_ray	*ray, t_scene *scene)
 {
 	t_deque_node	*current_node;
 	void			*nearest_object;

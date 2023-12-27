@@ -4,19 +4,27 @@
 #include <stdlib.h>
 #include <math.h>
 
+static t_ray	get_ray_shadow(t_vector end, t_vector start)
+{
+	t_ray	ray;
+
+	ray.position = start;
+	ray.direction = vec_subtract(end, start);
+	return (ray);
+}
+
 double	get_l_dot(\
 	t_scene *scene, t_intersection intersection)
 {
 	double			l_dot;
 	t_vector		incident;
 	const t_shape	type = get_object_type(intersection.object);
-	const t_vector	ray_shadow = \
-		vec_subtract(intersection.position, scene->light->pos);
+	const t_ray	ray_shadow = get_ray_shadow(intersection.position, scene->light->pos);
 
 	if (type == CYLINDER && \
-		is_cylinder_self_shadow(intersection, ray_shadow, scene->light->pos))
+		is_cylinder_self_shadow(intersection, &ray_shadow))
 		return (NO_INCIDENT);
-	if (is_shadow_intersection(scene, intersection, ray_shadow))
+	if (is_shadow_intersection(scene, intersection, &ray_shadow))
 		return (NO_INCIDENT);
 	incident = vec_normalize(\
 		vec_subtract(scene->light->pos, intersection.position));

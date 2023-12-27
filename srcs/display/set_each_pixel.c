@@ -3,13 +3,15 @@
 #include "scene.h"
 
 // screen上の点の位置
-static t_vector	calc_ray_direction(const int y, const int x, t_scene *scene)
+static t_ray	calc_ray(const int y, const int x, t_scene *scene)
 {
+	t_ray			ray;
 	t_vector		coord_on_screen;
 	const t_vector	center_screen = get_center_screen(scene->camera);
 	const double	rotation_angle = \
 		get_angle(set_axis_base(), scene->camera->dir_norm);
 
+	ray.position = scene->camera->pos;
 	coord_on_screen.x = (2.0 * x) / (WIDTH - 1) - 1.0;
 	coord_on_screen.y = -(2.0 * HEIGHT / WIDTH * y) / (HEIGHT - 1) + 1.0;
 	coord_on_screen.z = 0.0;
@@ -17,11 +19,12 @@ static t_vector	calc_ray_direction(const int y, const int x, t_scene *scene)
 		rotate_vector_by_quaternion(\
 			coord_on_screen, rotation_angle, scene->camera->dir_norm);
 	coord_on_screen = vec_add(coord_on_screen, center_screen);
-	return (vec_subtract(coord_on_screen, scene->camera->pos));
+	ray.direction = vec_subtract(coord_on_screen, scene->camera->pos);
+	return (ray);
 }
 
 static t_rgb	ray_tracing(\
-	t_scene *scene, void *nearest_object, t_vector ray)
+	t_scene *scene, void *nearest_object, const t_ray *ray)
 {
 	t_intersection	intersection;
 	t_material		material;
@@ -47,15 +50,14 @@ void	set_each_pixel_color(\
 	t_mlx *mlxs, const int y, const int x, t_scene *scene)
 {
 	int			color;
-	t_vector	ray;
+	const t_ray	ray = calc_ray(y, x, scene);
 	void		*nearest_object;
 
-	ray = calc_ray_direction(y, x, scene);
-	nearest_object = get_nearest_object(ray, scene);
+	nearest_object = get_nearest_object(&ray, scene);
 	if (nearest_object == NULL \
 		|| scene->camera->fov == 0 || scene->camera->fov == 180)
 		color = COLOR_BLUE;
 	else
-		color = convert_rgb(ray_tracing(scene, nearest_object, ray));
+		color = convert_rgb(ray_tracing(scene, nearest_object, &ray));
 	my_mlx_pixel_put(mlxs->image, y, x, color);
 }

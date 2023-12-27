@@ -1,5 +1,3 @@
-#include <stdlib.h>
-#include <math.h>
 #include "vector.h"
 #include "display.h"
 #include "scene.h"
@@ -7,9 +5,11 @@
 #include "ray.h"
 #include "object.h"
 #include "error.h"
+#include <stdlib.h>
+#include <math.h>
 
 static bool	is_inside_sphere(\
-	t_vector pos_target, const t_sphere *sphere, t_vector ray)
+	t_vector pos_target, const t_sphere *sphere, const t_ray *ray)
 {
 	double	distances[2];
 	double	discriminant;
@@ -25,7 +25,7 @@ static bool	is_inside_sphere(\
 }
 
 t_vector	get_normal_on_sphere(\
-	t_scene *scene, t_intersection intersection, t_vector ray)
+	t_scene *scene, t_intersection intersection, const t_ray *ray)
 {
 	t_vector		normal;
 	const t_sphere	*sphere = intersection.object;

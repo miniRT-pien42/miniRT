@@ -1,15 +1,16 @@
 #include "object.h"
+#include "ray.h"
 #include "scene.h"
 #include <math.h>
 
-static double	calc_a_for_sphere(t_vector ray)
+static double	calc_a_for_sphere(const t_ray *ray)
 {
-	return (pow(get_length(ray), 2));
+	return (get_length(ray->direction) * get_length(ray->direction));
 }
 
-static double	calc_b_for_sphere(t_vector ray, t_vector v)
+static double	calc_b_for_sphere(const t_ray *ray, t_vector v)
 {
-	return (2.0 * vec_dot(ray, v));
+	return (2.0 * vec_dot(ray->direction, v));
 }
 
 static double	calc_c_for_sphere(const t_sphere *sphere, t_vector v)
@@ -18,7 +19,7 @@ static double	calc_c_for_sphere(const t_sphere *sphere, t_vector v)
 }
 
 double	calc_discriminant_for_sphere(\
-	t_vector ray, const t_sphere *sphere, t_vector pos, double *distances)
+	const t_ray *ray, const t_sphere *sphere, t_vector pos, double *distances)
 {
 	const t_vector	v = vec_subtract(pos, sphere->center);
 	const double	a = calc_a_for_sphere(ray);
@@ -33,11 +34,11 @@ double	calc_discriminant_for_sphere(\
 // camera,lightからの最短距離を取得。
 // discriminant == 0 rayが対象に対し接線となる場合、交点を一つ持つものとして扱う
 // distance == 0 rayとobjectの交点がcamera,light位置と重なる場合は数値扱いとしNaNにしない
-double	get_distance_to_sphere(t_vector ray, t_vector pos, t_sphere *sphere)
+double	get_distance_to_sphere(const t_ray *ray, t_vector pos, t_sphere *sphere)
 {
-	double	distances[2];
-	double	discriminant;
-	double	distance;
+	double		distances[2];
+	double		discriminant;
+	double		distance;
 
 	discriminant = calc_discriminant_for_sphere(\
 		ray, sphere, pos, distances);

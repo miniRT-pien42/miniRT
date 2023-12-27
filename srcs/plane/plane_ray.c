@@ -1,14 +1,15 @@
 #include "object.h"
+#include "ray.h"
 #include "scene.h"
 #include <math.h>
 
-double	get_distance_to_plane(t_vector ray, t_vector pos, t_plane *plane)
+double	get_distance_to_plane(const t_ray *ray, t_vector pos, t_plane *plane)
 {
 	double	num_bottom;
 	double	num_top;
 	double	distance;
 
-	num_bottom = vec_dot(ray, plane->normal);
+	num_bottom = vec_dot(ray->direction, plane->normal);
 	if (num_bottom == 0)
 		return (NAN);
 	num_top = \
