@@ -19,9 +19,9 @@ static double	calc_c_for_sphere(const t_sphere *sphere, t_vector v)
 }
 
 double	calc_discriminant_for_sphere(\
-	const t_ray *ray, const t_sphere *sphere, t_vector pos, double *distances)
+	const t_ray *ray, const t_sphere *sphere, double *distances)
 {
-	const t_vector	v = vec_subtract(pos, sphere->center);
+	const t_vector	v = vec_subtract(ray->position, sphere->center);
 	const double	a = calc_a_for_sphere(ray);
 	const double	b = calc_b_for_sphere(ray, v);
 	const double	c = calc_c_for_sphere(sphere, v);
@@ -34,14 +34,13 @@ double	calc_discriminant_for_sphere(\
 // camera,lightからの最短距離を取得。
 // discriminant == 0 rayが対象に対し接線となる場合、交点を一つ持つものとして扱う
 // distance == 0 rayとobjectの交点がcamera,light位置と重なる場合は数値扱いとしNaNにしない
-double	get_distance_to_sphere(const t_ray *ray, t_vector pos, t_sphere *sphere)
+double	get_distance_to_sphere(const t_ray *ray, t_sphere *sphere)
 {
 	double		distances[2];
 	double		discriminant;
 	double		distance;
 
-	discriminant = calc_discriminant_for_sphere(\
-		ray, sphere, pos, distances);
+	discriminant = calc_discriminant_for_sphere(ray, sphere, distances);
 	if (discriminant < 0)
 		return (NAN);
 	distance = get_closer_distance(discriminant, distances);

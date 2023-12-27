@@ -50,7 +50,7 @@ void			*get_nearest_object(const t_ray	*ray, t_scene *scene);
 t_deque			*init_object(void);
 void			add_to_list_object(\
 	t_deque *list_object, const char **line, const t_shape type);
-double			get_distance(const t_ray *ray, t_vector pos, void *object);
+double			get_distance(const t_ray *ray, void *object);
 
 // object/distance.c
 void			calc_distance_by_discriminant(\
@@ -68,20 +68,18 @@ t_sphere		*init_sphere(const char **line);
 
 // sphere/sphere_ray.c
 double			calc_discriminant_for_sphere(\
-	const t_ray *ray, const t_sphere *sphere, t_vector pos, double *distances);
+	const t_ray *ray, const t_sphere *sphere, double *distances);
 double			get_distance_to_sphere(\
-	const t_ray *ray, t_vector pos, t_sphere *sphere);
+	const t_ray *ray, t_sphere *sphere);
 
 // sphere/sphere_color.c
-t_vector		get_normal_on_sphere(\
-	t_scene *scene, t_intersection intersection, const t_ray *ray);
+t_vector		get_normal_on_sphere(t_intersection intersection, const t_ray *ray);
 
 // plane/plane.c
 t_plane			*init_plane(const char **line);
 
 // plane/plane_ray.c
-double			get_distance_to_plane(\
-	const t_ray *ray, t_vector pos, t_plane *plane);
+double			get_distance_to_plane(const t_ray *ray, t_plane *plane);
 
 // cylinder/cylinder.c
 t_cylinder		*init_cylinder(const char **line);

@@ -12,13 +12,12 @@ bool	is_shadow_intersection(\
 
 	current_node = scene->list_object->node;
 	light_distance = \
-		get_distance(ray_shadow, scene->light->pos, intersection.object);
+		get_distance(ray_shadow, intersection.object);
 	while (current_node)
 	{
 		if (current_node->content != intersection.object)
 		{
-			new_distance = get_distance(\
-				ray_shadow, scene->light->pos, current_node->content);
+			new_distance = get_distance(ray_shadow, current_node->content);
 			if (!isnan(new_distance) && new_distance < light_distance)
 				return (true);
 		}
@@ -33,13 +32,12 @@ static t_vector	get_position_on_object(\
 	return (vec_add(scene->camera->pos, vec_scalar(ray->direction, distance)));
 }
 
-static t_vector	get_normal(\
-	t_scene *scene, t_intersection intersection, const t_ray *ray, t_shape type)
+static t_vector	get_normal(t_intersection intersection, const t_ray *ray, t_shape type)
 {
 	t_vector	normal;
 
 	if (type == SPHERE)
-		normal = get_normal_on_sphere(scene, intersection, ray);
+		normal = get_normal_on_sphere(intersection, ray);
 	else if (type == PLANE)
 		normal = ((t_plane *)intersection.object)->normal;
 	else if (type == CYLINDER)
@@ -57,10 +55,10 @@ t_intersection	get_intersection(\
 
 	intersection.object = nearest_object;
 	intersection.distance = \
-		get_distance(ray, scene->camera->pos, intersection.object);
+		get_distance(ray, intersection.object);
 	intersection.position = \
 		get_position_on_object(scene, ray, intersection.distance);
-	intersection.normal = get_normal(scene, intersection, ray, type);
+	intersection.normal = get_normal(intersection, ray, type);
 	//PLANE法線をcamera側に
 	if (type == PLANE && \
 		vec_dot(intersection.normal, vec_normalize(\
