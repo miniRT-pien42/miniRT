@@ -37,6 +37,7 @@ static t_vector	get_normal(t_intersection intersection, const t_ray *ray, t_shap
 {
 	t_vector	normal;
 
+	normal = (t_vector){.x = 0, .y = 0, .z = 0};
 	if (type == SPHERE)
 		normal = get_normal_on_sphere(intersection, ray);
 	else if (type == PLANE)
