@@ -1,3 +1,4 @@
+#include "helpers.h"
 #include <math.h>
 
 void	calc_distance_by_discriminant(\
@@ -25,8 +26,12 @@ double	get_closer_distance(double discriminant, double *distances)
 		closer_distance = distances[0];
 	else
 	{
-		if (distances[0] >= 0 && distances[1] >= 0)
+		if (distances[0] > 0 && distances[1] > 0)
 			closer_distance = fmin(distances[0], distances[1]);
+		else if (fabs(distances[0]) < EPSILON && distances[1] > 0)
+			closer_distance = distances[1];
+		else if (fabs(distances[1]) < EPSILON && distances[0] > 0)
+			closer_distance = distances[0];
 		else
 			closer_distance = fmax(distances[0], distances[1]);
 	}

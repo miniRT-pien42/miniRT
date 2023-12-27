@@ -4,12 +4,12 @@
 #include <stdlib.h>
 #include <math.h>
 
-static t_ray	get_ray_shadow(t_vector end, t_vector start)
+static t_ray	get_ray_shadow(t_vector pos_intersection, t_vector pos_light)
 {
 	t_ray	ray;
 
-	ray.position = start;
-	ray.direction = vec_subtract(end, start);
+	ray.position = pos_light;
+	ray.direction = vec_subtract(pos_light, pos_intersection);
 	return (ray);
 }
 

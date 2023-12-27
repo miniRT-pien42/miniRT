@@ -17,7 +17,9 @@ static bool	is_inside_sphere(const t_sphere *sphere, const t_ray *ray)
 	if (discriminant < 0)
 		error_exit(ERR_INTERSECTION);
 	if ((distances[0] > 0 && distances[1] < 0) || \
-		(distances[0] < 0 && distances[1] > 0))
+		(distances[0] < 0 && distances[1] > 0) || \
+		(fabs(distances[0]) < EPSILON && distances[1] > 0) || \
+		(fabs(distances[1]) < EPSILON && distances[0] > 0))
 		return (true);
 	return (false);
 }
