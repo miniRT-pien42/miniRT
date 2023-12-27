@@ -11,7 +11,7 @@ void	*ft_memcpy(void *dst, const void *src, size_t n);
 void	*ft_memmove(void *dst, const void *src, size_t len);
 size_t	ft_min(const size_t x, const size_t y);
 void	ft_putstr_fd(const char *s, int fd);
-char	**ft_split(char const *s, char c);
+char	**ft_split(char const *s, const char *charset);
 char	*ft_strchr(char *s, int int_c);
 bool	ft_strchr_bool(const char *s, int int_c);
 int		ft_strcmp(const char *s1, const char *s2);

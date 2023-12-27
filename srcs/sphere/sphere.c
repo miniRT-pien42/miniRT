@@ -9,8 +9,8 @@ t_sphere	*init_sphere(const char **line)
 
 	sphere = (t_sphere *)x_malloc(sizeof(t_sphere));
 	sphere->type = SPHERE;
-	sphere->center = convert_line_to_vector(line[1], ',');
+	sphere->center = convert_line_to_vector(line[1]);
 	sphere->diameter = atof(line[2]);
-	sphere->color = convert_line_to_rgb(line[3], ',');
+	sphere->color = convert_line_to_rgb(line[3]);
 	return (sphere);
 }
