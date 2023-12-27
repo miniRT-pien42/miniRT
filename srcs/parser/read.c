@@ -2,7 +2,6 @@
 #include "get_next_line.h"
 #include "libft.h"
 #include "parse.h"
-#include "result.h"
 #include "scene.h"
 #include <fcntl.h> // open
 
