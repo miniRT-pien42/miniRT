@@ -3,6 +3,7 @@
 #include "libft.h"
 #include "parse.h"
 #include <fcntl.h> // open
+#include <stdlib.h> // free
 
 /*
 A   ratio      r,g,b
@@ -39,23 +40,19 @@ t_result	parse(const char *file_name, t_scene *scene)
 	// t_result	result;
 
 	lines = read_file(file_name);
-	if (!starts_with_valid_identifier(lines))
-		return (FAILURE);
-	split_line_with_space(lines);
+	split_lines(lines);
 	if (!is_valid_lines(&lines))
 	{
-		deque_clear_all(&lines, del_lines); // todo: inside is_valid_lines?
+		deque_clear_all(&lines, del_lines);
 		return (FAILURE);
 	}
 	debug_deque_print(lines, __func__, (void *)print_2d_array);
-	init_scene(scene);
-	parse_lines_to_scene(lines, scene);
+	parse_lines_to_scene(lines, scene); // todo: handle error
 	debug_print_scene_value(scene);
 	deque_clear_all(&lines, del_lines);
 	if (!is_valid_scene_value(scene))
 	{
-		deque_clear_all(&lines, del_lines);
-		// destroy_scene(&scene);
+		destroy_scene(scene);
 		return (FAILURE);
 	}
 	return (SUCCESS);
