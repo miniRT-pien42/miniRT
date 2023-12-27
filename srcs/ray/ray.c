@@ -8,7 +8,7 @@ static t_ray	get_ray_shadow(t_vector pos_intersection, t_vector pos_light)
 {
 	t_ray	ray;
 
-	ray.position = pos_intersection;
+	ray.position = pos_light;
 	ray.direction = vec_subtract(pos_intersection, pos_light);
 	return (ray);
 }

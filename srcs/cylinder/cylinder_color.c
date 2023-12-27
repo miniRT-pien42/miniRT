@@ -7,24 +7,22 @@
 #include <stdlib.h>
 #include <math.h>
 
+//intersectionではない方の交点は、
+// 1より大きければ向こう側。
+// 1より小さくて正なら手前側（影の元）
+// 負ならライトは中にある
 bool	is_cylinder_self_shadow(\
 	t_intersection intersection, const t_ray *ray_shadow)
 {
 	double		distances[2];
 	double		discriminant;
-	double		intersection_other;
 
 	discriminant = \
 		calc_discriminant_for_cylinder(ray_shadow, intersection.object, distances);
 	if (discriminant <= 0)
 		return (false);
-	//distances[0]の方が絶対値が大きい
-	if (fabs(distances[0]) > fabs(distances[1]))
-		intersection_other = distances[0];
-	else
-		intersection_other = distances[1];
-	if (intersection_other < 0 && \
-		is_intersect_cylinder(ray_shadow, intersection.object, intersection_other))
+	if (distances[0] < (1.0 - EPSILON) && distances[0] > EPSILON && \
+		is_intersect_cylinder(ray_shadow, intersection.object, distances[0]))
 		return (true);
 	return (false);
 }
