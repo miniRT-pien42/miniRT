@@ -6,7 +6,7 @@ static bool	is_sign(const int c)
 	return (c == '-' || c == '+');
 }
 
-static double	set_sign(char **s)
+static double	set_sign(const char **s)
 {
 	const char	c = **s;
 
@@ -19,7 +19,8 @@ static double	set_sign(char **s)
 	return (1.0);
 }
 
-static void	convert_decimal_part(double *num, char **s, bool *is_valid_num)
+static void	convert_decimal_part(\
+								double *num, const char **s, bool *is_valid_num)
 {
 	double	decimal;
 
@@ -33,14 +34,14 @@ static void	convert_decimal_part(double *num, char **s, bool *is_valid_num)
 	}
 }
 
-static char	*set_end_ptr(bool is_valid_num, char *s)
+static const char	*set_end_ptr(bool is_valid_num, const char *s)
 {
 	if (is_valid_num && *s == '\0')
 		return (s);
 	return (NULL);
 }
 
-double	ft_strtod(char *s, char **end_ptr)
+double	ft_strtod(const char *s, const char **end_ptr)
 {
 	double			num;
 	bool			is_valid_num;
