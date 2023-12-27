@@ -4,82 +4,20 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include <stdio.h>
-
-//todo: lightがinsideならfalse
-static bool	is_cylinder_self_shadow(t_intersection intersection, t_vector ray_shadow, t_vector pos_light)
-{
-	double	distances[2];
-	double	discriminant;
-	t_ray	ray = (t_ray){.position = intersection.position, .direction = ray_shadow};
-	double	intersection_other;
-
-	discriminant = calc_discriminant_for_cylinder(&ray, intersection.object, distances);
-	if (discriminant < 0)
-		return (false);
-	//discriminant >= 0なので交点は存在する
-	//交点1つなら単純に光が当たる
-	//交点2つの内、intersectionがほぼ0。
-	// もう一つが負なら手前に交点があるので影（内側が見えている）
-	// 正なら交点は向こう側なので影にならない（外側が見えている）
-	//heightに収まっているかチェック
-	if (discriminant == 0)
-		return (false);
-	if (fmax(fabs(distances[0]), fabs(distances[1])) == fabs(distances[0]))
-		intersection_other = distances[0];
-	else
-		intersection_other = distances[1];
-	if (discriminant > 0 && intersection_other < 0 && \
-		is_intersect_cylinder(&ray, intersection.object, intersection_other) && \
-		!is_inside_cylinder(pos_light, intersection.object, ray_shadow))
-		return (true);
-	return (false);
-
-
-	return (false);
-}
-
-bool	is_shadow_intersection(\
-	t_scene *scene, t_intersection intersection, t_vector ray_shadow)
-{
-	t_deque_node	*current_node;
-	double			new_distance;
-	double			light_distance;
-
-	current_node = scene->list_object->node;
-	light_distance = get_distance(ray_shadow, scene->light->pos, intersection.object);
-	while (current_node)
-	{
-		if (current_node->content != intersection.object)
-		{
-			new_distance = get_distance(\
-				ray_shadow, scene->light->pos, current_node->content);
-			if (!isnan(new_distance) && new_distance < light_distance)
-				return (true);
-		}
-		current_node = current_node->next;
-	}
-	return (false);
-}
-
-//陰になる要因として
-//1: 他の物体の影になる
-//2: 自分の影になる
-//3: 法線と入射が90°以上（光源が裏側）
 double	get_l_dot(\
 	t_scene *scene, t_intersection intersection)
 {
-	double		l_dot;
-	t_vector	incident;
+	double			l_dot;
+	t_vector		incident;
 	const t_shape	type = get_object_type(intersection.object);
 	const t_vector	ray_shadow = \
 		vec_subtract(intersection.position, scene->light->pos);
 
-	if (type == CYLINDER && is_cylinder_self_shadow(intersection, ray_shadow, scene->light->pos))
+	if (type == CYLINDER && \
+		is_cylinder_self_shadow(intersection, ray_shadow, scene->light->pos))
 		return (NO_INCIDENT);
 	if (is_shadow_intersection(scene, intersection, ray_shadow))
 		return (NO_INCIDENT);
-	//この画素が影にならないならincident（光の入射をとってきてl_dot計算）
 	incident = vec_normalize(\
 		vec_subtract(scene->light->pos, intersection.position));
 	l_dot = vec_dot(incident, intersection.normal);
@@ -101,9 +39,9 @@ t_rgb_f	get_lux_ambient(const t_light_ambient *ambient)
 
 t_rgb_f	get_lux_light(const t_light *light, void *nearest_object, double l_dot)
 {
-	t_rgb_f	lux_light;
+	t_rgb_f			lux_light;
 	const t_shape	type = get_object_type(nearest_object);
-	t_rgb	color;
+	t_rgb			color;
 
 	if (type == SPHERE)
 		color = ((t_sphere *)nearest_object)->color;

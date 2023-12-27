@@ -13,7 +13,7 @@ t_shape	get_object_type(void *object)
 double	get_distance(t_vector ray, t_vector pos, void *object)
 {
 	const t_shape	type = get_object_type(object);
-	double	distance;
+	double			distance;
 
 	if (type == SPHERE)
 		distance = get_distance_to_sphere(ray, pos, (t_sphere *)object);
@@ -38,8 +38,10 @@ void	*get_nearest_object(t_vector ray, t_scene *scene)
 	nearest_distance = INFINITY;
 	while (current_node)
 	{
-		new_distance = get_distance(ray, scene->camera->pos, current_node->content);
-		if (!isnan(new_distance) && new_distance < nearest_distance && fabs(new_distance) >EPSILON)
+		new_distance = get_distance(\
+			ray, scene->camera->pos, current_node->content);
+		if (!isnan(new_distance) && fabs(new_distance) > EPSILON \
+			&& new_distance < nearest_distance)
 		{
 			nearest_distance = new_distance;
 			nearest_object = current_node->content;

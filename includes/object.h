@@ -57,6 +57,12 @@ void			calc_distance_by_discriminant(\
 	const double a, const double b, const double d, double *distance);
 double			get_closer_distance(double discriminant, double *distance);
 
+// object/intersection.c
+bool			is_shadow_intersection(\
+	t_scene *scene, t_intersection intersection, t_vector ray_shadow);
+t_intersection	get_intersection(\
+	t_scene *scene, void *nearest_object, t_vector ray);
+
 // sphere/sphere.c
 t_sphere		*init_sphere(const char **line);
 
@@ -80,18 +86,22 @@ double			get_distance_to_plane(\
 // cylinder/cylinder.c
 t_cylinder		*init_cylinder(const char **line);
 
-// cylinder/cylinder_ray.c
+// cylinder/cylinder_discriminant.c
 double			calc_discriminant_for_cylinder(\
-	t_ray *ray, t_cylinder *cylinder, double *distances);
+	const t_ray *ray, t_cylinder *cylinder, double *distances);
+
+// cylinder/cylinder_ray.c
 bool			is_intersect_cylinder(\
-	t_ray *ray, const t_cylinder *cylinder, double distance);
+	const t_ray *ray, const t_cylinder *cylinder, double distance);
 double			get_distance_to_cylinder(\
 	t_vector ray_direction, t_vector pos, t_cylinder *cylinder);
 
 // cylinder/cylinder_color.c
-bool	is_inside_cylinder(\
+bool			is_cylinder_self_shadow(\
+	t_intersection intersection, t_vector ray_shadow, t_vector pos_light);
+bool			is_inside_cylinder(\
 	t_vector pos, const t_cylinder *cylinder, t_vector ray);
-t_vector	get_normal_on_cylinder(\
+t_vector		get_normal_on_cylinder(\
 	t_scene *scene, t_intersection intersection, t_vector ray);
 
 #endif

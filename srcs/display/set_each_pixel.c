@@ -20,46 +20,6 @@ static t_vector	calc_ray_direction(const int y, const int x, t_scene *scene)
 	return (vec_subtract(coord_on_screen, scene->camera->pos));
 }
 
-static t_vector	get_position_on_object(t_scene *scene, t_vector ray, double distance)
-{
-	return (vec_add(scene->camera->pos, vec_scalar(ray, distance)));
-}
-
-static t_vector	get_normal(t_scene *scene, t_intersection intersection, t_vector ray, t_shape type)
-{
-	t_vector	normal;
-
-	if (type == SPHERE)
-		normal = get_normal_on_sphere(scene, intersection, ray);
-	else if (type == PLANE)
-		normal = ((t_plane *)intersection.object)->normal;
-	else if (type == CYLINDER)
-		normal = get_normal_on_cylinder(scene, intersection, ray);
-	else
-		normal = (t_vector){.x = 0, .y = 0, .z = 0};
-	return (normal);
-}
-
-static t_intersection	get_intersection(\
-	t_scene *scene, void *nearest_object, t_vector ray)
-{
-	t_intersection	intersection;
-	t_shape			type;
-	type = get_object_type(nearest_object);
-
-	intersection.object = nearest_object;
-	intersection.distance = get_distance(ray, scene->camera->pos, intersection.object);
-	intersection.position = \
-		get_position_on_object(scene, ray, intersection.distance);
-	intersection.normal = get_normal(scene, intersection, ray, type);
-	//PLANE法線をcamera側に
-	if (type == PLANE && \
-		vec_dot(intersection.normal, vec_normalize(vec_subtract(intersection.position, scene->camera->pos))) > 0)
-		intersection.normal = vec_scalar(intersection.normal, -1);
-	intersection.l_dot = get_l_dot(scene, intersection);
-	return (intersection);
-}
-
 static t_rgb	ray_tracing(\
 	t_scene *scene, void *nearest_object, t_vector ray)
 {

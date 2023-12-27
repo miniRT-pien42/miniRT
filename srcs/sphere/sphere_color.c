@@ -8,7 +8,8 @@
 #include "object.h"
 #include "error.h"
 
-static bool	is_inside_sphere(t_vector pos_target, const t_sphere *sphere, t_vector ray)
+static bool	is_inside_sphere(\
+	t_vector pos_target, const t_sphere *sphere, t_vector ray)
 {
 	double	distances[2];
 	double	discriminant;
@@ -32,8 +33,14 @@ t_vector	get_normal_on_sphere(\
 		is_inside_sphere(scene->camera->pos, sphere, ray);
 
 	if (is_inside_view)
-		normal = vec_normalize(vec_subtract(sphere->center, intersection.position));
+	{
+		normal = vec_normalize(\
+			vec_subtract(sphere->center, intersection.position));
+	}
 	else
-		normal = vec_normalize(vec_subtract(intersection.position, sphere->center));
+	{
+		normal = vec_normalize(\
+			vec_subtract(intersection.position, sphere->center));
+	}
 	return (normal);
 }

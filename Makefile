@@ -2,6 +2,7 @@ NAME		:=	miniRT
 
 SRC_DIR		:=	srcs
 SRCS		:=	cylinder/cylinder_color.c \
+				cylinder/cylinder_discriminant.c \
 				cylinder/cylinder_ray.c \
 				cylinder/cylinder.c \
 				vec/vector1.c \
@@ -18,6 +19,7 @@ SRCS		:=	cylinder/cylinder_color.c \
 				light/light.c \
 				object/object.c \
 				object/distance.c \
+				object/intersection.c \
 				plane/plane.c \
 				plane/plane_ray.c \
 				sphere/sphere.c \
