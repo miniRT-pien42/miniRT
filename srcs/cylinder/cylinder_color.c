@@ -19,7 +19,9 @@ bool	is_cylinder_self_shadow(\
 
 	discriminant = \
 		calc_discriminant_for_cylinder(ray_shadow, intersection.object, distances);
-	if (discriminant <= 0)
+	if (discriminant < 0)
+		error_exit(ERR_INTERSECTION);
+	if (discriminant == 0)
 		return (false);
 	if (distances[0] < (1.0 - EPSILON) && distances[0] > EPSILON && \
 		is_intersect_cylinder(ray_shadow, intersection.object, distances[0]))

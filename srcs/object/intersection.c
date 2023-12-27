@@ -1,3 +1,4 @@
+#include "error.h"
 #include "object.h"
 #include "ray.h"
 #include "scene.h"
@@ -43,7 +44,7 @@ static t_vector	get_normal(t_intersection intersection, const t_ray *ray, t_shap
 	else if (type == CYLINDER)
 		normal = get_normal_on_cylinder(intersection, ray);
 	else
-		normal = (t_vector){.x = 0, .y = 0, .z = 0};
+		error_exit(ERR_OBJECT_TYPE);
 	return (normal);
 }
 
