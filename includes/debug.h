@@ -1,8 +1,12 @@
 #ifndef DEBUG_H
 # define DEBUG_H
 
-# include "object.h"
-# include "scene.h"
+typedef struct s_sphere		t_sphere;
+typedef struct s_plane		t_plane;
+typedef struct s_cylinder	t_cylinder;
+typedef struct s_scene		t_scene;
+typedef struct s_vector		t_vector;
+typedef struct s_rgb		t_rgb;
 
 void	debug_print_scene_value(const t_scene *scene);
 void	print_2d_array(char **strs);

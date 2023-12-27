@@ -1,8 +1,6 @@
 #ifndef RAY_H
 # define RAY_H
 
-# include "vector.h"
-
 # define NO_INTERSECTION	(-1)
 
 typedef struct s_ray

@@ -3,7 +3,7 @@
 
 # define EPSILON (1e-6)
 
-# include "vector.h"
+typedef struct s_vector	t_vector;
 
 double		clipping(const double num, const double min, const double max);
 double		convert_deg_to_rad(double deg);

@@ -7,7 +7,6 @@
 
 # define UNREACHABLE	0
 
-typedef struct s_vector	t_vector;
 typedef struct s_scene	t_scene;
 
 typedef struct s_display
