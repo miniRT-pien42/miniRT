@@ -3,7 +3,6 @@
 
 # include <stdbool.h>
 # include <stdint.h>
-# include <vector.h>
 
 # define OPEN_ERROR				(-1)
 # define FILE_EXTENSION			".rt"
@@ -33,6 +32,7 @@ typedef struct s_scene	t_scene;
 typedef struct s_rgb	t_rgb;
 typedef enum e_result	t_result;
 typedef struct s_deque	t_deque;
+typedef struct s_vector	t_vector;
 
 typedef enum e_identifier
 {

@@ -1,4 +1,7 @@
 #include "debug.h"
+#include "ft_deque.h"
+#include "object.h"
+#include "scene.h"
 #include <stdio.h>
 #include <stdlib.h>
 

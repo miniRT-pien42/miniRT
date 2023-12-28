@@ -1,9 +1,9 @@
-#include "debug.h"
-#include "parse.h"
-#include <stdio.h>
-#include <stdlib.h>
+#include "display.h"
 #include "error.h"
+#include "parse.h"
 #include "result.h"
+#include "scene.h"
+#include <stdlib.h>
 
 static bool	is_valid_argc(const int argc)
 {

@@ -1,4 +1,4 @@
-#include "object.h"
+#include "color.h"
 
 int	convert_rgb(t_rgb color)
 {

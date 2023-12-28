@@ -2,15 +2,11 @@
 # define OBJECT_H
 
 # include "color.h"
-# include "ft_deque.h"
 # include "vector.h"
 
-typedef struct s_sphere			t_sphere;
-typedef struct s_scene			t_scene;
-typedef struct s_camera			t_camera;
-typedef struct s_intersection	t_intersection;
-typedef struct s_ray			t_ray;
-typedef enum e_result			t_result;
+typedef struct s_scene	t_scene;
+typedef struct s_deque	t_deque;
+typedef enum e_result	t_result;
 
 typedef enum s_shape
 {

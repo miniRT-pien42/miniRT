@@ -1,8 +1,5 @@
 #include "ft_deque.h"
-#include "libft.h"
 #include "parse.h"
-#include "scene.h"
-#include <stdbool.h>
 
 static void	init_exist_of_scene(bool *is_scene_exists, const size_t size)
 {

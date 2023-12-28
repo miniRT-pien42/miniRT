@@ -1,7 +1,6 @@
 #include "libft.h"
 #include "light.h"
 #include "parse.h"
-#include "result.h"
 
 t_light_ambient	*init_light_ambient(const char **line, t_result *result)
 {
