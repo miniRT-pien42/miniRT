@@ -34,7 +34,7 @@ static t_rgb	ray_tracing(\
 	//lux_totalを環境光で初期化。影にならない場合はlightの明るさもadd
 	material.lux_total = get_lux_ambient(scene->light_ambient);
 	//影になるか判定。ならない場合のみifに入ってlightの明るさ計算
-	if (intersection.l_dot != NO_INCIDENT)
+	if (intersection.l_dot != NOT_ILLUMINATED)
 	{
 		material.lux_light = \
 			get_lux_light(scene->light, nearest_object, intersection.l_dot);

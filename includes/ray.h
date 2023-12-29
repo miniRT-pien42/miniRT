@@ -6,7 +6,7 @@
 # include "vector.h"
 
 # define NO_INTERSECTION	(-1)
-# define NO_INCIDENT	(-1)
+# define NOT_ILLUMINATED	(-1)
 
 typedef struct s_ray
 {
