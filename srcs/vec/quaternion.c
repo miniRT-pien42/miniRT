@@ -44,9 +44,11 @@ t_vector	rotate_vector_by_quaternion(\
 	t_vector		r_axis;
 	t_quaternion	q_rotate;
 
+	if (is_vector_parallel(axis, dir_norm))
+		return (v);
 	if (is_vector_opposite(axis, dir_norm))
 		return ((t_vector){.x = v.x * -1, .y = v.y, .z = v.z * -1});
-	r_axis = vec_cross(axis, dir_norm);
+	r_axis = vec_normalize(vec_cross(axis, dir_norm));
 	q_rotate = get_rotate_quaternion(r_axis, angle);
 	return (rotate_vector(v, q_rotate));
 }
