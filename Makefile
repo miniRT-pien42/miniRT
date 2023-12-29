@@ -24,6 +24,7 @@ SRCS		:=	cylinder/cylinder_color.c \
 				sphere/sphere.c \
 				sphere/sphere_ray.c \
 				sphere/sphere_color.c \
+				sphere/sphere_distance.c \
 				display/init.c \
 				display/display.c \
 				display/set_each_pixel.c \
