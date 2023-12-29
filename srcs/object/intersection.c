@@ -44,8 +44,6 @@ static t_vector	get_normal(t_intersection intersection, const t_ray *ray, t_shap
 		normal = ((t_plane *)intersection.object)->normal;
 	else if (type == CYLINDER)
 		normal = get_normal_on_cylinder(intersection, ray);
-	else
-		error_exit(ERR_OBJECT_TYPE);
 	return (normal);
 }
 
