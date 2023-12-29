@@ -22,9 +22,9 @@ double	get_l_dot(\
 	const t_ray	ray_shadow = get_ray_shadow(intersection.position, scene->light->pos);
 
 	if (type == CYLINDER && \
-		is_cylinder_self_shadow(intersection, &ray_shadow))
+		is_cylinder_self_shadow((t_cylinder *)intersection.object, &ray_shadow))
 		return (NOT_ILLUMINATED);
-	if (is_shadow_intersection(scene, intersection, &ray_shadow))
+	if (is_shadow_intersection(scene, intersection.object, &ray_shadow))
 		return (NOT_ILLUMINATED);
 	incident = vec_normalize(\
 		vec_subtract(scene->light->pos, intersection.position));

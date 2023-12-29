@@ -58,7 +58,7 @@ void			calc_distance_by_discriminant(\
 
 // object/intersection.c
 bool			is_shadow_intersection(\
-	t_scene *scene, t_intersection intersection, const t_ray *ray_shadow);
+	t_scene *scene, void *object, const t_ray *ray_shadow);
 t_intersection	get_intersection(\
 	t_scene *scene, void *nearest_object, const t_ray *ray);
 
@@ -99,7 +99,7 @@ double			get_distance_to_cylinder(\
 
 // cylinder/cylinder_color.c
 bool			is_cylinder_self_shadow(\
-	t_intersection intersection, const t_ray *ray_shadow);
+	t_cylinder *cylinder, const t_ray *ray_shadow);
 bool			is_inside_cylinder(const t_cylinder *cylinder, const t_ray *ray_shadow);
 t_vector		get_normal_on_cylinder(t_intersection intersection, const t_ray *ray);
 

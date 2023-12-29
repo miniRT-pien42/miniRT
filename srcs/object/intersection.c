@@ -5,7 +5,7 @@
 #include <math.h>
 
 bool	is_shadow_intersection(\
-	t_scene *scene, t_intersection intersection, const t_ray *ray_shadow)
+	t_scene *scene, void *object, const t_ray *ray_shadow)
 {
 	t_deque_node	*current_node;
 	double			new_distance;
@@ -13,10 +13,10 @@ bool	is_shadow_intersection(\
 
 	current_node = scene->list_object->node;
 	light_distance = \
-		get_distance(ray_shadow, intersection.object);
+		get_distance(ray_shadow, object);
 	while (current_node)
 	{
-		if (current_node->content != intersection.object)
+		if (current_node->content != object)
 		{
 			new_distance = get_distance(ray_shadow, current_node->content);
 			if (!isnan(new_distance) && new_distance < light_distance)

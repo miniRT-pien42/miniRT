@@ -12,19 +12,19 @@
 // 1より小さくて正なら手前側（影の元）
 // 負ならライトは中にある
 bool	is_cylinder_self_shadow(\
-	t_intersection intersection, const t_ray *ray_shadow)
+	t_cylinder *cylinder, const t_ray *ray_shadow)
 {
 	double		distances[2];
 	double		discriminant;
 
 	discriminant = \
-		calc_discriminant_for_cylinder(ray_shadow, intersection.object, distances);
+		calc_discriminant_for_cylinder(ray_shadow, cylinder, distances);
 	if (discriminant < 0)
 		error_exit(ERR_INTERSECTION);
 	if (discriminant == 0)
 		return (false);
 	if (distances[0] < (1.0 - EPSILON) && distances[0] > EPSILON && \
-		is_intersect_cylinder(ray_shadow, intersection.object, distances[0]))
+		is_intersect_cylinder(ray_shadow, cylinder, distances[0]))
 		return (true);
 	return (false);
 }
