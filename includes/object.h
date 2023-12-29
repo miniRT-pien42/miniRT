@@ -46,7 +46,7 @@ typedef struct s_plane
 
 // object/object.c
 t_shape			get_object_type(void *object);
-void			*get_nearest_object(const t_ray	*ray, t_scene *scene);
+void			*get_nearest_object(const t_ray	*ray, t_deque *list_object);
 t_deque			*init_object(void);
 void			add_to_list_object(\
 	t_deque *list_object, const char **line, const t_shape type);

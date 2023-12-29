@@ -26,14 +26,14 @@ double	get_distance(const t_ray *ray, void *object)
 	return (distance);
 }
 
-void	*get_nearest_object(const t_ray	*ray, t_scene *scene)
+void	*get_nearest_object(const t_ray	*ray, t_deque *list_object)
 {
 	t_deque_node	*current_node;
 	void			*nearest_object;
 	double			nearest_distance;
 	double			new_distance;
 
-	current_node = scene->list_object->node;
+	current_node = list_object->node;
 	nearest_object = NULL;
 	nearest_distance = INFINITY;
 	while (current_node)
