@@ -53,9 +53,10 @@ void	set_each_pixel_color(\
 	const t_ray	ray = calc_ray(y, x, scene);
 	void		*nearest_object;
 
-	nearest_object = get_nearest_object(&ray, scene);
-	if (nearest_object == NULL \
-		|| scene->camera->fov == 0 || scene->camera->fov == 180)
+	nearest_object = NULL;
+	if (scene->camera->fov > 0 && scene->camera->fov < 180)
+		nearest_object = get_nearest_object(&ray, scene);
+	if (nearest_object == NULL)
 		color = COLOR_BLUE;
 	else
 		color = convert_rgb(ray_tracing(scene, nearest_object, &ray));
