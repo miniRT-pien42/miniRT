@@ -53,10 +53,7 @@ static bool	is_camera_inside_cylinder(t_cylinder *cylinder, const t_ray *ray_sha
 	if (discriminant < 0)
 		error_exit(ERR_INTERSECTION);
 	//片方が負ならシリンダ内部にカメラがある
-	if ((distances[0] > 0 && distances[1] < 0) || \
-		(distances[0] < 0 && distances[1] > 0) || \
-		(fabs(distances[0]) < EPSILON && distances[1] > 0) || \
-		(fabs(distances[1]) < EPSILON && distances[0] > 0))
+	if (is_has_negative_distance(distances))
 		return (true);
 	//共に正ならシリンダを外から見ている。見えているポイントが指定された高さの範囲内なら外側が見えている
 	if (is_intersect_cylinder(\

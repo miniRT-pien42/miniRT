@@ -1,3 +1,4 @@
+#include "helpers.h"
 #include <math.h>
 
 void	calc_distance_by_discriminant(\
@@ -15,4 +16,14 @@ void	calc_distance_by_discriminant(\
 		distances[0] = (-b - sqrt(d)) / (2 * a);
 		distances[1] = (-b + sqrt(d)) / (2 * a);
 	}
+}
+
+bool	is_has_negative_distance(double *distances)
+{
+	if ((distances[0] > 0 && distances[1] < 0) || \
+		(distances[0] < 0 && distances[1] > 0) || \
+		(fabs(distances[0]) < EPSILON && distances[1] > 0) || \
+		(fabs(distances[1]) < EPSILON && distances[0] > 0))
+		return (true);
+	return (false);
 }

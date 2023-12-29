@@ -16,10 +16,7 @@ static bool	is_inside_sphere(const t_sphere *sphere, const t_ray *ray)
 	discriminant = calc_discriminant_for_sphere(ray, sphere, distances);
 	if (discriminant < 0)
 		error_exit(ERR_INTERSECTION);
-	if ((distances[0] > 0 && distances[1] < 0) || \
-		(distances[0] < 0 && distances[1] > 0) || \
-		(fabs(distances[0]) < EPSILON && distances[1] > 0) || \
-		(fabs(distances[1]) < EPSILON && distances[0] > 0))
+	if (is_has_negative_distance(distances))
 		return (true);
 	return (false);
 }
