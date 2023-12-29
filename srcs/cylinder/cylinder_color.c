@@ -15,6 +15,7 @@ bool	is_cylinder_self_shadow(\
 	t_cylinder *cylinder, const t_ray *ray_shadow)
 {
 	double		distances[2];
+	double		distance_min;
 	double		discriminant;
 
 	discriminant = \
@@ -23,8 +24,9 @@ bool	is_cylinder_self_shadow(\
 		error_exit(ERR_INTERSECTION);
 	if (discriminant == 0)
 		return (false);
-	if (distances[0] < (1.0 - EPSILON) && distances[0] > EPSILON && \
-		is_intersect_cylinder(ray_shadow, cylinder, distances[0]))
+	distance_min = fmin(distances[0], distances[1]);
+	if (distance_min < (1.0 - EPSILON) && distance_min > EPSILON && \
+		is_intersect_cylinder(ray_shadow, cylinder, distance_min))
 		return (true);
 	return (false);
 }
