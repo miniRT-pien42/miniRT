@@ -28,6 +28,7 @@ SRCS		:=	cylinder/cylinder_color.c \
 				display/init.c \
 				display/display.c \
 				display/set_each_pixel.c \
+				display/ray_trace.c \
 				debug/debug.c \
 				debug/print_object.c \
 				debug/print_rt_file.c \

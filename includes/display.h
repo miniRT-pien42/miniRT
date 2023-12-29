@@ -9,6 +9,8 @@
 
 typedef struct s_vector	t_vector;
 typedef struct s_scene	t_scene;
+typedef struct s_rgb	t_rgb;
+typedef struct s_ray	t_ray;
 
 typedef struct s_display
 {
@@ -40,6 +42,10 @@ void		init_mlxs(\
 void		my_mlx_pixel_put(\
 					t_image *image, const int y, const int x, const int color);
 void		display(t_scene *scene);
+
+/* ray_trace */
+t_rgb	ray_tracing(\
+	t_scene *scene, void *nearest_object, const t_ray *ray);
 
 /* set */
 void		set_each_pixel_color(\
