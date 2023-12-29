@@ -29,13 +29,6 @@ typedef struct s_rgb_f
 	double	b;
 }	t_rgb_f;
 
-typedef struct s_material
-{
-	t_rgb_f	lux_light;
-	t_rgb_f	lux_total;
-	t_rgb	color;
-}	t_material;
-
 int				convert_rgb(t_rgb color);
 
 #endif
