@@ -11,8 +11,7 @@ t_plane	*init_plane(const char **line, t_result *result)
 	plane = (t_plane *)x_malloc(sizeof(t_plane));
 	plane->type = PLANE;
 	plane->point = convert_line_to_vector(line[0], result);
-	plane->dir_n = convert_line_to_vector_in_range(\
-										line[1], DIR_N_MIN, DIR_N_MAX, result);
+	plane->dir_n = init_normal_vector(line[1], DIR_N_MIN, DIR_N_MAX, result);
 	plane->color = convert_line_to_rgb(line[2], result);
 	return (plane);
 }
