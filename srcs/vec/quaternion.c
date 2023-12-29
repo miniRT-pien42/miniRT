@@ -30,7 +30,7 @@ static t_vector	rotate_vector(t_vector v, t_quaternion q)
 	const t_quaternion	q_v = \
 		(t_quaternion){.w = 0.0, .x = v.x, .y = v.y, .z = v.z};
 	const t_quaternion	q_conjugate = \
-		(t_quaternion){.w = q.w, .x = -q.x, .y = -q.y, .z = -q.z};
+		(t_quaternion){.w = q.w, .x = q.x, .y = -q.y, .z = q.z};
 	const t_quaternion	q_rotate = \
 		get_multiply_quaternion(get_multiply_quaternion(q, q_v), q_conjugate);
 
