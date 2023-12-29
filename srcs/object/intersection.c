@@ -41,7 +41,7 @@ static t_vector	get_normal(t_intersection intersection, const t_ray *ray, t_shap
 	if (type == SPHERE)
 		normal = get_normal_on_sphere(intersection, ray);
 	else if (type == PLANE)
-		normal = ((t_plane *)intersection.object)->normal;
+		normal = get_normal_on_plane((t_plane *)intersection.object, ray);
 	else if (type == CYLINDER)
 		normal = get_normal_on_cylinder(intersection, ray);
 	return (normal);
@@ -59,13 +59,6 @@ t_intersection	get_intersection(\
 	intersection.position = \
 		get_position_on_object(scene, ray, intersection.distance);
 	intersection.normal = get_normal(intersection, ray, type);
-	//PLANE法線をcamera側に
-	if (type == PLANE && \
-		vec_dot(intersection.normal, vec_normalize(\
-		vec_subtract(intersection.position, scene->camera->pos))) > 0)
-	{
-		intersection.normal = vec_scalar(intersection.normal, -1);
-	}
 	intersection.l_dot = get_l_dot(scene, intersection);
 	return (intersection);
 }

@@ -81,6 +81,9 @@ t_plane			*init_plane(const char **line);
 // plane/plane_ray.c
 double			get_distance_to_plane(const t_ray *ray, t_plane *plane);
 
+// sphere/plane_color.c
+t_vector		get_normal_on_plane(t_plane *plane, const t_ray *ray);
+
 // cylinder/cylinder.c
 t_cylinder		*init_cylinder(const char **line);
 
