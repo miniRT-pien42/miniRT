@@ -1,13 +1,15 @@
 #ifndef DISPLAY_H
 # define DISPLAY_H
 
+#include "vector.h"
+#include <stdlib.h>//size_t
+
 # define TITLE	"miniRT"
 # define HEIGHT	512
 # define WIDTH	512
 
 # define UNREACHABLE	0
 
-typedef struct s_vector	t_vector;
 typedef struct s_scene	t_scene;
 
 typedef struct s_display
@@ -32,6 +34,14 @@ typedef struct s_mlx
 	t_scene		*scene;
 }	t_mlx;
 
+typedef struct s_screen_info
+{
+	size_t		x;
+	size_t		y;
+	t_vector	center_screen;
+	double		rotation_angle;
+}	t_screen_info;
+
 /* init */
 void		init_mlxs(\
 			t_mlx *mlxs, t_display *display, t_image *image, t_scene *scene);
@@ -42,7 +52,6 @@ void		my_mlx_pixel_put(\
 void		display(t_scene *scene);
 
 /* set */
-void		set_each_pixel_color(\
-	t_mlx *mlxs, const int y, const int x, t_scene *scene);
+void		set_each_pixel_color(t_mlx *mlxs, t_scene *scene, t_screen_info screen);
 
 #endif

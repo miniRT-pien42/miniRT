@@ -1,5 +1,6 @@
 #include "mlx.h"
 #include "scene.h"
+#include "vector.h"
 #include <stdlib.h> // exit
 #include <X11/X.h> // mlx_hook
 
@@ -16,19 +17,21 @@ void	my_mlx_pixel_put(\
 
 static void	set_image(t_mlx *mlxs, t_scene *scene)
 {
-	size_t	y;
-	size_t	x;
+	t_screen_info	screen;
 
-	y = 0;
-	while (y < HEIGHT)
+	screen.center_screen = get_center_screen(scene->camera);
+	screen.rotation_angle = \
+		get_angle(set_axis_base(), scene->camera->dir_norm);
+	screen.y = 0;
+	while (screen.y < HEIGHT)
 	{
-		x = 0;
-		while (x < WIDTH)
+		screen.x = 0;
+		while (screen.x < WIDTH)
 		{
-			set_each_pixel_color(mlxs, y, x, scene);
-			x++;
+			set_each_pixel_color(mlxs, scene, screen);
+			screen.x++;
 		}
-		y++;
+		screen.y++;
 	}
 	mlx_put_image_to_window(\
 			mlxs->display->mlx_p, mlxs->display->win_p, mlxs->image->img, 0, 0);
