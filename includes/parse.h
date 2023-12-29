@@ -28,6 +28,8 @@
 # define RATIO_MAX	(1.0)
 # define DIR_N_MIN	(-1.0)
 # define DIR_N_MAX	(1.0)
+# define VALID_NORMAL_LEN_MIN	(0.99)
+# define VALID_NORMAL_LEN_MAX	(1.01)
 
 typedef struct s_scene	t_scene;
 typedef struct s_rgb	t_rgb;
@@ -59,6 +61,8 @@ double			convert_to_double_in_range(\
 t_vector		convert_line_to_vector_in_range(\
 		const char *line, const double min, const double max, t_result *result);
 t_vector		convert_line_to_vector(const char *line, t_result *result);
+t_vector		init_normal_vector(\
+		const char *line, const double min, const double max, t_result *result);
 
 /* validation */
 bool			is_valid_file_path(const char *filepath);
