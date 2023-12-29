@@ -21,6 +21,8 @@ static t_screen_info	get_screen_info(t_scene *scene)
 	double			rotation_angle;
 	t_vector		r_axis;
 
+	screen.x = 0;
+	screen.y = 0;
 	screen.axis = set_axis_base();
 	screen.center_screen = get_center_screen(scene->camera);
 	rotation_angle = \
@@ -32,9 +34,9 @@ static t_screen_info	get_screen_info(t_scene *scene)
 
 static void	set_image(t_mlx *mlxs, t_scene *scene)
 {
-	t_screen_info	screen = get_screen_info(scene);
+	t_screen_info	screen;
 
-	screen.y = 0;
+	screen = get_screen_info(scene);
 	while (screen.y < HEIGHT)
 	{
 		screen.x = 0;
