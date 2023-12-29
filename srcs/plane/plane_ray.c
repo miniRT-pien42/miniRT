@@ -5,16 +5,16 @@
 
 double	get_distance_to_plane(const t_ray *ray, t_plane *plane)
 {
-	double	num_bottom;
-	double	num_top;
+	double	denom;
+	double	numer;
 	double	distance;
 
-	num_bottom = vec_dot(ray->direction, plane->normal);
-	if (num_bottom == 0)
+	denom = vec_dot(ray->direction, plane->normal);
+	if (denom == 0)
 		return (NAN);
-	num_top = \
+	numer = \
 		vec_dot(vec_subtract(ray->position, plane->point), plane->normal);
-	distance = num_top / num_bottom * -1;
+	distance = numer / denom * -1;
 	if (distance < 0)
 		return (NAN);
 	return (distance);

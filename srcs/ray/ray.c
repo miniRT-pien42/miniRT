@@ -22,15 +22,15 @@ double	get_l_dot(\
 	const t_ray	ray_shadow = get_ray_shadow(intersection.position, scene->light->pos);
 
 	if (type == CYLINDER && \
-		is_cylinder_self_shadow(intersection, &ray_shadow))
-		return (NO_INCIDENT);
-	if (is_shadow_intersection(scene, intersection, &ray_shadow))
-		return (NO_INCIDENT);
+		is_cylinder_self_shadow((t_cylinder *)intersection.object, &ray_shadow))
+		return (NOT_ILLUMINATED);
+	if (is_shadow_intersection(scene, intersection.object, &ray_shadow))
+		return (NOT_ILLUMINATED);
 	incident = vec_normalize(\
 		vec_subtract(scene->light->pos, intersection.position));
 	l_dot = vec_dot(incident, intersection.normal);
 	if (l_dot < 0)
-		return (NO_INCIDENT);
+		return (NOT_ILLUMINATED);
 	l_dot = clipping(l_dot, 0, 1);
 	return (l_dot);
 }
@@ -65,7 +65,7 @@ t_rgb_f	get_lux_light(const t_light *light, void *nearest_object, double l_dot)
 	return (lux_light);
 }
 
-t_rgb_f	get_lux_total(t_rgb_f lux_ambient, t_rgb_f lux_light)
+t_rgb_f	add_up_lux_total(t_rgb_f lux_ambient, t_rgb_f lux_light)
 {
 	t_rgb_f	lux_total;
 

@@ -12,19 +12,21 @@
 // 1より小さくて正なら手前側（影の元）
 // 負ならライトは中にある
 bool	is_cylinder_self_shadow(\
-	t_intersection intersection, const t_ray *ray_shadow)
+	t_cylinder *cylinder, const t_ray *ray_shadow)
 {
 	double		distances[2];
+	double		distance_min;
 	double		discriminant;
 
 	discriminant = \
-		calc_discriminant_for_cylinder(ray_shadow, intersection.object, distances);
+		calc_discriminant_for_cylinder(ray_shadow, cylinder, distances);
 	if (discriminant < 0)
 		error_exit(ERR_INTERSECTION);
 	if (discriminant == 0)
 		return (false);
-	if (distances[0] < (1.0 - EPSILON) && distances[0] > EPSILON && \
-		is_intersect_cylinder(ray_shadow, intersection.object, distances[0]))
+	distance_min = fmin(distances[0], distances[1]);
+	if (distance_min < (1.0 - EPSILON) && distance_min > EPSILON && \
+		is_intersect_cylinder(ray_shadow, cylinder, distance_min))
 		return (true);
 	return (false);
 }
@@ -43,20 +45,17 @@ static t_vector	nearest_pos_on_axis(t_vector pos, const t_cylinder *cylinder)
 
 //交点から中心時軸に投影したポイントPを求める
 //カメラから中心軸上に投影したポイントを求め、cy半径との距離を比べる
-bool	is_camera_inside_cylinder(const t_cylinder *cylinder, const t_ray *ray_shadow)
+static bool	is_camera_inside_cylinder(t_cylinder *cylinder, const t_ray *ray_shadow)
 {
 	double		distances[2];
 	double		discriminant;
 
 	discriminant = calc_discriminant_for_cylinder(\
-		ray_shadow, (t_cylinder *)cylinder, distances);
+		ray_shadow, cylinder, distances);
 	if (discriminant < 0)
 		error_exit(ERR_INTERSECTION);
 	//片方が負ならシリンダ内部にカメラがある
-	if ((distances[0] > 0 && distances[1] < 0) || \
-		(distances[0] < 0 && distances[1] > 0) || \
-		(fabs(distances[0]) < EPSILON && distances[1] > 0) || \
-		(fabs(distances[1]) < EPSILON && distances[0] > 0))
+	if (is_has_negative_distance(distances))
 		return (true);
 	//共に正ならシリンダを外から見ている。見えているポイントが指定された高さの範囲内なら外側が見えている
 	if (is_intersect_cylinder(\
@@ -73,12 +72,14 @@ bool	is_camera_inside_cylinder(const t_cylinder *cylinder, const t_ray *ray_shad
 // intersectionがcylinderのinner or outer判定して法線反転
 t_vector	get_normal_on_cylinder(t_intersection intersection, const t_ray *ray)
 {
-	t_vector			normal;
-	const t_cylinder	*cylinder = intersection.object;
-	const bool			is_inside_view = is_camera_inside_cylinder(cylinder, ray);
-	const t_vector		np = \
-		nearest_pos_on_axis(intersection.position, cylinder);
+	t_vector	normal;
+	t_cylinder	*cylinder;
+	bool		is_inside_view;
+	t_vector	np;
 
+	cylinder = intersection.object;
+	is_inside_view = is_camera_inside_cylinder(cylinder, ray);
+	np = nearest_pos_on_axis(intersection.position, cylinder);
 	if (is_inside_view)
 	{
 		normal = vec_normalize(\

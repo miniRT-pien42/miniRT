@@ -21,12 +21,15 @@ SRCS		:=	cylinder/cylinder_color.c \
 				object/intersection.c \
 				plane/plane.c \
 				plane/plane_ray.c \
+				plane/plane_color.c \
 				sphere/sphere.c \
 				sphere/sphere_ray.c \
 				sphere/sphere_color.c \
+				sphere/sphere_distance.c \
 				display/init.c \
 				display/display.c \
 				display/set_each_pixel.c \
+				display/ray_trace.c \
 				debug/debug.c \
 				debug/print_object.c \
 				debug/print_rt_file.c \
