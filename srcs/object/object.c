@@ -60,6 +60,7 @@ static t_deque_node	*get_new_object_node(\
 	t_deque_node	*node;
 	void			*object;
 
+	object = NULL;
 	if (type == SPHERE)
 		object = (void *)init_sphere(line, result);
 	else if (type == PLANE)
