@@ -20,7 +20,7 @@ t_rgb	ray_tracing(\
 		lux_light = \
 			get_lux_light(scene->light, nearest_object, intersection.l_dot);
 		lux_total = \
-			get_lux_total(lux_total, lux_light);
+			add_up_lux_total(lux_total, lux_light);
 	}
 	color = (t_rgb){.r = lux_total.r * 255, \
 		.g = lux_total.g * 255, .b = lux_total.b * 255};

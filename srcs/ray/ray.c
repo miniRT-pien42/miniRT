@@ -65,7 +65,7 @@ t_rgb_f	get_lux_light(const t_light *light, void *nearest_object, double l_dot)
 	return (lux_light);
 }
 
-t_rgb_f	get_lux_total(t_rgb_f lux_ambient, t_rgb_f lux_light)
+t_rgb_f	add_up_lux_total(t_rgb_f lux_ambient, t_rgb_f lux_light)
 {
 	t_rgb_f	lux_total;
 
