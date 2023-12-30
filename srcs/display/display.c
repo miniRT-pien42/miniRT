@@ -15,23 +15,6 @@ void	my_mlx_pixel_put(\
 	*(unsigned int *)dst = color;
 }
 
-static t_screen_info	get_screen_info(t_scene *scene)
-{
-	t_screen_info	screen;
-	double			rotation_angle;
-	t_vector		r_axis;
-
-	screen.x = 0;
-	screen.y = 0;
-	screen.axis = set_axis_base();
-	screen.center_screen = get_center_screen(scene->camera);
-	rotation_angle = \
-		vec_angle(set_axis_base(), scene->camera->dir_norm);
-	r_axis = vec_normalize(vec_cross(screen.axis, scene->camera->dir_norm));
-	screen.q_rotate = get_rotate_quaternion(r_axis, rotation_angle);
-	return (screen);
-}
-
 static void	set_image(t_mlx *mlxs, t_scene *scene)
 {
 	t_screen_info	screen;

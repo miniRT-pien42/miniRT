@@ -9,6 +9,10 @@
 # define HEIGHT	512
 # define WIDTH	512
 
+# define AXIS_BASE_X	0.0
+# define AXIS_BASE_Y	0.0
+# define AXIS_BASE_Z	1.0
+
 # define UNREACHABLE	0
 
 typedef struct s_scene	t_scene;
@@ -57,6 +61,9 @@ void	display(t_scene *scene);
 
 /* ray_trace */
 t_rgb	ray_tracing(t_scene *scene, void *nearest_object, const t_ray *ray);
+
+/* screen */
+t_screen_info	get_screen_info(t_scene *scene);
 
 /* set */
 void		set_each_pixel_color(t_mlx *mlxs, t_scene *scene, t_screen_info screen);
