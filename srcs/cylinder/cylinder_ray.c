@@ -18,8 +18,7 @@ bool	is_intersect_cylinder(\
 }
 
 // discriminant >= 0 かつ交点の高さがcylinder.height以下なら衝突している
-double	get_distance_to_cylinder(\
-				const t_ray *ray, t_cylinder *cylinder)
+double	get_distance_to_cylinder(const t_ray *ray, t_cylinder *cylinder)
 {
 	double		distances[2];
 	double		discriminant;

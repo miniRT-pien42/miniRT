@@ -66,7 +66,7 @@ static t_deque_node	*get_new_object_node(const char **line, const t_shape type)
 }
 
 void	add_to_list_object(\
-					t_deque *list_object, const char **line, const t_shape type)
+	t_deque *list_object, const char **line, const t_shape type)
 {
 	t_deque_node	*node;
 

@@ -43,7 +43,8 @@ static t_vector	nearest_pos_on_axis(t_vector pos, const t_cylinder *cylinder)
 
 //交点から中心時軸に投影したポイントPを求める
 //カメラから中心軸上に投影したポイントを求め、cy半径との距離を比べる
-static bool	is_camera_inside_cylinder(t_cylinder *cylinder, const t_ray *ray_shadow)
+static bool	is_camera_inside_cylinder(\
+	t_cylinder *cylinder, const t_ray *ray_shadow)
 {
 	double		distances[2];
 
@@ -64,7 +65,8 @@ static bool	is_camera_inside_cylinder(t_cylinder *cylinder, const t_ray *ray_sha
 
 // カメラray、交点=>シリンダ中心のベクトルから内積を求める
 // intersectionがcylinderのinner or outer判定して法線反転
-t_vector	get_normal_on_cylinder(t_intersection intersection, const t_ray *ray)
+t_vector	get_normal_on_cylinder(\
+	t_intersection intersection, const t_ray *ray)
 {
 	t_vector	normal;
 	t_cylinder	*cylinder;
@@ -75,14 +77,8 @@ t_vector	get_normal_on_cylinder(t_intersection intersection, const t_ray *ray)
 	is_inside_view = is_camera_inside_cylinder(cylinder, ray);
 	np = nearest_pos_on_axis(intersection.position, cylinder);
 	if (is_inside_view)
-	{
-		normal = vec_normalize(\
-			vec_subtract(np, intersection.position));
-	}
+		normal = vec_normalize(vec_subtract(np, intersection.position));
 	else
-	{
-		normal = vec_normalize(\
-			vec_subtract(intersection.position, np));
-	}
+		normal = vec_normalize(vec_subtract(intersection.position, np));
 	return (normal);
 }
