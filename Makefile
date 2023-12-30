@@ -28,6 +28,7 @@ SRCS		:=	cylinder/cylinder_color.c \
 				sphere/sphere_distance.c \
 				display/init.c \
 				display/display.c \
+				display/screen.c \
 				display/set_each_pixel.c \
 				display/ray_trace.c \
 				debug/debug.c \

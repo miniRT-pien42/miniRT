@@ -3,6 +3,8 @@
 
 # include <stdbool.h>
 
+typedef struct s_screen_info	t_screen_info;
+
 typedef struct s_vector
 {
 	double	x;
@@ -19,5 +21,6 @@ t_vector	vec_normalize(const t_vector v);
 double		vec_length(const t_vector v);
 double		vec_angle(const t_vector v1, const t_vector v2);
 bool		is_vector_opposite(t_vector a, t_vector b);
+bool		is_vector_parallel(t_vector a, t_vector b);
 
 #endif

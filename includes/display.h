@@ -1,13 +1,19 @@
 #ifndef DISPLAY_H
 # define DISPLAY_H
 
+#include "vector.h"
+#include "quaternion.h"
+
 # define TITLE	"miniRT"
 # define HEIGHT	512
 # define WIDTH	512
 
+# define AXIS_BASE_X	0.0
+# define AXIS_BASE_Y	0.0
+# define AXIS_BASE_Z	1.0
+
 # define UNREACHABLE	0
 
-typedef struct s_vector	t_vector;
 typedef struct s_scene	t_scene;
 typedef struct s_rgb	t_rgb;
 typedef struct s_ray	t_ray;
@@ -34,6 +40,15 @@ typedef struct s_mlx
 	t_scene		*scene;
 }	t_mlx;
 
+typedef struct s_screen_info
+{
+	int			x;
+	int			y;
+	t_vector		center_screen;
+	t_vector		axis;
+	t_quaternion	q_rotate;
+}	t_screen_info;
+
 /* init */
 void	init_mlxs(\
 	t_mlx *mlxs, t_display *display, t_image *image, t_scene *scene);
@@ -46,8 +61,10 @@ void	display(t_scene *scene);
 /* ray_trace */
 t_rgb	ray_tracing(t_scene *scene, void *nearest_object, const t_ray *ray);
 
+/* screen */
+t_screen_info	get_screen_info(t_scene *scene);
+
 /* set */
-void	set_each_pixel_color(\
-	t_mlx *mlxs, const int y, const int x, t_scene *scene);
+void		set_each_pixel_color(t_mlx *mlxs, t_scene *scene, t_screen_info screen);
 
 #endif

@@ -3,7 +3,7 @@
 #include <math.h>
 
 //回転クォータニオン axisは基準となるz軸
-static t_quaternion	get_rotate_quaternion(t_vector axis, double angle)
+t_quaternion	get_rotate_quaternion(t_vector axis, double angle)
 {
 	t_quaternion	q_rotate;
 
@@ -31,23 +31,18 @@ static t_vector	rotate_vector(t_vector v, t_quaternion q)
 	const t_quaternion	q_v = \
 		(t_quaternion){.w = 0.0, .x = v.x, .y = v.y, .z = v.z};
 	const t_quaternion	q_conjugate = \
-		(t_quaternion){.w = q.w, .x = -q.x, .y = -q.y, .z = -q.z};
+		(t_quaternion){.w = q.w, .x = q.x, .y = -q.y, .z = q.z};
 	const t_quaternion	q_rotate = \
 		get_multiply_quaternion(get_multiply_quaternion(q, q_v), q_conjugate);
 
 	return ((t_vector){.x = q_rotate.x, .y = q_rotate.y, .z = q_rotate.z});
 }
 
-t_vector	rotate_vector_by_quaternion(\
-	t_vector v, double angle, t_vector dir_norm)
+t_vector	rotate_vector_by_quaternion(t_vector dir_norm, t_vector v, t_screen_info screen)
 {
-	const t_vector	axis = set_axis_base();
-	t_vector		r_axis;
-	t_quaternion	q_rotate;
-
-	if (is_vector_opposite(axis, dir_norm))
+	if (is_vector_parallel(screen.axis, dir_norm))
+		return (v);
+	if (is_vector_opposite(screen.axis, dir_norm))
 		return ((t_vector){.x = v.x * -1, .y = v.y, .z = v.z * -1});
-	r_axis = vec_cross(axis, dir_norm);
-	q_rotate = get_rotate_quaternion(r_axis, angle);
-	return (rotate_vector(v, q_rotate));
+	return (rotate_vector(v, screen.q_rotate));
 }

@@ -15,11 +15,6 @@ void	destroy_scene(t_scene *scene)
 	deque_clear_all(&scene->list_object, del_object);
 }
 
-t_vector	set_axis_base(void)
-{
-	return ((t_vector){.x = AXIS_BASE_X, .y = AXIS_BASE_Y, .z = AXIS_BASE_Z});
-}
-
 void	init_scene(t_scene *scene)
 {
 	scene->camera = NULL;
