@@ -15,8 +15,8 @@ static double	calc_b_for_sphere(const t_ray *ray, t_vector v)
 
 static double	calc_c_for_sphere(const t_sphere *sphere, t_vector v)
 {
-	const double len = vec_length(v);
-	const double radius = sphere->diameter / 2;
+	const double	len = vec_length(v);
+	const double	radius = sphere->diameter / 2;
 
 	return (len * len - radius * radius);
 }
