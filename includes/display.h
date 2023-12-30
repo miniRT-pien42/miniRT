@@ -3,7 +3,6 @@
 
 #include "vector.h"
 #include "quaternion.h"
-#include <stdlib.h>//size_t
 
 # define TITLE	"miniRT"
 # define HEIGHT	512
