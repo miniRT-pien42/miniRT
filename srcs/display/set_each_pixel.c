@@ -5,7 +5,6 @@
 #include "scene.h"
 #include <stddef.h>
 
-// screen上の点の位置
 static t_ray	calc_ray(t_scene *scene, t_screen_info screen)
 {
 	t_ray			ray;

@@ -3,9 +3,6 @@
 #include "scene.h"
 #include <math.h>
 
-// pa:        交点位置
-// pa_normal: paからの法線ベクトル
-// 中心軸上での法線とpaから求めた法線が同じ方向を向いていてheight以内かどうかを返す
 bool	is_intersect_cylinder(\
 				const t_ray *ray, const t_cylinder *cylinder, double distance)
 {
@@ -17,7 +14,6 @@ bool	is_intersect_cylinder(\
 	return (-cylinder->height / 2 <= height && height <= cylinder->height / 2);
 }
 
-// discriminant >= 0 かつ交点の高さがcylinder.height以下なら衝突している
 double	get_distance_to_cylinder(const t_ray *ray, t_cylinder *cylinder)
 {
 	double		distances[2];

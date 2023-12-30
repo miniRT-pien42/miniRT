@@ -9,8 +9,6 @@ static t_vector	set_axis_base(void)
 	return ((t_vector){.x = AXIS_BASE_X, .y = AXIS_BASE_Y, .z = AXIS_BASE_Z});
 }
 
-//カメラのorientation vectorの延長線上にあり、WIDTHが2の画角を取れる平面の中心座標
-// (WIDTH=2のとき画角のWIDTHが円錐に外接する)
 static t_vector	get_center_screen(t_camera *camera)
 {
 	double	diameter;

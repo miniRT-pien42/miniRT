@@ -3,7 +3,6 @@
 #include "quaternion.h"
 #include <math.h>
 
-//回転クォータニオン axisは基準となるz軸
 t_quaternion	get_rotate_quaternion(t_vector axis, double angle)
 {
 	t_quaternion	q_rotate;
@@ -15,7 +14,6 @@ t_quaternion	get_rotate_quaternion(t_vector axis, double angle)
 	return (q_rotate);
 }
 
-//クォータニオンの積
 static t_quaternion	get_multiply_quaternion(t_quaternion q1, t_quaternion q2)
 {
 	t_quaternion	q_multiply;
