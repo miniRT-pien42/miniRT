@@ -22,14 +22,14 @@ static double	set_sign(const char **s)
 static void	convert_decimal_part(\
 								double *num, const char **s, bool *is_valid_num)
 {
-	double	decimal;
+	double	inverse_power;
 
-	decimal = 0.1;
+	inverse_power = 0.1;
 	while (ft_isdigit(**s))
 	{
 		*is_valid_num = true;
-		*num += decimal * (**s - '0');
-		decimal /= 10;
+		*num += inverse_power * (**s - '0');
+		inverse_power /= 10;
 		(*s)++;
 	}
 }
