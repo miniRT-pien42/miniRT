@@ -9,6 +9,7 @@ SRCS		:=	cylinder/cylinder_color.c \
 				vec/vector2.c \
 				vec/vector3.c \
 				vec/quaternion.c \
+				quaternion/quaternion.c \
 				color/color.c \
 				helpers/helpers_math1.c \
 				error/error.c \

@@ -25,8 +25,6 @@ t_vector	vec_scalar(const t_vector v, double scalar);
 t_vector	vec_normalize(const t_vector v);
 double		get_length(const t_vector v);
 double		get_angle(const t_vector v1, const t_vector v2);
-t_vector	rotate_vector_by_quaternion(\
-	t_vector v, double angle, t_vector dir_norm);
 bool		is_vector_opposite(t_vector a, t_vector b);
 
 #endif
