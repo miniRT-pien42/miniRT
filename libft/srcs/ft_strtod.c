@@ -55,7 +55,7 @@ double	ft_strtod(const char *s, const char **end_ptr)
 		num = num * 10 + *s - '0';
 		s++;
 	}
-	if (*s == '.')
+	if (*s == '.' && is_valid_num)
 	{
 		is_valid_num = false;
 		s++;
@@ -71,8 +71,8 @@ double	ft_strtod(const char *s, const char **end_ptr)
 
 static void	run_ft_strtod(char *s, double expect)
 {
-	char	*end_ptr;
-	double	num;
+	const char	*end_ptr;
+	double		num;
 
 	num = ft_strtod(s, &end_ptr);
 	// valid
@@ -91,8 +91,12 @@ static void	run_ft_strtod(char *s, double expect)
 
 int main(void)
 {
+	run_ft_strtod("", 0);
+	run_ft_strtod("   ", 0);
 	run_ft_strtod(".", 0);
-	// run_ft_strtod(".123", 0);
+	run_ft_strtod(".123", 0);
+	run_ft_strtod("   .123", 0);
+	run_ft_strtod("12   .345", 0);
 	run_ft_strtod("123.", 0);
 	run_ft_strtod("+-123", 0);
 	run_ft_strtod("-+123", 0);
