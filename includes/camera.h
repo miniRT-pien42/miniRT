@@ -12,6 +12,7 @@ typedef struct s_camera
 	int			fov;
 }	t_camera;
 
+/* camera */
 t_camera	*init_camera(const char **line, t_result *result);
 
 #endif

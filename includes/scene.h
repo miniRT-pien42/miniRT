@@ -21,8 +21,11 @@ typedef struct s_scene
 	t_deque			*list_object;
 }	t_scene;
 
-void		init_scene(t_scene *scene);
-t_result	parse_lines_to_scene(t_deque *lines, t_scene *scene);
+/* scene */
 void		destroy_scene(t_scene *scene);
+void		init_scene(t_scene *scene);
+
+/* parser/convert_lines_to_scene */
+t_result	parse_lines_to_scene(t_deque *lines, t_scene *scene);
 
 #endif

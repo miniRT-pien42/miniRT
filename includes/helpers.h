@@ -5,6 +5,7 @@
 
 typedef struct s_vector	t_vector;
 
+/* helpers_math1 */
 double		clipping(const double num, const double min, const double max);
 double		convert_deg_to_rad(double deg);
 double		convert_rad_to_deg(double rad);

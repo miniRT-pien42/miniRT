@@ -1,8 +1,8 @@
 #ifndef DISPLAY_H
 # define DISPLAY_H
 
-#include "vector.h"
-#include "quaternion.h"
+# include "vector.h"
+# include "quaternion.h"
 
 # define TITLE	"miniRT"
 # define HEIGHT	512
@@ -42,29 +42,31 @@ typedef struct s_mlx
 
 typedef struct s_screen_info
 {
-	int			x;
-	int			y;
+	int				x;
+	int				y;
 	t_vector		center_screen;
 	t_vector		axis;
 	t_quaternion	q_rotate;
 }	t_screen_info;
 
 /* init */
-void	init_mlxs(\
+void			init_mlxs(\
 	t_mlx *mlxs, t_display *display, t_image *image, t_scene *scene);
 
 /* display */
-void	my_mlx_pixel_put(\
+void			my_mlx_pixel_put(\
 	t_image *image, const int y, const int x, const int color);
-void	display(t_scene *scene);
+void			display(t_scene *scene);
 
 /* ray_trace */
-t_rgb	ray_tracing(t_scene *scene, void *nearest_object, const t_ray *ray);
+t_rgb			ray_tracing(\
+	t_scene *scene, void *nearest_object, const t_ray *ray);
 
 /* screen */
 t_screen_info	get_screen_info(t_scene *scene);
 
 /* set */
-void		set_each_pixel_color(t_mlx *mlxs, t_scene *scene, t_screen_info screen);
+void			set_each_pixel_color(\
+	t_mlx *mlxs, t_scene *scene, t_screen_info screen);
 
 #endif

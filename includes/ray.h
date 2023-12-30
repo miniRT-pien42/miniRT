@@ -24,7 +24,7 @@ typedef struct s_intersection
 	double		l_dot;
 }	t_intersection;
 
-// ray/ray.c
+/* ray */
 double	get_l_dot(t_scene *scene, t_intersection intersection);
 t_rgb_f	get_lux_ambient(const t_light_ambient *ambient);
 t_rgb_f	get_lux_light(const t_light *light, void *nearest_object, double l_dot);

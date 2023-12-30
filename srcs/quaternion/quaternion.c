@@ -1,8 +1,8 @@
+#include "display.h"
 #include "scene.h"
 #include "quaternion.h"
 #include <math.h>
 
-//回転クォータニオン axisは基準となるz軸
 t_quaternion	get_rotate_quaternion(t_vector axis, double angle)
 {
 	t_quaternion	q_rotate;
@@ -14,7 +14,6 @@ t_quaternion	get_rotate_quaternion(t_vector axis, double angle)
 	return (q_rotate);
 }
 
-//クォータニオンの積
 static t_quaternion	get_multiply_quaternion(t_quaternion q1, t_quaternion q2)
 {
 	t_quaternion	q_multiply;
@@ -38,7 +37,8 @@ static t_vector	rotate_vector(t_vector v, t_quaternion q)
 	return ((t_vector){.x = q_rotate.x, .y = q_rotate.y, .z = q_rotate.z});
 }
 
-t_vector	rotate_vector_by_quaternion(t_vector dir_norm, t_vector v, t_screen_info screen)
+t_vector	rotate_vector_by_quaternion(\
+	t_vector dir_norm, t_vector v, t_screen_info screen)
 {
 	if (is_vector_parallel(screen.axis, dir_norm))
 		return (v);

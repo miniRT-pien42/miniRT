@@ -18,9 +18,6 @@ static double	get_closer_distance(double discriminant, double *distances)
 	return (closer_distance);
 }
 
-// camera,lightからの最短距離を取得。
-// discriminant == 0 rayが対象に対し接線となる場合、交点を一つ持つものとして扱う
-// distance == 0 rayとobjectの交点がcamera,light位置と重なる場合は数値扱いとしNaNにしない
 double	get_distance_to_sphere(const t_ray *ray, t_sphere *sphere)
 {
 	double		distances[2];
