@@ -1,12 +1,15 @@
 NAME		:=	miniRT
 
 SRC_DIR		:=	srcs
-SRCS		:=	cylinder/cylinder_ray.c \
+SRCS		:=	cylinder/cylinder_color.c \
+				cylinder/cylinder_discriminant.c \
+				cylinder/cylinder_ray.c \
 				cylinder/cylinder.c \
-				vec/vector1.c \
-				vec/vector2.c \
-				vec/vector3.c \
-				vec/quaternion.c \
+				vector/vector1.c \
+				vector/vector2.c \
+				vector/vector3.c \
+				quaternion/quaternion.c \
+				color/color.c \
 				helpers/helpers_math1.c \
 				error/error.c \
 				scene/scene.c \
@@ -15,14 +18,18 @@ SRCS		:=	cylinder/cylinder_ray.c \
 				light/light.c \
 				object/object.c \
 				object/distance.c \
+				object/intersection.c \
 				plane/plane.c \
 				plane/plane_ray.c \
+				plane/plane_color.c \
 				sphere/sphere.c \
 				sphere/sphere_ray.c \
 				sphere/sphere_color.c \
+				sphere/sphere_distance.c \
 				display/init.c \
 				display/display.c \
 				display/set_each_pixel.c \
+				display/ray_trace.c \
 				debug/debug.c \
 				debug/print_object.c \
 				debug/print_rt_file.c \

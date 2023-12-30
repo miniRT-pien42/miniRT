@@ -4,6 +4,21 @@
 #include "parse.h"
 #include "result.h"
 
+t_vector	init_normal_vector(\
+		const char *line, const double min, const double max, t_result *result)
+{
+	t_vector	normal;
+	double		length;
+
+	normal = convert_line_to_vector_in_range(line, min, max, result);
+	if (*result == FAILURE)
+		return (normal);
+	length = vec_length(normal);
+	if (!(VALID_NORMAL_LEN_MIN <= length && length <= VALID_NORMAL_LEN_MAX))
+		*result = FAILURE;
+	return (normal);
+}
+
 static t_result	convert_line_with_identifier(const char **line, t_scene *scene)
 {
 	const t_identifier	id = set_identifier(line[0]);

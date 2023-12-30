@@ -1,4 +1,5 @@
 #include "scene.h"
+#include "quaternion.h"
 #include <math.h>
 
 //回転クォータニオン axisは基準となるz軸
@@ -38,15 +39,15 @@ static t_vector	rotate_vector(t_vector v, t_quaternion q)
 }
 
 t_vector	rotate_vector_by_quaternion(\
-	t_vector v, double angle, t_vector dir_n)
+	t_vector v, double angle, t_vector dir_norm)
 {
 	const t_vector	axis = set_axis_base();
 	t_vector		r_axis;
 	t_quaternion	q_rotate;
 
-	if (is_vector_opposite(axis, dir_n))
+	if (is_vector_opposite(axis, dir_norm))
 		return ((t_vector){.x = v.x * -1, .y = v.y, .z = v.z * -1});
-	r_axis = vec_cross(axis, dir_n);
+	r_axis = vec_cross(axis, dir_norm);
 	q_rotate = get_rotate_quaternion(r_axis, angle);
 	return (rotate_vector(v, q_rotate));
 }
