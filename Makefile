@@ -11,6 +11,10 @@ SRCS		:=	cylinder/cylinder_color.c \
 				quaternion/quaternion.c \
 				color/color.c \
 				helpers/helpers_math1.c \
+				helpers/x_ft_split.c \
+				helpers/x_get_next_line.c \
+				helpers/x_malloc.c \
+				helpers/x_open.c \
 				error/error.c \
 				scene/scene.c \
 				ray/ray.c \

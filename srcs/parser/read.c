@@ -1,24 +1,23 @@
 #include "ft_deque.h"
-#include "get_next_line.h"
+#include "helpers.h"
 #include "libft.h"
 #include "parse.h"
 #include "scene.h"
-#include <fcntl.h> // open
+#include <fcntl.h> // open_flag
+#include <unistd.h>
 
 static t_deque	*read_lines(const int fd)
 {
 	t_deque			*lines;
 	char			*line;
-	t_result		result;
 	t_deque_node	*node;
 
 	lines = deque_new();
 	while (true)
 	{
-		line = get_next_line(fd, &result); // todo: if result==FAILURE
+		line = x_get_next_line(fd);
 		if (line == NULL)
 			break ;
-		// todo: remove last newline?
 		node = deque_node_new((void *)line);
 		deque_add_back(lines, node);
 	}
@@ -30,8 +29,9 @@ t_deque	*read_file(const char *file_name)
 	int		fd;
 	t_deque	*lines;
 
-	fd = open(file_name, O_RDONLY); // todo: create x_open with error handle
+	fd = x_open(file_name, O_RDONLY);
 	lines = read_lines(fd);
+	close(fd);
 	return (lines);
 }
 

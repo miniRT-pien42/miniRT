@@ -1,11 +1,13 @@
 #include "ft_deque.h"
-#include "libft.h"
+#include <stdlib.h>
 
 t_deque_node	*deque_node_new(void *content)
 {
 	t_deque_node	*node;
 
-	node = (t_deque_node *)x_malloc(sizeof(t_deque_node));
+	node = (t_deque_node *)malloc(sizeof(t_deque_node));
+	if (node == NULL)
+		return (NULL);
 	node->content = content;
 	node->next = NULL;
 	node->prev = NULL;

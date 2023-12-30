@@ -4,7 +4,6 @@
 # include <stdbool.h>
 # include <stdint.h>
 
-# define OPEN_ERROR				(-1)
 # define FILE_EXTENSION			".rt"
 # define AT_LEAST_LINES			3
 # define DELIMITER_WHITE_SPACE	" \f\n\r\t\v"

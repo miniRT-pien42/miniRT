@@ -29,6 +29,4 @@ size_t	ft_strnlen(const char *s, const size_t maxlen);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 double	ft_strtod(const char *s, const char **endptr);
 
-void	*x_malloc(const size_t size);
-
 #endif

@@ -1,6 +1,7 @@
+#include "helpers.h"
 #include "libft.h"
 #include "parse.h"
-#include <fcntl.h> // open
+#include <fcntl.h> // open_flag
 #include <stdio.h>
 #include <unistd.h>
 
@@ -30,12 +31,7 @@ static bool	is_file_exist(const char *filepath)
 {
 	int	fd;
 
-	fd = open(filepath, O_RDONLY);
-	if (fd == OPEN_ERROR)
-	{
-		perror("open");
-		return (false);
-	}
+	fd = x_open(filepath, O_RDONLY);
 	close(fd);
 	return (true);
 }
