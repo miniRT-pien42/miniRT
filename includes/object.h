@@ -8,6 +8,7 @@
 typedef struct s_deque			t_deque;
 typedef struct s_intersection	t_intersection;
 typedef struct s_ray			t_ray;
+typedef struct s_scene			t_scene;
 
 typedef enum s_shape
 {

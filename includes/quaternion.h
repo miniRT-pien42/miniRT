@@ -1,6 +1,9 @@
 #ifndef QUATERNION_H
 # define QUATERNION_H
 
+typedef struct s_screen_info	t_screen_info;
+typedef struct s_vector			t_vector;
+
 typedef struct s_quaternion {
 	double	w;
 	double	x;
@@ -12,4 +15,5 @@ typedef struct s_quaternion {
 t_quaternion	get_rotate_quaternion(t_vector axis, double angle);
 t_vector		rotate_vector_by_quaternion(\
 	t_vector dir_norm, t_vector v, t_screen_info screen);
+
 #endif

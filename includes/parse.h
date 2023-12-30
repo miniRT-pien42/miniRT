@@ -30,9 +30,9 @@
 # define VALID_NORMAL_LEN_MIN	(0.99)
 # define VALID_NORMAL_LEN_MAX	(1.01)
 
-typedef struct s_scene	t_scene;
-typedef struct s_rgb	t_rgb;
 typedef struct s_deque	t_deque;
+typedef struct s_rgb	t_rgb;
+typedef struct s_scene	t_scene;
 typedef struct s_vector	t_vector;
 
 typedef enum e_identifier
