@@ -2,6 +2,7 @@
 # define PARSE_H
 
 # include <stdbool.h>
+# include <stdint.h>
 # include <vector.h>
 
 # define OPEN_ERROR				(-1)
@@ -17,6 +18,18 @@
 # define ELEM_COUNT_PLANE		4
 # define ELEM_COUNT_SPHERE		4
 # define ELEM_COUNT_CYLINDER	6
+
+# define UNUSED		0
+# define RGB_MIN	0
+# define RGB_MAX	255
+# define FOV_MIN	0
+# define FOV_MAX	180
+# define RATIO_MIN	(0.0)
+# define RATIO_MAX	(1.0)
+# define DIR_N_MIN	(-1.0)
+# define DIR_N_MAX	(1.0)
+# define VALID_NORMAL_LEN_MIN	(0.99)
+# define VALID_NORMAL_LEN_MAX	(1.01)
 
 typedef struct s_scene	t_scene;
 typedef struct s_rgb	t_rgb;
@@ -40,8 +53,16 @@ void			del_lines(void *args);
 t_deque			*read_file(const char *file_name);
 
 /* convert */
-t_vector		convert_line_to_vector(const char *line);
-t_rgb			convert_line_to_rgb(const char *line);
+uint8_t			convert_to_uint8_in_range(\
+				const char *s, const int min, const int max, t_result *result);
+t_rgb			convert_line_to_rgb(const char *line, t_result *result);
+double			convert_to_double_in_range(\
+		const char *s, const double min, const double max, t_result *result);
+t_vector		convert_line_to_vector_in_range(\
+		const char *line, const double min, const double max, t_result *result);
+t_vector		convert_line_to_vector(const char *line, t_result *result);
+t_vector		init_normal_vector(\
+		const char *line, const double min, const double max, t_result *result);
 
 /* validation */
 bool			is_valid_file_path(const char *filepath);
@@ -51,7 +72,6 @@ bool			is_valid_lines(t_deque **lines);
 t_identifier	set_identifier(const char *head_line);
 bool			is_correct_number_of_blocks(const t_deque *lines);
 bool			is_correct_value_counts(const t_deque *lines);
-bool			is_valid_scene_value(const t_scene *scene);
 bool			is_scene_value_unique(const t_deque *lines);
 
 #endif

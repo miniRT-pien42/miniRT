@@ -4,6 +4,8 @@
 # include "display.h"
 # include "helpers.h"
 
+typedef enum e_result	t_result;
+
 typedef struct s_camera
 {
 	t_vector	pos;
@@ -11,7 +13,7 @@ typedef struct s_camera
 	int			fov;
 }	t_camera;
 
-t_camera	*init_camera(const char **line);
+t_camera	*init_camera(const char **line, t_result *result);
 t_vector	get_center_screen(t_camera *camera);
 
 #endif

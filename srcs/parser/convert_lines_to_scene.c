@@ -2,42 +2,65 @@
 #include "scene.h"
 #include "object.h"
 #include "parse.h"
+#include "result.h"
 
-static void	convert_line_with_identifier(t_deque_node *node, t_scene *scene)
+t_vector	init_normal_vector(\
+		const char *line, const double min, const double max, t_result *result)
 {
-	char			**line;
-	t_identifier	id;
+	t_vector	normal;
+	double		length;
 
-	line = (char **)node->content;
-	id = set_identifier(line[0]);
-	if (id == ID_AMBIENT)
-		scene->light_ambient = init_light_ambient((const char **)line);
-	else if (id == ID_CAMERA)
-		scene->camera = init_camera((const char **)line);
-	else if (id == ID_LIGHT)
-		scene->light = init_light((const char **)line);
-	else if (id == ID_PLANE)
-		add_to_list_object(scene->list_object, (const char **)line, PLANE);
-	else if (id == ID_SPHERE)
-		add_to_list_object(scene->list_object, (const char **)line, SPHERE);
-	else if (id == ID_CYLINDER)
-		add_to_list_object(scene->list_object, (const char **)line, CYLINDER);
-	// else
-	// 	return (FAILURE);
-	// return (SUCCESS);
+	normal = convert_line_to_vector_in_range(line, min, max, result);
+	if (*result == FAILURE)
+		return (normal);
+	length = get_length(normal);
+	if (!(VALID_NORMAL_LEN_MIN <= length && length <= VALID_NORMAL_LEN_MAX))
+		*result = FAILURE;
+	return (normal);
 }
 
-void	parse_lines_to_scene(t_deque *lines, t_scene *scene)
+static t_result	convert_line_with_identifier(const char **line, t_scene *scene)
+{
+	const t_identifier	id = set_identifier(line[0]);
+	const char			**value_line = (const char **)&line[1];
+	t_result			result;
+	t_deque				*list_object;
+
+	result = SUCCESS;
+	list_object = scene->list_object;
+	if (id == ID_AMBIENT)
+		scene->light_ambient = init_light_ambient(value_line, &result);
+	else if (id == ID_CAMERA)
+		scene->camera = init_camera(value_line, &result);
+	else if (id == ID_LIGHT)
+		scene->light = init_light(value_line, &result);
+	else if (id == ID_PLANE)
+		result = add_to_list_object(list_object, value_line, PLANE);
+	else if (id == ID_SPHERE)
+		result = add_to_list_object(list_object, value_line, SPHERE);
+	else if (id == ID_CYLINDER)
+		result = add_to_list_object(list_object, value_line, CYLINDER);
+	return (result);
+}
+
+t_result	parse_lines_to_scene(t_deque *lines, t_scene *scene)
 {
 	t_deque_node	*node;
+	char			**line;
+	t_result		result;
 
-	init_scene(scene);
 	node = lines->node;
 	while (node)
 	{
-		convert_line_with_identifier(node, scene);
-		// todo: return (FAILURE);
+		line = (char **)node->content;
+		result = convert_line_with_identifier((const char **)line, scene);
+		if (result == FAILURE)
+		{
+			deque_clear_all(&lines, del_lines);
+			return (FAILURE);
+		}
 		node = node->next;
 	}
-	// todo: return (SUCCESS);
+	deque_clear_all(&lines, del_lines);
+	return (SUCCESS);
 }

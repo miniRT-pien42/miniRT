@@ -16,6 +16,7 @@
 # include "light.h"
 
 typedef struct s_deque	t_deque;
+typedef enum e_result	t_result;
 
 typedef struct s_scene
 {
@@ -26,7 +27,7 @@ typedef struct s_scene
 }	t_scene;
 
 void		init_scene(t_scene *scene);
-void		parse_lines_to_scene(t_deque *lines, t_scene *scene);
+t_result	parse_lines_to_scene(t_deque *lines, t_scene *scene);
 t_vector	set_axis_base(void);
 void		destroy_scene(t_scene *scene);
 
