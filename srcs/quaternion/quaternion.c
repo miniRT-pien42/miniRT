@@ -1,3 +1,4 @@
+#include "display.h"
 #include "scene.h"
 #include "quaternion.h"
 #include <math.h>

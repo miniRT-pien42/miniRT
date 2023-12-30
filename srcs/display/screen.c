@@ -1,5 +1,6 @@
 #include "camera.h"
 #include "display.h"
+#include "helpers.h"
 #include "scene.h"
 #include <math.h>
 

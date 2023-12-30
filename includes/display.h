@@ -1,8 +1,8 @@
 #ifndef DISPLAY_H
 # define DISPLAY_H
 
-#include "vector.h"
-#include "quaternion.h"
+# include "vector.h"
+# include "quaternion.h"
 
 # define TITLE	"miniRT"
 # define HEIGHT	512
