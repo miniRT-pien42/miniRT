@@ -1,5 +1,6 @@
-#include "vector.h"
+#include "object.h"
 #include "ray.h"
+#include "vector.h"
 
 t_vector	get_normal_on_plane(t_plane *plane, const t_ray *ray)
 {

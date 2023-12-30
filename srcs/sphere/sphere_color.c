@@ -1,12 +1,5 @@
-#include "vector.h"
-#include "display.h"
-#include "scene.h"
-#include "helpers.h"
-#include "ray.h"
 #include "object.h"
-#include "error.h"
-#include <stdlib.h>
-#include <math.h>
+#include "ray.h"
 
 static bool	is_inside_sphere(const t_sphere *sphere, const t_ray *ray)
 {

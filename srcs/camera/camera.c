@@ -1,8 +1,10 @@
 #include "camera.h"
+#include "helpers.h"
 #include "libft.h"
 #include "parse.h"
 #include <math.h>
 #include "result.h"
+#include <math.h>
 
 t_camera	*init_camera(const char **line, t_result *result)
 {

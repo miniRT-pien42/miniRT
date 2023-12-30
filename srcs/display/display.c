@@ -1,3 +1,4 @@
+#include "display.h"
 #include "mlx.h"
 #include "scene.h"
 #include "vector.h"

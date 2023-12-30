@@ -1,7 +1,9 @@
+#include "display.h"
 #include "object.h"
+#include "quaternion.h"
 #include "ray.h"
 #include "scene.h"
-#include "quaternion.h"
+#include <stddef.h>
 
 // screen上の点の位置
 static t_ray	calc_ray(t_scene *scene, t_screen_info screen)

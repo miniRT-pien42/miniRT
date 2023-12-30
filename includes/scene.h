@@ -12,7 +12,6 @@
 # include "light.h"
 
 typedef struct s_deque	t_deque;
-typedef enum e_result	t_result;
 
 typedef struct s_scene
 {

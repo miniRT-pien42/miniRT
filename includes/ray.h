@@ -2,11 +2,12 @@
 # define RAY_H
 
 # include "light.h"
-# include "object.h"
 # include "vector.h"
 
 # define NO_INTERSECTION	(-1)
 # define NOT_ILLUMINATED	(-1)
+
+typedef struct s_scene	t_scene;
 
 typedef struct s_ray
 {

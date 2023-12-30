@@ -3,7 +3,6 @@
 
 # include <stdbool.h>
 # include <stdint.h>
-# include <vector.h>
 
 # define OPEN_ERROR				(-1)
 # define FILE_EXTENSION			".rt"
@@ -35,6 +34,7 @@ typedef struct s_scene	t_scene;
 typedef struct s_rgb	t_rgb;
 typedef enum e_result	t_result;
 typedef struct s_deque	t_deque;
+typedef struct s_vector	t_vector;
 
 typedef enum e_identifier
 {
@@ -52,10 +52,13 @@ t_result		parse(const char *file_name, t_scene *scene);
 void			del_lines(void *args);
 t_deque			*read_file(const char *file_name);
 
-/* convert */
+/* convert to uint8_t */
 uint8_t			convert_to_uint8_in_range(\
 				const char *s, const int min, const int max, t_result *result);
 t_rgb			convert_line_to_rgb(const char *line, t_result *result);
+
+/* convert to double */
+double			convert_to_double(const char *s, t_result *result);
 double			convert_to_double_in_range(\
 		const char *s, const double min, const double max, t_result *result);
 t_vector		convert_line_to_vector_in_range(\

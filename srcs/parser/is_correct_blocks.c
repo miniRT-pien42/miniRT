@@ -1,7 +1,6 @@
 #include "ft_deque.h"
 #include "libft.h"
 #include "parse.h"
-#include "scene.h"
 
 // 3 : A [] []
 // 4 : C [] [] []

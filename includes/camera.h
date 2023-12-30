@@ -1,8 +1,7 @@
 #ifndef CAMERA_H
 # define CAMERA_H
 
-# include "display.h"
-# include "helpers.h"
+# include "vector.h"
 
 typedef enum e_result	t_result;
 

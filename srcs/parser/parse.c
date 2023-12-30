@@ -1,9 +1,9 @@
-#include "debug.h"
-#include "get_next_line.h"
+#include "debug.h" // todo: remove
+#include "ft_deque.h"
 #include "libft.h"
 #include "parse.h"
-#include <fcntl.h> // open
-#include <stdlib.h> // free
+#include "result.h"
+#include "scene.h"
 
 /*
 A   ratio      r,g,b

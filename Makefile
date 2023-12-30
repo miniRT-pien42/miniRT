@@ -36,8 +36,9 @@ SRCS		:=	cylinder/cylinder_color.c \
 				debug/print_rt_file.c \
 				parser/check_file_path.c \
 				parser/check_lines.c \
+				parser/convert_double.c \
 				parser/convert_lines_to_scene.c \
-				parser/convert.c \
+				parser/convert_uint8_t.c \
 				parser/is_correct_blocks.c \
 				parser/is_correct_value_count.c \
 				parser/is_unique.c \

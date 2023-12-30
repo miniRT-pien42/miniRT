@@ -1,5 +1,6 @@
 #include "helpers.h"
 #include <math.h>
+#include <stdbool.h>
 
 void	calc_distance_by_discriminant(\
 	const double a, const double b, const double d, double *distances)
