@@ -7,7 +7,7 @@ static double	calc_a_for_cylinder(const t_ray *ray, t_cylinder *cylinder)
 {
 	double	a;
 
-	a = get_length(vec_cross(ray->direction, cylinder->normal));
+	a = vec_length(vec_cross(ray->direction, cylinder->normal));
 	return (a * a);
 }
 
@@ -26,7 +26,7 @@ static double	calc_c_for_cylinder(const t_ray *ray, t_cylinder *cylinder)
 	double			c;
 	const double	cylinder_r = cylinder->diameter / 2;
 
-	c = get_length(vec_cross(vec_subtract(\
+	c = vec_length(vec_cross(vec_subtract(\
 		ray->position, cylinder->center), cylinder->normal));
 	return (c * c - cylinder_r * cylinder_r);
 }
