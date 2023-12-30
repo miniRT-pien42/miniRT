@@ -38,7 +38,8 @@ static t_vector	rotate_vector(t_vector v, t_quaternion q)
 	return ((t_vector){.x = q_rotate.x, .y = q_rotate.y, .z = q_rotate.z});
 }
 
-t_vector	rotate_vector_by_quaternion(t_vector dir_norm, t_vector v, t_screen_info screen)
+t_vector	rotate_vector_by_quaternion(\
+	t_vector dir_norm, t_vector v, t_screen_info screen)
 {
 	if (is_vector_parallel(screen.axis, dir_norm))
 		return (v);
