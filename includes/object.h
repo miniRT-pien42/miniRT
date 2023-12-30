@@ -55,7 +55,7 @@ double			get_distance(const t_ray *ray, void *object);
 // object/distance.c
 void			calc_distance_by_discriminant(\
 	const double a, const double b, const double d, double *distance);
-bool			is_has_negative_distance(double *distances);
+bool			has_negative_distance(double *distances);
 
 // object/intersection.c
 bool			is_shadow_intersection(\

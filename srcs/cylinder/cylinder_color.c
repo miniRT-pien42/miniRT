@@ -51,7 +51,7 @@ static bool	is_camera_inside_cylinder(t_cylinder *cylinder, const t_ray *ray_sha
 	discriminant = calc_discriminant_for_cylinder(\
 		ray_shadow, cylinder, distances);
 	//片方が負ならシリンダ内部にカメラがある
-	if (is_has_negative_distance(distances))
+	if (has_negative_distance(distances))
 		return (true);
 	//共に正ならシリンダを外から見ている。見えているポイントが指定された高さの範囲内なら外側が見えている
 	if (is_intersect_cylinder(\
