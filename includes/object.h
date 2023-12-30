@@ -10,6 +10,7 @@ typedef struct s_scene			t_scene;
 typedef struct s_camera			t_camera;
 typedef struct s_intersection	t_intersection;
 typedef struct s_ray			t_ray;
+typedef enum e_result			t_result;
 
 typedef enum s_shape
 {
@@ -48,7 +49,7 @@ typedef struct s_plane
 t_shape			get_object_type(void *object);
 void			*get_nearest_object(const t_ray	*ray, t_deque *list_object);
 t_deque			*init_object(void);
-void			add_to_list_object(\
+t_result		add_to_list_object(\
 	t_deque *list_object, const char **line, const t_shape type);
 double			get_distance(const t_ray *ray, void *object);
 
@@ -64,7 +65,7 @@ t_intersection	get_intersection(\
 	t_scene *scene, void *nearest_object, const t_ray *ray);
 
 // sphere/sphere.c
-t_sphere		*init_sphere(const char **line);
+t_sphere		*init_sphere(const char **line, t_result *result);
 
 // sphere/sphere_ray.c
 double			calc_discriminant_for_sphere(\
@@ -77,7 +78,7 @@ t_vector		get_normal_on_sphere(t_intersection intersection, const t_ray *ray);
 double			get_distance_to_sphere(const t_ray *ray, t_sphere *sphere);
 
 // plane/plane.c
-t_plane			*init_plane(const char **line);
+t_plane			*init_plane(const char **line, t_result *result);
 
 // plane/plane_ray.c
 double			get_distance_to_plane(const t_ray *ray, t_plane *plane);
@@ -86,7 +87,7 @@ double			get_distance_to_plane(const t_ray *ray, t_plane *plane);
 t_vector		get_normal_on_plane(t_plane *plane, const t_ray *ray);
 
 // cylinder/cylinder.c
-t_cylinder		*init_cylinder(const char **line);
+t_cylinder		*init_cylinder(const char **line, t_result *result);
 
 // cylinder/cylinder_discriminant.c
 double			calc_discriminant_for_cylinder(\

@@ -22,5 +22,8 @@ t_vector	set_axis_base(void)
 
 void	init_scene(t_scene *scene)
 {
+	scene->camera = NULL;
+	scene->light_ambient = NULL;
+	scene->light = NULL;
 	scene->list_object = deque_new();
 }
