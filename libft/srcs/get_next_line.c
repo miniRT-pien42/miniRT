@@ -22,7 +22,7 @@ static void	*ft_free_for_gnl(char **saved, char *ps)
 	return (NULL);
 }
 
-static char	*read_buf(char **saved, int fd, bool *finish_read, t_result *result)
+static char	*read_buf(char **saved, int fd, bool *finish_read, bool *is_error)
 {
 	char	*buf;
 	ssize_t	read_ret;
@@ -33,7 +33,7 @@ static char	*read_buf(char **saved, int fd, bool *finish_read, t_result *result)
 	read_ret = read(fd, buf, BUFFER_SIZE);
 	if (read_ret == READ_ERROR)
 	{
-		*result = FAILURE;
+		*is_error = true;
 		return (ft_free_for_gnl(saved, buf));
 	}
 	buf[read_ret] = CHR_NULL;
@@ -67,19 +67,20 @@ static char	*create_one_line(char **saved)
 	return (left);
 }
 
-char	*get_next_line(int fd, t_result *result)
+char	*get_next_line(int fd, bool *is_error)
 {
 	static char	*saved = NULL;
 	bool		finish_read;
 	char		*buf;
 	char		*tmp;
 
+	*is_error = false;
 	finish_read = false;
 	while (!finish_read)
 	{
 		if (is_new_line(saved))
 			break ;
-		buf = read_buf(&saved, fd, &finish_read, result);
+		buf = read_buf(&saved, fd, &finish_read, is_error);
 		if (!buf)
 			return (ft_free_for_gnl(&saved, NULL));
 		tmp = ft_strjoin(saved, buf);
