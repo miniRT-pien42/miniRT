@@ -2,13 +2,12 @@
 #include "ray.h"
 #include "scene.h"
 
-t_rgb	ray_tracing(\
-	t_scene *scene, void *nearest_object, const t_ray *ray)
+t_rgb	ray_tracing(t_scene *scene, void *nearest_object, const t_ray *ray)
 {
 	t_intersection	intersection;
-	t_rgb_f	lux_light;
-	t_rgb_f	lux_total;
-	t_rgb	color;
+	t_rgb_f			lux_light;
+	t_rgb_f			lux_total;
+	t_rgb			color;
 
 	//交点の情報を取得
 	intersection = get_intersection(scene, nearest_object, ray);
@@ -19,8 +18,7 @@ t_rgb	ray_tracing(\
 	{
 		lux_light = \
 			get_lux_light(scene->light, nearest_object, intersection.l_dot);
-		lux_total = \
-			add_up_lux_total(lux_total, lux_light);
+		lux_total = add_up_lux_total(lux_total, lux_light);
 	}
 	color = (t_rgb){.r = lux_total.r * 255, \
 		.g = lux_total.g * 255, .b = lux_total.b * 255};

@@ -26,6 +26,7 @@ static void	debug_print_camera_and_light(const t_scene *scene)
 	printf("** light\n");
 	debug_print_vector("scene->light->pos", scene->light->pos);
 	printf("scene->light->bright = %f\n", scene->light->bright);
+	debug_print_rgb("scene->light->color", scene->light->color);
 }
 
 static void	debug_print_object(const t_scene *scene)

@@ -13,13 +13,13 @@ static t_ray	get_ray_shadow(t_vector pos_intersection, t_vector pos_light)
 	return (ray);
 }
 
-double	get_l_dot(\
-	t_scene *scene, t_intersection intersection)
+double	get_l_dot(t_scene *scene, t_intersection intersection)
 {
 	double			l_dot;
 	t_vector		incident;
 	const t_shape	type = get_object_type(intersection.object);
-	const t_ray	ray_shadow = get_ray_shadow(intersection.position, scene->light->pos);
+	const t_ray		ray_shadow = \
+		get_ray_shadow(intersection.position, scene->light->pos);
 
 	if (type == CYLINDER && \
 		is_cylinder_self_shadow((t_cylinder *)intersection.object, &ray_shadow))

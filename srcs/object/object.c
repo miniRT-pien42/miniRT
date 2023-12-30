@@ -1,7 +1,9 @@
 #include "object.h"
-#include "ray.h"
+#include "parse.h"
+#include "result.h"
 #include "scene.h"
 #include <math.h>
+#include <stdlib.h> // free
 
 t_shape	get_object_type(void *object)
 {
@@ -50,26 +52,37 @@ void	*get_nearest_object(const t_ray	*ray, t_deque *list_object)
 	return (nearest_object);
 }
 
-static t_deque_node	*get_new_object_node(const char **line, const t_shape type)
+// only PLANE or SPHERE or CYLINDER
+static t_deque_node	*get_new_object_node(\
+						const char **line, const t_shape type, t_result *result)
 {
 	t_deque_node	*node;
+	void			*object;
 
+	object = NULL;
 	if (type == SPHERE)
-		node = deque_node_new(init_sphere(line));
+		object = (void *)init_sphere(line, result);
 	else if (type == PLANE)
-		node = deque_node_new(init_plane(line));
+		object = (void *)init_plane(line, result);
 	else if (type == CYLINDER)
-		node = deque_node_new(init_cylinder(line));
-	else
-		node = NULL;
+		object = (void *)init_cylinder(line, result);
+	node = deque_node_new(object);
 	return (node);
 }
 
-void	add_to_list_object(\
+t_result	add_to_list_object(\
 					t_deque *list_object, const char **line, const t_shape type)
 {
 	t_deque_node	*node;
+	t_result		result;
 
-	node = get_new_object_node(line, type);
+	result = SUCCESS;
+	node = get_new_object_node(line, type, &result);
+	if (result == FAILURE)
+	{
+		deque_clear_node(&node, free);
+		return (FAILURE);
+	}
 	deque_add_back(list_object, node);
+	return (SUCCESS);
 }
