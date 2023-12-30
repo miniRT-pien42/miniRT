@@ -1,8 +1,9 @@
-#include "scene.h"
+#include "helpers.h"
 #include "object.h"
 #include "ray.h"
-#include <stdlib.h>
+#include "scene.h"
 #include <math.h>
+#include <stdlib.h>
 
 static t_ray	get_ray_shadow(t_vector pos_intersection, t_vector pos_light)
 {

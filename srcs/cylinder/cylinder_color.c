@@ -1,6 +1,7 @@
 #include "display.h"
 #include "error.h"
 #include "helpers.h"
+#include "object.h"
 #include "ray.h"
 #include "scene.h"
 #include "vector.h"

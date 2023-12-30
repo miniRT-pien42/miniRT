@@ -1,4 +1,5 @@
 #include "ft_deque.h"
+#include "helpers.h"
 #include "object.h"
 #include "result.h"
 #include "scene.h"
