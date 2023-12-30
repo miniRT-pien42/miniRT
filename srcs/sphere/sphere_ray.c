@@ -5,7 +5,7 @@
 
 static double	calc_a_for_sphere(const t_ray *ray)
 {
-	return (get_length(ray->direction) * get_length(ray->direction));
+	return (vec_length(ray->direction) * vec_length(ray->direction));
 }
 
 static double	calc_b_for_sphere(const t_ray *ray, t_vector v)
@@ -15,7 +15,7 @@ static double	calc_b_for_sphere(const t_ray *ray, t_vector v)
 
 static double	calc_c_for_sphere(const t_sphere *sphere, t_vector v)
 {
-	return (pow(get_length(v), 2) - pow(sphere->diameter / 2, 2));
+	return (pow(vec_length(v), 2) - pow(sphere->diameter / 2, 2));
 }
 
 double	calc_discriminant_for_sphere(\

@@ -1,12 +1,14 @@
 #include "object.h"
 #include "ray.h"
 #include "scene.h"
+#include "quaternion.h"
 
 // screen上の点の位置
 static t_ray	calc_ray(t_scene *scene, t_screen_info screen)
 {
 	t_ray			ray;
 	t_vector		coord_on_screen;
+
 	ray.position = scene->camera->pos;
 	coord_on_screen.x = (2.0 * screen.x) / (WIDTH - 1) - 1.0;
 	coord_on_screen.y = -(2.0 * HEIGHT / WIDTH * screen.y) / (HEIGHT - 1) + 1.0;

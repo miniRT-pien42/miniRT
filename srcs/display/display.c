@@ -26,7 +26,7 @@ static t_screen_info	get_screen_info(t_scene *scene)
 	screen.axis = set_axis_base();
 	screen.center_screen = get_center_screen(scene->camera);
 	rotation_angle = \
-		get_angle(set_axis_base(), scene->camera->dir_norm);
+		vec_angle(set_axis_base(), scene->camera->dir_norm);
 	r_axis = vec_normalize(vec_cross(screen.axis, scene->camera->dir_norm));
 	screen.q_rotate = get_rotate_quaternion(r_axis, rotation_angle);
 	return (screen);

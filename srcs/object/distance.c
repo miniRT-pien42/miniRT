@@ -18,7 +18,7 @@ void	calc_distance_by_discriminant(\
 	}
 }
 
-bool	is_has_negative_distance(double *distances)
+bool	has_negative_distance(double *distances)
 {
 	if ((distances[0] > 0 && distances[1] < 0) || \
 		(distances[0] < 0 && distances[1] > 0) || \

@@ -20,8 +20,6 @@ bool	is_cylinder_self_shadow(\
 
 	discriminant = \
 		calc_discriminant_for_cylinder(ray_shadow, cylinder, distances);
-	if (discriminant < 0)
-		error_exit(ERR_INTERSECTION);
 	if (discriminant == 0)
 		return (false);
 	distance_min = fmin(distances[0], distances[1]);
@@ -48,14 +46,10 @@ static t_vector	nearest_pos_on_axis(t_vector pos, const t_cylinder *cylinder)
 static bool	is_camera_inside_cylinder(t_cylinder *cylinder, const t_ray *ray_shadow)
 {
 	double		distances[2];
-	double		discriminant;
 
-	discriminant = calc_discriminant_for_cylinder(\
-		ray_shadow, cylinder, distances);
-	if (discriminant < 0)
-		error_exit(ERR_INTERSECTION);
+	calc_discriminant_for_cylinder(ray_shadow, cylinder, distances);
 	//片方が負ならシリンダ内部にカメラがある
-	if (is_has_negative_distance(distances))
+	if (has_negative_distance(distances))
 		return (true);
 	//共に正ならシリンダを外から見ている。見えているポイントが指定された高さの範囲内なら外側が見えている
 	if (is_intersect_cylinder(\

@@ -5,10 +5,10 @@ SRCS		:=	cylinder/cylinder_color.c \
 				cylinder/cylinder_discriminant.c \
 				cylinder/cylinder_ray.c \
 				cylinder/cylinder.c \
-				vec/vector1.c \
-				vec/vector2.c \
-				vec/vector3.c \
-				vec/quaternion.c \
+				vector/vector1.c \
+				vector/vector2.c \
+				vector/vector3.c \
+				quaternion/quaternion.c \
 				color/color.c \
 				helpers/helpers_math1.c \
 				error/error.c \
