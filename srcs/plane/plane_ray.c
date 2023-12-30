@@ -1,6 +1,5 @@
 #include "object.h"
 #include "ray.h"
-#include "scene.h"
 #include <math.h>
 
 double	get_distance_to_plane(const t_ray *ray, t_plane *plane)

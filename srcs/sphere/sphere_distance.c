@@ -1,5 +1,4 @@
 #include "object.h"
-#include "helpers.h"
 #include <math.h>
 
 static double	get_closer_distance(double discriminant, double *distances)

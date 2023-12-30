@@ -1,6 +1,4 @@
 #include "display.h"
-#include "scene.h"
-#include "quaternion.h"
 #include <math.h>
 
 t_quaternion	get_rotate_quaternion(t_vector axis, double angle)

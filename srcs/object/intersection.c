@@ -1,4 +1,4 @@
-#include "error.h"
+#include "camera.h"
 #include "ft_deque.h"
 #include "object.h"
 #include "ray.h"

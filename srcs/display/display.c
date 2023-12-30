@@ -1,7 +1,6 @@
 #include "display.h"
 #include "mlx.h"
 #include "scene.h"
-#include "vector.h"
 #include <stdlib.h> // exit
 #include <X11/X.h> // mlx_hook
 

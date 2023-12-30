@@ -8,10 +8,11 @@
 # define TYPE_SPHERE	"sp"
 # define TYPE_CYLINDER	"cy"
 
-# include "camera.h"
-# include "light.h"
-
+typedef struct s_light_ambient	t_light_ambient;
+typedef struct s_light			t_light;
 typedef struct s_deque	t_deque;
+typedef struct s_camera	t_camera;
+typedef enum e_result	t_result;
 
 typedef struct s_scene
 {
