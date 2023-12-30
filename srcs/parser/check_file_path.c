@@ -1,3 +1,4 @@
+#include "helpers.h"
 #include "libft.h"
 #include "parse.h"
 #include <fcntl.h> // open
