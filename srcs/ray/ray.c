@@ -57,8 +57,6 @@ t_rgb_f	get_lux_light(const t_light *light, void *nearest_object, double l_dot)
 		color = ((t_plane *)nearest_object)->color;
 	else if (type == CYLINDER)
 		color = ((t_cylinder *)nearest_object)->color;
-	else
-		exit(EXIT_FAILURE);
 	lux_light.r = color.r / 255.0 * light->bright * l_dot;
 	lux_light.g = color.g / 255.0 * light->bright * l_dot;
 	lux_light.b = color.b / 255.0 * light->bright * l_dot;

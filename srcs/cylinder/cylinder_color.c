@@ -20,8 +20,6 @@ bool	is_cylinder_self_shadow(\
 
 	discriminant = \
 		calc_discriminant_for_cylinder(ray_shadow, cylinder, distances);
-	if (discriminant < 0)
-		error_exit(ERR_INTERSECTION);
 	if (discriminant == 0)
 		return (false);
 	distance_min = fmin(distances[0], distances[1]);
@@ -52,8 +50,6 @@ static bool	is_camera_inside_cylinder(t_cylinder *cylinder, const t_ray *ray_sha
 
 	discriminant = calc_discriminant_for_cylinder(\
 		ray_shadow, cylinder, distances);
-	if (discriminant < 0)
-		error_exit(ERR_INTERSECTION);
 	//片方が負ならシリンダ内部にカメラがある
 	if (is_has_negative_distance(distances))
 		return (true);
