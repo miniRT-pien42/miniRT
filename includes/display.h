@@ -43,8 +43,8 @@ typedef struct s_mlx
 
 typedef struct s_screen_info
 {
-	size_t			x;
-	size_t			y;
+	int			x;
+	int			y;
 	t_vector		center_screen;
 	t_vector		axis;
 	t_quaternion	q_rotate;
