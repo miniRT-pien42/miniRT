@@ -15,9 +15,9 @@ double		convert_rad_to_deg(double rad);
 t_vector	*convert_coord(t_vector *v_coord, int w, int h);
 
 /* wrapper */
-char    	**x_ft_split(char const *str, const char *charset);
-char	    *x_get_next_line(int fd);
-void	    *x_malloc(const size_t size);
-int		    x_open(const char *path, int open_flag);
+char		**x_ft_split(char const *str, const char *charset);
+char		*x_get_next_line(int fd);
+void		*x_malloc(const size_t size);
+int			x_open(const char *path, int open_flag);
 
 #endif
