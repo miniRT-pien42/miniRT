@@ -2,7 +2,6 @@
 #include "ft_deque.h"
 #include "libft.h"
 #include "parse.h"
-#include "result.h"
 #include "scene.h"
 
 /*

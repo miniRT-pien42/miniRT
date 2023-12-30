@@ -3,7 +3,6 @@
 #include "light.h"
 #include "object.h"
 #include "parse.h"
-#include "result.h"
 #include "scene.h"
 
 t_vector	init_normal_vector(\

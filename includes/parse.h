@@ -3,6 +3,7 @@
 
 # include <stdbool.h>
 # include <stdint.h>
+# include "result.h"
 
 # define FILE_EXTENSION			".rt"
 # define AT_LEAST_LINES			3
@@ -31,7 +32,6 @@
 
 typedef struct s_scene	t_scene;
 typedef struct s_rgb	t_rgb;
-typedef enum e_result	t_result;
 typedef struct s_deque	t_deque;
 typedef struct s_vector	t_vector;
 

@@ -1,6 +1,5 @@
 #include "libft.h"
 #include "parse.h"
-#include "result.h"
 #include "vector.h"
 
 double	convert_to_double(const char *s, t_result *result)

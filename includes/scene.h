@@ -1,6 +1,8 @@
 #ifndef SCENE_H
 # define SCENE_H
 
+# include "result.h"
+
 # define TYPE_AMBIENT	"A"
 # define TYPE_CAMERA	"C"
 # define TYPE_LIGHT		"L"
@@ -12,7 +14,6 @@ typedef struct s_light_ambient	t_light_ambient;
 typedef struct s_light			t_light;
 typedef struct s_deque			t_deque;
 typedef struct s_camera			t_camera;
-typedef enum e_result			t_result;
 
 typedef struct s_scene
 {

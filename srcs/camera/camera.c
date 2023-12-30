@@ -1,7 +1,6 @@
 #include "camera.h"
 #include "helpers.h"
 #include "parse.h"
-#include "result.h"
 
 t_camera	*init_camera(const char **line, t_result *result)
 {

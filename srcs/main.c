@@ -1,7 +1,6 @@
 #include "display.h"
 #include "error.h"
 #include "parse.h"
-#include "result.h"
 #include "scene.h"
 #include <stdlib.h>
 
