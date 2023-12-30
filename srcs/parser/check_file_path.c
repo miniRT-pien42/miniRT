@@ -2,7 +2,6 @@
 #include "libft.h"
 #include "parse.h"
 #include <fcntl.h> // open_flag
-#include <stdio.h>
 #include <unistd.h>
 
 static char	*find_head_extention_pointer(\
