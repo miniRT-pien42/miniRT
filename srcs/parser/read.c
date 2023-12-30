@@ -9,13 +9,12 @@ static t_deque	*read_lines(const int fd)
 {
 	t_deque			*lines;
 	char			*line;
-	t_result		result;
 	t_deque_node	*node;
 
 	lines = deque_new();
 	while (true)
 	{
-		line = get_next_line(fd, &result); // todo: if result==FAILURE
+		line = x_get_next_line(fd);
 		if (line == NULL)
 			break ;
 		node = deque_node_new((void *)line);
