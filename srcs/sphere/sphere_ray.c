@@ -1,6 +1,5 @@
 #include "object.h"
 #include "ray.h"
-#include <math.h>
 
 static double	calc_a_for_sphere(const t_ray *ray)
 {
