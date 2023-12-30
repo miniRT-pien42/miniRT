@@ -16,7 +16,7 @@ static size_t	count_value(const char *s)
 }
 
 static bool	is_correct_value_count(\
-		const char **line, const size_t *value_counts, const size_t elem_count)
+	const char **line, const size_t *value_counts, const size_t elem_count)
 {
 	size_t	i;
 	size_t	value_count;
@@ -39,26 +39,26 @@ static bool	is_correct_value_count(\
 // sp [1,2,3]   [1]   [1,2,3]
 // cy [1,2,3] [1,2,3]   [1]   [1] [1,2,3]
 static bool	is_correct_value_counts_in_each_info(\
-									const char **line, const t_identifier id)
+	const char **line, const t_identifier id)
 {
 	if (id == ID_AMBIENT)
 		return (is_correct_value_count(\
-					line, (size_t []){1, 3}, ELEM_COUNT_AMBIENT - 1));
+			line, (size_t []){1, 3}, ELEM_COUNT_AMBIENT - 1));
 	if (id == ID_CAMERA)
 		return (is_correct_value_count(\
-					line, (size_t []){3, 3, 1}, ELEM_COUNT_CAMERA - 1));
+			line, (size_t []){3, 3, 1}, ELEM_COUNT_CAMERA - 1));
 	if (id == ID_LIGHT)
 		return (is_correct_value_count(\
-					line, (size_t []){3, 1, 3}, ELEM_COUNT_LIGHT - 1));
+			line, (size_t []){3, 1, 3}, ELEM_COUNT_LIGHT - 1));
 	if (id == ID_PLANE)
 		return (is_correct_value_count(\
-					line, (size_t []){3, 3, 3}, ELEM_COUNT_PLANE - 1));
+			line, (size_t []){3, 3, 3}, ELEM_COUNT_PLANE - 1));
 	if (id == ID_SPHERE)
 		return (is_correct_value_count(\
-					line, (size_t []){3, 1, 3}, ELEM_COUNT_SPHERE - 1));
+			line, (size_t []){3, 1, 3}, ELEM_COUNT_SPHERE - 1));
 	if (id == ID_CYLINDER)
 		return (is_correct_value_count(\
-					line, (size_t []){3, 3, 1, 1, 3}, ELEM_COUNT_CYLINDER - 1));
+			line, (size_t []){3, 3, 1, 1, 3}, ELEM_COUNT_CYLINDER - 1));
 	return (false);
 }
 

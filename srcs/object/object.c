@@ -53,7 +53,7 @@ void	*get_nearest_object(const t_ray	*ray, t_deque *list_object)
 
 // only PLANE or SPHERE or CYLINDER
 static t_deque_node	*get_new_object_node(\
-						const char **line, const t_shape type, t_result *result)
+	const char **line, const t_shape type, t_result *result)
 {
 	t_deque_node	*node;
 	void			*object;
@@ -70,7 +70,7 @@ static t_deque_node	*get_new_object_node(\
 }
 
 t_result	add_to_list_object(\
-					t_deque *list_object, const char **line, const t_shape type)
+	t_deque *list_object, const char **line, const t_shape type)
 {
 	t_deque_node	*node;
 	t_result		result;

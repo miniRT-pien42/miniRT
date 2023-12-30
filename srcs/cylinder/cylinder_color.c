@@ -3,8 +3,7 @@
 #include "ray.h"
 #include <math.h>
 
-bool	is_cylinder_self_shadow(\
-	t_cylinder *cylinder, const t_ray *ray_shadow)
+bool	is_cylinder_self_shadow(t_cylinder *cylinder, const t_ray *ray_shadow)
 {
 	double		distances[2];
 	double		distance_min;

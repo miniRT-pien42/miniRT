@@ -14,7 +14,7 @@ double	convert_to_double(const char *s, t_result *result)
 }
 
 double	convert_to_double_in_range(\
-			const char *s, const double min, const double max, t_result *result)
+	const char *s, const double min, const double max, t_result *result)
 {
 	double	num;
 
@@ -41,7 +41,7 @@ t_vector	convert_line_to_vector(const char *line, t_result *result)
 }
 
 t_vector	convert_line_to_vector_in_range(\
-		const char *line, const double min, const double max, t_result *result)
+	const char *line, const double min, const double max, t_result *result)
 {
 	t_vector	vec;
 	char		**strs;

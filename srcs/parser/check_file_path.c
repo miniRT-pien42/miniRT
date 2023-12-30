@@ -5,13 +5,13 @@
 #include <unistd.h>
 
 static char	*find_head_extention_pointer(\
-								const char *filepath, const size_t len_filepath)
+	const char *filepath, const size_t len_filepath)
 {
 	return (ft_strnstr(filepath, FILE_EXTENSION, len_filepath));
 }
 
 static bool	ends_with_single_extension(\
-						const char *extension_ptr, const size_t len_filepath)
+	const char *extension_ptr, const size_t len_filepath)
 {
 	return (ft_strncmp(extension_ptr, FILE_EXTENSION, len_filepath) == 0);
 }
@@ -39,7 +39,7 @@ bool	is_valid_file_path(const char *filepath)
 {
 	const size_t	len_filepath = ft_strlen(filepath);
 	const char		*extension_ptr = \
-							find_head_extention_pointer(filepath, len_filepath);
+		find_head_extention_pointer(filepath, len_filepath);
 
 	if (extension_ptr == NULL)
 		return (false);
