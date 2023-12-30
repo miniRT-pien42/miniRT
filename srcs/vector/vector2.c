@@ -20,7 +20,7 @@ t_vector	vec_normalize(const t_vector v)
 
 double	vec_length(const t_vector v)
 {
-	return (sqrt(pow(v.x, 2) + pow(v.y, 2) + pow(v.z, 2)));
+	return (sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
 }
 
 double	vec_angle(const t_vector v1, const t_vector v2)
