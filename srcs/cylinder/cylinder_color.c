@@ -1,11 +1,7 @@
-#include "display.h"
-#include "error.h"
 #include "helpers.h"
 #include "object.h"
 #include "ray.h"
-#include "scene.h"
 #include "vector.h"
-#include <stdlib.h>
 #include <math.h>
 
 bool	is_cylinder_self_shadow(\
