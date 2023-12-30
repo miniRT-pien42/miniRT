@@ -6,6 +6,7 @@
 # define ERR_FILEPATH	"Error: Invalid filepath"
 # define ERR_RTFILE		"Error: Invalid .rt value"
 
+/* error */
 void	error_exit(const char *message);
 
 #endif

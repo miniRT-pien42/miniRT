@@ -20,6 +20,7 @@ typedef struct s_light
 	t_rgb		color;
 }	t_light;
 
+/* light */
 t_light_ambient	*init_light_ambient(const char **line, t_result *result);
 t_light			*init_light(const char **line, t_result *results);
 
