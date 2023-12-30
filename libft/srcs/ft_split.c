@@ -40,7 +40,7 @@ static size_t	count_words(char const *head, const char *charset)
 }
 
 static bool	set_split_str(\
-					char const *head, const char *charset, char **split_strs)
+	char const *head, const char *charset, char **split_strs)
 {
 	char const	*left = head;
 	char const	*right = head;

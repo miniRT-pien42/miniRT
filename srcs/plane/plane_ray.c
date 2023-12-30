@@ -1,20 +1,20 @@
 #include "object.h"
+#include "ray.h"
 #include "scene.h"
 #include <math.h>
 
-double	get_distance_to_plane(t_vector ray, t_scene *scene, t_plane *plane)
+double	get_distance_to_plane(const t_ray *ray, t_plane *plane)
 {
-	double	num_bottom;
-	double	num_top;
+	double	denom;
+	double	numer;
 	double	distance;
 
-	num_bottom = vec_dot(ray, plane->dir_n);
-	if (num_bottom == 0)
+	denom = vec_dot(ray->direction, plane->normal);
+	if (denom == 0)
 		return (NAN);
-	num_top = \
-		vec_dot(vec_subtract(scene->camera->pos, plane->point), plane->dir_n);
-	distance = num_top / num_bottom * -1;
-	if (distance <= 0)
+	numer = vec_dot(vec_subtract(ray->position, plane->point), plane->normal);
+	distance = numer / denom * -1;
+	if (distance < 0)
 		return (NAN);
 	return (distance);
 }

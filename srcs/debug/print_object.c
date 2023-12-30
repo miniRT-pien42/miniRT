@@ -11,7 +11,7 @@ void	debug_print_sphere(t_sphere *sphere)
 void	debug_print_plane(t_plane *plane)
 {
 	debug_print_vector("plane->point", plane->point);
-	debug_print_vector("plane->dir_n", plane->dir_n);
+	debug_print_vector("plane->dir_n", plane->normal);
 	debug_print_rgb("plane->color", plane->color);
 }
 

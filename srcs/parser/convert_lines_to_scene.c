@@ -13,7 +13,7 @@ t_vector	init_normal_vector(\
 	normal = convert_line_to_vector_in_range(line, min, max, result);
 	if (*result == FAILURE)
 		return (normal);
-	length = get_length(normal);
+	length = vec_length(normal);
 	if (!(VALID_NORMAL_LEN_MIN <= length && length <= VALID_NORMAL_LEN_MAX))
 		*result = FAILURE;
 	return (normal);

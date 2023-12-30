@@ -13,37 +13,36 @@ t_shape	get_object_type(void *object)
 }
 
 // If there are two intersection points, return the distance to the closer one.
-static double	get_distance(t_vector ray, t_scene *scene, void *object)
+double	get_distance(const t_ray *ray, void *object)
 {
-	t_shape	type;
-	double	distance;
+	const t_shape	type = get_object_type(object);
+	double			distance;
 
-	type = get_object_type(object);
+	distance = NAN;
 	if (type == SPHERE)
-		distance = get_distance_to_sphere(ray, scene, (t_sphere *)object);
+		distance = get_distance_to_sphere(ray, (t_sphere *)object);
 	else if (type == PLANE)
-		distance = get_distance_to_plane(ray, scene, (t_plane *)object);
+		distance = get_distance_to_plane(ray, (t_plane *)object);
 	else if (type == CYLINDER)
-		distance = get_distance_to_cylinder(ray, scene, (t_cylinder *)object);
-	else
-		distance = NAN;
+		distance = get_distance_to_cylinder(ray, (t_cylinder *)object);
 	return (distance);
 }
 
-void	*get_nearest_object(t_vector ray, t_scene *scene)
+void	*get_nearest_object(const t_ray	*ray, t_deque *list_object)
 {
 	t_deque_node	*current_node;
 	void			*nearest_object;
 	double			nearest_distance;
 	double			new_distance;
 
-	current_node = scene->list_object->node;
+	current_node = list_object->node;
 	nearest_object = NULL;
 	nearest_distance = INFINITY;
 	while (current_node)
 	{
-		new_distance = get_distance(ray, scene, current_node->content);
-		if (!isnan(new_distance) && new_distance < nearest_distance)
+		new_distance = get_distance(ray, current_node->content);
+		if (!isnan(new_distance) && fabs(new_distance) > EPSILON \
+			&& new_distance < nearest_distance)
 		{
 			nearest_distance = new_distance;
 			nearest_object = current_node->content;
