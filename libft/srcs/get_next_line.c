@@ -27,7 +27,9 @@ static char	*read_buf(char **saved, int fd, bool *finish_read, t_result *result)
 	char	*buf;
 	ssize_t	read_ret;
 
-	buf = (char *)x_malloc(sizeof(char) * ((size_t)BUFFER_SIZE + 1));
+	buf = (char *)malloc(sizeof(char) * ((size_t)BUFFER_SIZE + 1));
+	if (buf == NULL)
+		return (NULL);
 	read_ret = read(fd, buf, BUFFER_SIZE);
 	if (read_ret == READ_ERROR)
 	{

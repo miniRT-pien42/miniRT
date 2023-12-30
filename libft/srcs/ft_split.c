@@ -1,4 +1,5 @@
 #include "libft.h"
+#include <stdlib.h>
 
 static bool	is_delimiter(const char c, const char *charset)
 {
@@ -76,7 +77,9 @@ char	**ft_split(char const *s, const char *charset)
 	if (s == NULL)
 		return (NULL);
 	len = count_words(s, charset);
-	split_strs = (char **)x_malloc(sizeof(char *) * (len + 1));
+	split_strs = (char **)malloc(sizeof(char *) * (len + 1));
+	if (split_strs == NULL)
+		return (NULL);
 	if (!set_split_str(s, charset, split_strs))
 		return (free_2d_array(&split_strs));
 	split_strs[len] = NULL;
