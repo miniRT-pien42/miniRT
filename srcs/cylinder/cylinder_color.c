@@ -46,10 +46,8 @@ static t_vector	nearest_pos_on_axis(t_vector pos, const t_cylinder *cylinder)
 static bool	is_camera_inside_cylinder(t_cylinder *cylinder, const t_ray *ray_shadow)
 {
 	double		distances[2];
-	double		discriminant;
 
-	discriminant = calc_discriminant_for_cylinder(\
-		ray_shadow, cylinder, distances);
+	calc_discriminant_for_cylinder(ray_shadow, cylinder, distances);
 	//片方が負ならシリンダ内部にカメラがある
 	if (has_negative_distance(distances))
 		return (true);
