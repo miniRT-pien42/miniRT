@@ -1,4 +1,4 @@
-#include "debug.h" // todo: remove
+#include "debug.h"
 #include "ft_deque.h"
 #include "libft.h"
 #include "parse.h"
@@ -46,7 +46,6 @@ t_result	parse(const char *file_name, t_scene *scene)
 		deque_clear_all(&lines, del_lines);
 		return (FAILURE);
 	}
-	debug_deque_print(lines, __func__, (void *)print_2d_array);
 	init_scene(scene);
 	result = parse_lines_to_scene(lines, scene);
 	if (result == FAILURE)
