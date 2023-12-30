@@ -12,8 +12,7 @@ bool	is_shadow_intersection(\
 	double			light_distance;
 
 	current_node = scene->list_object->node;
-	light_distance = \
-		get_distance(ray_shadow, object);
+	light_distance = get_distance(ray_shadow, object);
 	while (current_node)
 	{
 		if (current_node->content != object)
@@ -33,7 +32,8 @@ static t_vector	get_position_on_object(\
 	return (vec_add(scene->camera->pos, vec_scalar(ray->direction, distance)));
 }
 
-static t_vector	get_normal(t_intersection intersection, const t_ray *ray, t_shape type)
+static t_vector	get_normal(\
+	t_intersection intersection, const t_ray *ray, t_shape type)
 {
 	t_vector	normal;
 
@@ -54,8 +54,7 @@ t_intersection	get_intersection(\
 	const t_shape	type = get_object_type(nearest_object);
 
 	intersection.object = nearest_object;
-	intersection.distance = \
-		get_distance(ray, intersection.object);
+	intersection.distance = get_distance(ray, intersection.object);
 	intersection.position = \
 		get_position_on_object(scene, ray, intersection.distance);
 	intersection.normal = get_normal(intersection, ray, type);

@@ -72,7 +72,8 @@ double			calc_discriminant_for_sphere(\
 	const t_ray *ray, const t_sphere *sphere, double *distances);
 
 // sphere/sphere_color.c
-t_vector		get_normal_on_sphere(t_intersection intersection, const t_ray *ray);
+t_vector		get_normal_on_sphere(\
+	t_intersection intersection, const t_ray *ray);
 
 // sphere/sphere_distance.c
 double			get_distance_to_sphere(const t_ray *ray, t_sphere *sphere);
@@ -102,7 +103,9 @@ double			get_distance_to_cylinder(\
 // cylinder/cylinder_color.c
 bool			is_cylinder_self_shadow(\
 	t_cylinder *cylinder, const t_ray *ray_shadow);
-bool			is_inside_cylinder(const t_cylinder *cylinder, const t_ray *ray_shadow);
-t_vector		get_normal_on_cylinder(t_intersection intersection, const t_ray *ray);
+bool			is_inside_cylinder(\
+	const t_cylinder *cylinder, const t_ray *ray_shadow);
+t_vector		get_normal_on_cylinder(\
+	t_intersection intersection, const t_ray *ray);
 
 #endif

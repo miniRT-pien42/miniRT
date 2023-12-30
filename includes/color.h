@@ -31,6 +31,6 @@ typedef struct s_rgb_f
 	double	b;
 }	t_rgb_f;
 
-int				convert_rgb(t_rgb color);
+int	convert_rgb(t_rgb color);
 
 #endif

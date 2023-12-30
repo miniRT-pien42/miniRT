@@ -35,20 +35,19 @@ typedef struct s_mlx
 }	t_mlx;
 
 /* init */
-void		init_mlxs(\
-			t_mlx *mlxs, t_display *display, t_image *image, t_scene *scene);
+void	init_mlxs(\
+	t_mlx *mlxs, t_display *display, t_image *image, t_scene *scene);
 
 /* display */
-void		my_mlx_pixel_put(\
-					t_image *image, const int y, const int x, const int color);
-void		display(t_scene *scene);
+void	my_mlx_pixel_put(\
+	t_image *image, const int y, const int x, const int color);
+void	display(t_scene *scene);
 
 /* ray_trace */
-t_rgb	ray_tracing(\
-	t_scene *scene, void *nearest_object, const t_ray *ray);
+t_rgb	ray_tracing(t_scene *scene, void *nearest_object, const t_ray *ray);
 
 /* set */
-void		set_each_pixel_color(\
+void	set_each_pixel_color(\
 	t_mlx *mlxs, const int y, const int x, t_scene *scene);
 
 #endif
