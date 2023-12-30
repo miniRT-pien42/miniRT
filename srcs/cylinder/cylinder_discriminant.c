@@ -1,7 +1,5 @@
 #include "object.h"
 #include "ray.h"
-#include "scene.h"
-#include <math.h>
 
 static double	calc_a_for_cylinder(const t_ray *ray, t_cylinder *cylinder)
 {

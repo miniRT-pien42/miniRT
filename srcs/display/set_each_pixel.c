@@ -1,6 +1,6 @@
+#include "camera.h"
 #include "display.h"
 #include "object.h"
-#include "quaternion.h"
 #include "ray.h"
 #include "scene.h"
 #include <stddef.h>

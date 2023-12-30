@@ -2,7 +2,6 @@
 #include "libft.h"
 #include "parse.h"
 #include "scene.h"
-#include <stdbool.h>
 
 // remove empty lines and pack into a new deque.
 static void	remove_empty_lines(t_deque **lines)
