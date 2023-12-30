@@ -1,4 +1,5 @@
 #include "libft.h"
+#include <stdlib.h>
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
@@ -14,7 +15,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	len_s1 = ft_strlen(s1);
 	len_s2 = ft_strlen(s2);
 	total = len_s1 + len_s2;
-	res = (char *)x_malloc(sizeof(char) * (total + 1));
+	res = (char *)malloc(sizeof(char) * (total + 1));
 	if (res == NULL)
 		return (NULL);
 	ft_strlcpy(res, s1, len_s1 + 1);
