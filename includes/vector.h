@@ -10,13 +10,6 @@ typedef struct s_vector
 	double	z;
 }	t_vector;
 
-typedef struct s_quaternion {
-	double	w;
-	double	x;
-	double	y;
-	double	z;
-}	t_quaternion;
-
 t_vector	vec_add(const t_vector a, const t_vector b);
 t_vector	vec_subtract(const t_vector a, const t_vector b);
 double		vec_dot(const t_vector a, const t_vector b);
