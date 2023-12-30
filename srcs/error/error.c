@@ -2,7 +2,6 @@
 #include <stdlib.h> // exit
 #include <unistd.h>
 
-// todo: #12 perror
 void	error_exit(const char *message)
 {
 	ft_putstr_fd(message, STDERR_FILENO);

@@ -18,7 +18,6 @@ static t_deque	*read_lines(const int fd)
 		line = get_next_line(fd, &result); // todo: if result==FAILURE
 		if (line == NULL)
 			break ;
-		// todo: remove last newline?
 		node = deque_node_new((void *)line);
 		deque_add_back(lines, node);
 	}
