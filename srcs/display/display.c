@@ -2,6 +2,7 @@
 #include "mlx.h"
 #include "scene.h"
 #include <stdlib.h> // exit
+#include <X11/keysym.h> // XK_Escape
 #include <X11/X.h> // mlx_hook
 
 void	my_mlx_pixel_put(\
@@ -45,6 +46,13 @@ static int	close_window(const t_mlx *mlxs)
 	return (UNREACHABLE);
 }
 
+static int	key_hook(const int keycode, t_mlx *mlxs)
+{
+	if (keycode == XK_Escape)
+		close_window(mlxs);
+	return (KEY_NONE);
+}
+
 static void	set_hook(t_mlx *mlxs)
 {
 	void	*win_p;
@@ -52,6 +60,7 @@ static void	set_hook(t_mlx *mlxs)
 
 	win_p = mlxs->display->win_p;
 	params = (void *)mlxs;
+	mlx_hook(win_p, KeyPress, KeyPressMask, key_hook, params);
 	mlx_hook(win_p, DestroyNotify, StructureNotifyMask, close_window, params);
 }
 

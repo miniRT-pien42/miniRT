@@ -13,6 +13,7 @@
 # define AXIS_BASE_Z	1.0
 
 # define UNREACHABLE	0
+# define KEY_NONE		0
 
 typedef struct s_scene	t_scene;
 typedef struct s_rgb	t_rgb;
