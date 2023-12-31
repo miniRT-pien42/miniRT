@@ -59,6 +59,9 @@ void			my_mlx_pixel_put(\
 	t_image *image, const int y, const int x, const int color);
 void			display(t_scene *scene);
 
+/* hook */
+void			set_hook(t_mlx *mlxs);
+
 /* ray_trace */
 t_rgb			ray_tracing(\
 	t_scene *scene, void *nearest_object, const t_ray *ray);
