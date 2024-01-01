@@ -1,8 +1,8 @@
 #ifndef DISPLAY_H
 # define DISPLAY_H
 
-# include "vector.h"
 # include "quaternion.h"
+# include "vector.h"
 
 # define TITLE	"miniRT"
 # define HEIGHT	512
@@ -15,9 +15,9 @@
 # define UNREACHABLE	0
 # define KEY_NONE		0
 
-typedef struct s_scene	t_scene;
-typedef struct s_rgb	t_rgb;
 typedef struct s_ray	t_ray;
+typedef struct s_rgb	t_rgb;
+typedef struct s_scene	t_scene;
 
 typedef struct s_display
 {

@@ -2,7 +2,7 @@
 #include "mlx.h"
 
 void	my_mlx_pixel_put(\
-					t_image *image, const int y, const int x, const int color)
+	t_image *image, const int y, const int x, const int color)
 {
 	char	*dst;
 	int		offset;
@@ -28,7 +28,7 @@ static void	set_image(t_mlx *mlxs, t_scene *scene)
 		screen.y++;
 	}
 	mlx_put_image_to_window(\
-			mlxs->display->mlx_p, mlxs->display->win_p, mlxs->image->img, 0, 0);
+		mlxs->display->mlx_p, mlxs->display->win_p, mlxs->image->img, 0, 0);
 }
 
 void	display(t_scene *scene)

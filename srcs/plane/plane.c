@@ -1,7 +1,6 @@
 #include "helpers.h"
 #include "object.h"
 #include "parse.h"
-#include "result.h"
 
 t_plane	*init_plane(const char **line, t_result *result)
 {
