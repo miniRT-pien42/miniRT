@@ -8,7 +8,7 @@
 # define WIDTH	512
 
 # define AXIS_BASE_X	0.0
-# define AXIS_BASE_Y	1.0
+# define AXIS_BASE_Y	-1.0
 # define AXIS_BASE_Z	0.0
 
 # define AXIS_ROTATE_BASE_X	0.0

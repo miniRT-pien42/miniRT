@@ -21,11 +21,10 @@ static bool	is_parallel_or_opposite(t_vector v1, t_vector v2, double *angle)
 double	get_rotate_x(t_vector direction, const t_vector base)
 {
 	double			angle;
-	const t_vector	base_rv = vec_scalar(base, -1);
 
-	if (is_parallel_or_opposite(direction, base_rv, &angle))
+	if (is_parallel_or_opposite(direction, base, &angle))
 		return (angle);
-	angle = vec_angle(direction, base_rv);
+	angle = vec_angle(direction, base);
 	return (angle);
 }
 
