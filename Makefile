@@ -32,6 +32,7 @@ SRCS		:=	cylinder/cylinder_color.c \
 				display/init.c \
 				display/display.c \
 				display/screen.c \
+				display/screen_rotate.c \
 				display/set_each_pixel.c \
 				display/ray_trace.c \
 				debug/debug.c \
