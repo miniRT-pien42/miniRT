@@ -41,7 +41,7 @@ double	get_rotate_y(\
 	dir_norm = vec_normalize(dir_norm);
 	cross = vec_cross(dir_norm, rotate_base);
 	angle = vec_angle(dir_norm, rotate_base);
-	if (cross.y < 0)
+	if (cross.y > 0)
 		return (angle * -1);
 	return (angle);
 }

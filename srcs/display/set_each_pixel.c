@@ -8,7 +8,7 @@
 static t_vector	set_screen(t_vector coord_on_screen, t_screen_info screen)
 {
 	coord_on_screen = rotate_vector_x(coord_on_screen, -screen.rotate_x);
-	coord_on_screen = rotate_vector_y(coord_on_screen, -screen.rotate_y);
+	coord_on_screen = rotate_vector_y(coord_on_screen, screen.rotate_y);
 	coord_on_screen = vec_add(coord_on_screen, screen.center_screen);
 	return (coord_on_screen);
 }
