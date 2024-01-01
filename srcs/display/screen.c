@@ -11,7 +11,10 @@ t_vector	set_axis_base(void)
 
 t_vector	set_axis_rotate_base(void)
 {
-	return ((t_vector){.x = AXIS_ROTATE_BASE_X, .y = AXIS_ROTATE_BASE_Y, .z = AXIS_ROTATE_BASE_Z});
+	return ((t_vector){\
+		.x = AXIS_ROTATE_BASE_X, \
+		.y = AXIS_ROTATE_BASE_Y, \
+		.z = AXIS_ROTATE_BASE_Z});
 }
 
 static t_vector	get_center_screen(t_camera *camera)

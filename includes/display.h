@@ -66,8 +66,8 @@ t_rgb			ray_tracing(\
 	t_scene *scene, void *nearest_object, const t_ray *ray);
 
 /* screen */
-t_vector	set_axis_base(void);
-t_vector	set_axis_rotate_base(void);
+t_vector		set_axis_base(void);
+t_vector		set_axis_rotate_base(void);
 t_screen_info	get_screen_info(t_scene *scene);
 
 /* screen_rotate */
