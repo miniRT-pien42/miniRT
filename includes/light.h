@@ -2,9 +2,8 @@
 # define LIGHT_H
 
 # include "color.h"
+# include "result.h"
 # include "vector.h"
-
-typedef enum e_result	t_result;
 
 typedef struct s_light_ambient
 {

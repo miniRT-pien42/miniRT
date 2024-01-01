@@ -16,10 +16,11 @@
 # define AXIS_ROTATE_BASE_Z	1.0
 
 # define UNREACHABLE	0
+# define KEY_NONE		0
 
-typedef struct s_scene	t_scene;
-typedef struct s_rgb	t_rgb;
 typedef struct s_ray	t_ray;
+typedef struct s_rgb	t_rgb;
+typedef struct s_scene	t_scene;
 
 typedef struct s_display
 {
@@ -60,6 +61,9 @@ void			init_mlxs(\
 void			my_mlx_pixel_put(\
 	t_image *image, const int y, const int x, const int color);
 void			display(t_scene *scene);
+
+/* hook */
+void			set_hook(t_mlx *mlxs);
 
 /* ray_trace */
 t_rgb			ray_tracing(\

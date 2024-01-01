@@ -1,7 +1,6 @@
 #include "helpers.h"
 #include "object.h"
 #include "parse.h"
-#include "result.h"
 
 t_cylinder	*init_cylinder(const char **line, t_result *result)
 {

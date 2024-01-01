@@ -3,7 +3,7 @@
 #include <math.h>
 
 bool	is_intersect_cylinder(\
-				const t_ray *ray, const t_cylinder *cylinder, double distance)
+	const t_ray *ray, const t_cylinder *cylinder, double distance)
 {
 	const t_vector	pa = vec_add(\
 		ray->position, vec_scalar(ray->direction, distance));

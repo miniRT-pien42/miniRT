@@ -1,9 +1,8 @@
 #ifndef CAMERA_H
 # define CAMERA_H
 
+# include "result.h"
 # include "vector.h"
-
-typedef enum e_result	t_result;
 
 typedef struct s_camera
 {

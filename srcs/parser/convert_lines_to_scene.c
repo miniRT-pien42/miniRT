@@ -3,11 +3,10 @@
 #include "light.h"
 #include "object.h"
 #include "parse.h"
-#include "result.h"
 #include "scene.h"
 
 t_vector	init_normal_vector(\
-		const char *line, const double min, const double max, t_result *result)
+	const char *line, const double min, const double max, t_result *result)
 {
 	t_vector	normal;
 	double		length;
