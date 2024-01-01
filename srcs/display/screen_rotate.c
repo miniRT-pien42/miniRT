@@ -2,36 +2,49 @@
 #include "helpers.h"
 #include <math.h>
 
-double	get_rotate_x(t_vector direction)
+static bool	is_parallel_or_opposite(t_vector v1, t_vector v2, double *angle)
 {
-	double			angle;
-	const t_vector	base = vec_scalar(set_axis_base(), -1);
+	if (is_vector_parallel(v1, v2))
+	{
+		*angle = convert_deg_to_rad(0);
+		return (true);
+	}
+	if (is_vector_opposite(v1, v2))
+	{
+		*angle = convert_deg_to_rad(180);
+		return (true);
+	}
 
-	if (is_vector_parallel(direction, base))
-		return (convert_deg_to_rad(0));
-	if (is_vector_opposite(direction, base))
-		return (convert_deg_to_rad(180));
-	angle = convert_rad_to_deg(vec_angle(direction, base));
-	return (convert_deg_to_rad(angle));
+	return (false);
 }
 
-double	get_rotate_y(t_vector direction)
+double	get_rotate_x(t_vector direction, const t_vector base)
 {
+	double			angle;
+	const t_vector	base_rv = vec_scalar(base, -1);
+
+	if (is_parallel_or_opposite(direction, base_rv, &angle))
+		return (angle);
+	angle = vec_angle(direction, base_rv);
+	return (angle);
+}
+
+double	get_rotate_y(\
+	t_vector direction, const t_vector base, const t_vector rotate_base)
+{
+	double			angle;
 	t_vector		dir_norm;
 	t_vector		cross;
-	const t_vector	base = set_axis_base();
-	const t_vector	rotate_base = set_axis_rotate_base();
 
-	if (is_vector_parallel(direction, base))
-		return (convert_deg_to_rad(0));
-	if (is_vector_opposite(direction, base))
-		return (convert_deg_to_rad(180));
+	if (is_parallel_or_opposite(direction, base, &angle))
+		return (angle);
 	dir_norm = (t_vector){.x = direction.x, .y = 0, .z = direction.z};
 	dir_norm = vec_normalize(dir_norm);
 	cross = vec_cross(dir_norm, rotate_base);
+	angle = vec_angle(dir_norm, rotate_base);
 	if (cross.y < 0)
-		return (vec_angle(dir_norm, rotate_base) * -1);
-	return (vec_angle(dir_norm, rotate_base));
+		return (angle * -1);
+	return (angle);
 }
 
 t_vector	rotate_vector_x(t_vector v, const double angle)

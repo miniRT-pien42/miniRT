@@ -4,12 +4,12 @@
 #include "scene.h"
 #include <math.h>
 
-t_vector	set_axis_base(void)
+static t_vector	set_axis_base(void)
 {
 	return ((t_vector){.x = AXIS_BASE_X, .y = AXIS_BASE_Y, .z = AXIS_BASE_Z});
 }
 
-t_vector	set_axis_rotate_base(void)
+static t_vector	set_axis_rotate_base(void)
 {
 	return ((t_vector){\
 		.x = AXIS_ROTATE_BASE_X, \
@@ -32,11 +32,13 @@ static t_vector	get_center_screen(t_camera *camera)
 t_screen_info	get_screen_info(t_scene *scene)
 {
 	t_screen_info	screen;
+	const t_vector	base = set_axis_base();
+	const t_vector	rotate_base = set_axis_rotate_base();
 
 	screen.x = 0;
 	screen.y = 0;
 	screen.center_screen = get_center_screen(scene->camera);
-	screen.rotate_x = get_rotate_x(scene->camera->dir_norm);
-	screen.rotate_y = get_rotate_y(scene->camera->dir_norm);
+	screen.rotate_x = get_rotate_x(scene->camera->dir_norm, base);
+	screen.rotate_y = get_rotate_y(scene->camera->dir_norm, base, rotate_base);
 	return (screen);
 }
