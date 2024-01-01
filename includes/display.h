@@ -2,7 +2,6 @@
 # define DISPLAY_H
 
 # include "vector.h"
-# include "quaternion.h"
 
 # define TITLE	"miniRT"
 # define HEIGHT	512
@@ -45,8 +44,6 @@ typedef struct s_screen_info
 	int				x;
 	int				y;
 	t_vector		center_screen;
-	t_vector		axis;
-	t_quaternion	q_rotate;
 }	t_screen_info;
 
 /* init */

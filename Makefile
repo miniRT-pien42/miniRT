@@ -8,7 +8,6 @@ SRCS		:=	cylinder/cylinder_color.c \
 				vector/vector1.c \
 				vector/vector2.c \
 				vector/vector3.c \
-				quaternion/quaternion.c \
 				color/color.c \
 				helpers/helpers_math1.c \
 				helpers/x_ft_split.c \
