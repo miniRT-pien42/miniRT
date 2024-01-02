@@ -8,7 +8,6 @@ SRCS		:=	cylinder/cylinder_color.c \
 				vector/vector1.c \
 				vector/vector2.c \
 				vector/vector3.c \
-				quaternion/quaternion.c \
 				color/color.c \
 				helpers/helpers_math1.c \
 				helpers/x_ft_split.c \
@@ -34,6 +33,7 @@ SRCS		:=	cylinder/cylinder_color.c \
 				display/display.c \
 				display/hook.c \
 				display/screen.c \
+				display/screen_rotate.c \
 				display/set_each_pixel.c \
 				display/ray_trace.c \
 				debug/debug.c \
