@@ -1,5 +1,4 @@
 #include "display.h"
-#include "helpers.h"
 #include <math.h>
 
 static bool	is_parallel_or_opposite(t_vector v, double *angle)
@@ -8,12 +7,12 @@ static bool	is_parallel_or_opposite(t_vector v, double *angle)
 
 	if (is_vector_parallel(v, base))
 	{
-		*angle = convert_deg_to_rad(0);
+		*angle = 0.0;
 		return (true);
 	}
 	if (is_vector_opposite(v, base))
 	{
-		*angle = convert_deg_to_rad(180);
+		*angle = M_PI;
 		return (true);
 	}
 	return (false);
