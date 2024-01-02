@@ -7,7 +7,7 @@ double	convert_to_double(const char *s, t_result *result)
 	double		num;
 	const char	*end_ptr;
 
-	num = ft_strtod(s, &end_ptr);
+	num = ft_strtod(s, &end_ptr, DECIMAL_PRECISION);
 	if (end_ptr == NULL)
 		*result = FAILURE;
 	return (num);
