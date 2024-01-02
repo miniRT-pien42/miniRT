@@ -29,6 +29,7 @@
 # define DIR_N_MAX	(1.0)
 # define VALID_NORMAL_LEN_MIN	(0.99)
 # define VALID_NORMAL_LEN_MAX	(1.01)
+# define DECIMAL_PRECISION		10
 
 typedef struct s_deque	t_deque;
 typedef struct s_rgb	t_rgb;

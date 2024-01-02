@@ -20,15 +20,15 @@ static double	set_sign(const char **s)
 	return (1.0);
 }
 
-static void	convert_decimal_part(\
-								double *num, const char **s, bool *is_valid_num)
+static void	convert_decimal_part(double *num, \
+	const char **s, bool *is_valid_num, const unsigned int decimal_precision)
 {
-	double	inverse_power;
-	uint8_t	digits_of_decimal;
+	double			inverse_power;
+	unsigned int	digits_of_decimal;
 
 	inverse_power = 0.1;
 	digits_of_decimal = 0;
-	while (ft_isdigit(**s) && digits_of_decimal < 10)
+	while (ft_isdigit(**s) && digits_of_decimal < decimal_precision)
 	{
 		*is_valid_num = true;
 		*num += inverse_power * (**s - '0');
@@ -54,7 +54,8 @@ static const char	*set_end_ptr(bool is_valid_num, const char *s)
 	return (NULL);
 }
 
-double	ft_strtod(const char *s, const char **end_ptr)
+double	ft_strtod(\
+	const char *s, const char **end_ptr, const unsigned int decimal_precision)
 {
 	double			num;
 	bool			is_valid_num;
@@ -72,7 +73,7 @@ double	ft_strtod(const char *s, const char **end_ptr)
 	{
 		is_valid_num = false;
 		s++;
-		convert_decimal_part(&num, &s, &is_valid_num);
+		convert_decimal_part(&num, &s, &is_valid_num, decimal_precision);
 	}
 	*end_ptr = set_end_ptr(is_valid_num, s);
 	return (num * sign);
@@ -87,7 +88,8 @@ static void	run_ft_strtod(char *s, double expect)
 	const char	*end_ptr;
 	double		num;
 
-	num = ft_strtod(s, &end_ptr);
+	// decimal_precision = 10 for miniRT
+	num = ft_strtod(s, &end_ptr, 10);
 	// valid
 	if (end_ptr != NULL)
 	{
