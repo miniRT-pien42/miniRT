@@ -1,17 +1,54 @@
 NAME		:=	miniRT
 
 SRC_DIR		:=	srcs
-SRCS		:=	vec/vector1.c \
-				vec/vector2.c \
-				utils/utils1.c \
+SRCS		:=	cylinder/cylinder_color.c \
+				cylinder/cylinder_discriminant.c \
+				cylinder/cylinder_ray.c \
+				cylinder/cylinder.c \
+				vector/vector1.c \
+				vector/vector2.c \
+				vector/vector3.c \
+				color/color.c \
+				helpers/helpers_math1.c \
+				helpers/x_ft_split.c \
+				helpers/x_get_next_line.c \
+				helpers/x_malloc.c \
+				helpers/x_open.c \
 				error/error.c \
 				scene/scene.c \
 				ray/ray.c \
-                sphere/sphere_ray.c \
-                sphere/sphere_color.c \
+				camera/camera.c \
+				light/light.c \
+				object/object.c \
+				object/distance.c \
+				object/intersection.c \
+				plane/plane.c \
+				plane/plane_ray.c \
+				plane/plane_color.c \
+				sphere/sphere.c \
+				sphere/sphere_ray.c \
+				sphere/sphere_color.c \
+				sphere/sphere_distance.c \
 				display/init.c \
 				display/display.c \
+				display/hook.c \
+				display/screen.c \
+				display/screen_rotate.c \
 				display/set_each_pixel.c \
+				display/ray_trace.c \
+				debug/debug.c \
+				debug/print_object.c \
+				debug/print_rt_file.c \
+				parser/check_file_path.c \
+				parser/check_lines.c \
+				parser/convert_double.c \
+				parser/convert_lines_to_scene.c \
+				parser/convert_uint8_t.c \
+				parser/is_correct_blocks.c \
+				parser/is_correct_value_count.c \
+				parser/is_unique.c \
+				parser/parse.c \
+				parser/read.c \
 				main.c
 
 OBJ_DIR		:=	objs
@@ -20,7 +57,7 @@ OBJS		:=	$(SRCS:%.c=$(OBJ_DIR)/%.o)
 DEPS		:=	$(OBJS:.o=.d)
 
 LIBFT_DIR	:=	libft
-LIBFT		:=	# $(LIBFT_DIR)/libft.a
+LIBFT		:=	$(LIBFT_DIR)/libft.a
 
 MLX_DIR		:=	minilibx
 
@@ -49,8 +86,8 @@ all		: $(NAME)
 # .PHONY	: bonus
 # bonus	: all
 
-# $(LIBFT): FORCE
-# 	$(MAKE) -C $(LIBFT_DIR)
+$(LIBFT): FORCE
+	$(MAKE) -C $(LIBFT_DIR)
 
 $(MINILIBX):
 	$(MAKE) -C $(MLX_DIR)

@@ -33,7 +33,8 @@ void	my_mlx_pixel_put(\
 					t_image *image, const int y, const int x, const int color);
 void	display(void);
 
-/* sphere */
-void	set_each_pixel_color(t_mlx *mlxs, const int y, const int x);
+/* object */
+void	set_each_sphere_pixel_color(t_mlx *mlxs, const int y, const int x);
+void	set_each_cylinder_pixel_color(t_mlx *mlxs, const int y, const int x);
 
 #endif

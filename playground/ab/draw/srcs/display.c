@@ -26,7 +26,8 @@ static void	set_image(t_mlx *mlxs)
 		x = 0;
 		while (x < WIN_WIDTH)
 		{
-			set_each_pixel_color(mlxs, y, x);
+			set_each_sphere_pixel_color(mlxs, y, x);
+			set_each_cylinder_pixel_color(mlxs, y, x);
 			x++;
 		}
 		y++;

@@ -1,6 +1,8 @@
 #ifndef COLOR_H
 # define COLOR_H
 
+# include <stdint.h>
+
 # define COLOR_MASK		0xFF
 # define RED_SHIFT		16
 # define GREEN_SHIFT	8
@@ -17,9 +19,9 @@ typedef enum e_color
 
 typedef struct s_rgb
 {
-	unsigned char	r;
-	unsigned char	g;
-	unsigned char	b;
+	uint8_t	r;
+	uint8_t	g;
+	uint8_t	b;
 }	t_rgb;
 
 typedef struct s_rgb_f
@@ -28,5 +30,8 @@ typedef struct s_rgb_f
 	double	g;
 	double	b;
 }	t_rgb_f;
+
+/* color */
+int	convert_rgb(t_rgb color);
 
 #endif

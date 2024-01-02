@@ -1,19 +1,24 @@
-#include <stdlib.h>
+#include "ft_deque.h"
+#include "libft.h"
 #include "scene.h"
 
-t_scene	*init_scene(char *rt_file)
+static void	del_object(void *args)
 {
-	t_scene			*scene;
-//	t_camera		camera;
-//	t_light_ambient	light_ambient;
-//	t_light			light;
-//	t_sphere		*sphere1;
-//	t_sphere		*sphere2;
-//	t_sphere		*sphere3;
+	ft_free((void **)&args);
+}
 
-	(void)rt_file;
-	scene = (t_scene *)malloc(sizeof(t_scene));
-	//todo: #3 argv経由で渡されたRTファイルをparseして初期化
-	//todo: #13 とりあえずの動作確認用に固定値で初期化
-	return (scene);
+void	destroy_scene(t_scene *scene)
+{
+	ft_free((void **)&scene->camera);
+	ft_free((void **)&scene->light_ambient);
+	ft_free((void **)&scene->light);
+	deque_clear_all(&scene->list_object, del_object);
+}
+
+void	init_scene(t_scene *scene)
+{
+	scene->camera = NULL;
+	scene->light_ambient = NULL;
+	scene->light = NULL;
+	scene->list_object = deque_new();
 }
