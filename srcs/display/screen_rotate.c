@@ -20,7 +20,7 @@ static bool	is_parallel_or_opposite(t_vector v, double *angle)
 
 double	get_rotate_x(t_vector direction)
 {
-	double	angle;
+	double			angle;
 	const t_vector	rotate_base = set_axis_base();
 
 	if (is_parallel_or_opposite(direction, &angle))
@@ -31,9 +31,9 @@ double	get_rotate_x(t_vector direction)
 
 double	get_rotate_y(t_vector direction)
 {
-	double		angle;
-	t_vector	dir_norm;
-	t_vector	cross;
+	double			angle;
+	t_vector		dir_norm;
+	t_vector		cross;
 	const t_vector	rotate_base = set_axis_rotate_base();
 
 	if (is_parallel_or_opposite(direction, &angle))
