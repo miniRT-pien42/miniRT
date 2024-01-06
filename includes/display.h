@@ -7,13 +7,13 @@
 # define HEIGHT	512
 # define WIDTH	512
 
-# define AXIS_BASE_X	0.0
-# define AXIS_BASE_Y	-1.0
-# define AXIS_BASE_Z	0.0
+# define AXIS_BASE_X	(0.0)
+# define AXIS_BASE_Y	(-1.0)
+# define AXIS_BASE_Z	(0.0)
 
-# define AXIS_ROTATE_BASE_X	0.0
-# define AXIS_ROTATE_BASE_Y	0.0
-# define AXIS_ROTATE_BASE_Z	1.0
+# define AXIS_ROTATE_BASE_X	(0.0)
+# define AXIS_ROTATE_BASE_Y	(0.0)
+# define AXIS_ROTATE_BASE_Z	(1.0)
 
 # define UNREACHABLE	0
 # define KEY_NONE		0

@@ -3,7 +3,7 @@
 
 # include <stdint.h>
 
-# define COLOR_MASK		0xFF
+# define COLOR_MASK		(0xFF)
 # define RED_SHIFT		16
 # define GREEN_SHIFT	8
 
