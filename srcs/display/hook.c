@@ -23,6 +23,12 @@ static int	key_hook(const int keycode, t_mlx *mlxs)
 	return (KEY_NONE);
 }
 
+static int	remain_window(const t_mlx *mlxs)
+{
+	set_image(mlxs);
+	return (MLX_SUCCESS);
+}
+
 void	set_hook(t_mlx *mlxs)
 {
 	void	*win_p;
@@ -30,6 +36,7 @@ void	set_hook(t_mlx *mlxs)
 
 	win_p = mlxs->display->win_p;
 	params = (void *)mlxs;
+	mlx_hook(win_p, FocusIn, FocusChangeMask, remain_window, params);
 	mlx_hook(win_p, KeyPress, KeyPressMask, key_hook, params);
 	mlx_hook(win_p, DestroyNotify, StructureNotifyMask, close_window, params);
 }

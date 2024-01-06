@@ -12,10 +12,12 @@ void	my_mlx_pixel_put(\
 	*(unsigned int *)dst = color;
 }
 
-static void	set_image(t_mlx *mlxs, t_scene *scene)
+void	set_image(const t_mlx *mlxs)
 {
 	t_screen_info	screen;
+	t_scene			*scene;
 
+	scene = mlxs->scene;
 	screen = get_screen_info(scene);
 	while (screen.y < HEIGHT)
 	{
@@ -38,7 +40,7 @@ void	display(t_scene *scene)
 	t_image		image;
 
 	init_mlxs(&mlxs, &display, &image, scene);
-	set_image(&mlxs, scene);
+	set_image(&mlxs);
 	set_hook(&mlxs);
 	mlx_loop(mlxs.display->mlx_p);
 }
