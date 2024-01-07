@@ -28,7 +28,8 @@ static t_ray	calc_ray(t_scene *scene, t_screen_info screen)
 	return (ray);
 }
 
-void	set_each_pixel_color(t_mlx *mlxs, t_scene *scene, t_screen_info screen)
+void	set_each_pixel_color(\
+	const t_mlx *mlxs, t_scene *scene, t_screen_info screen)
 {
 	int			color;
 	const t_ray	ray = calc_ray(scene, screen);

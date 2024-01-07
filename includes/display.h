@@ -7,16 +7,17 @@
 # define HEIGHT	512
 # define WIDTH	512
 
-# define AXIS_BASE_X	0.0
-# define AXIS_BASE_Y	-1.0
-# define AXIS_BASE_Z	0.0
+# define AXIS_BASE_X	(0.0)
+# define AXIS_BASE_Y	(-1.0)
+# define AXIS_BASE_Z	(0.0)
 
-# define AXIS_ROTATE_BASE_X	0.0
-# define AXIS_ROTATE_BASE_Y	0.0
-# define AXIS_ROTATE_BASE_Z	1.0
+# define AXIS_ROTATE_BASE_X	(0.0)
+# define AXIS_ROTATE_BASE_Y	(0.0)
+# define AXIS_ROTATE_BASE_Z	(1.0)
 
 # define UNREACHABLE	0
 # define KEY_NONE		0
+# define MLX_SUCCESS	0
 
 typedef struct s_ray	t_ray;
 typedef struct s_rgb	t_rgb;
@@ -60,6 +61,7 @@ void			init_mlxs(\
 /* display */
 void			my_mlx_pixel_put(\
 	t_image *image, const int y, const int x, const int color);
+void			set_image(const t_mlx *mlxs);
 void			display(t_scene *scene);
 
 /* hook */
@@ -82,6 +84,6 @@ t_vector		rotate_vector_y(t_vector v, const double angle);
 
 /* set */
 void			set_each_pixel_color(\
-	t_mlx *mlxs, t_scene *scene, t_screen_info screen);
+	const t_mlx *mlxs, t_scene *scene, t_screen_info screen);
 
 #endif
